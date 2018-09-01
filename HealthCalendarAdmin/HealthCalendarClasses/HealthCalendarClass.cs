@@ -359,6 +359,7 @@ namespace HealthCalendarClasses
             //    {
             //        result = usersetting.Value.ToString();
             //    }
+
             //}
 
             return result;
