@@ -340,26 +340,26 @@ namespace HealthCalendarClasses
             AutodiscoverService autodiscoverService = new AutodiscoverService();
 
             // The following RedirectionUrlValidationCallback required for httpsredirection.
-            autodiscoverService.RedirectionUrlValidationCallback = RedirectionUrlValidationCallback;
-            autodiscoverService.Credentials = new WebCredentials(webCredentialObject);
+            //autodiscoverService.RedirectionUrlValidationCallback = RedirectionUrlValidationCallback;
+            //autodiscoverService.Credentials = new WebCredentials(webCredentialObject);
 
             // Get the user settings.
             // Submit a request and get the settings. The response contains only the
             // settings that are requested, if they exist.
-            GetUserSettingsResponse userresponse = autodiscoverService.GetUserSettings(
-                txtImpersonatedUser.Text.ToString(),
-                UserSettingName.UserDisplayName,
-                UserSettingName.UserDN,
-                );
+            //GetUserSettingsResponse userresponse = autodiscoverService.GetUserSettings(
+            //    txtImpersonatedUser.Text.ToString(),
+            //    UserSettingName.UserDisplayName,
+            //    UserSettingName.UserDN,
+            //    );
 
-            foreach (KeyValuePair usersetting in userresponse.Settings)
-            {
-
-                if (usersetting.Key.ToString() == "UserDN")
-                {
-                    result = usersetting.Value.ToString();
-                }
-            }
+            //foreach (KeyValuePair usersetting in userresponse.Settings)
+            //{
+            //
+            //    if (usersetting.Key.ToString() == "UserDN")
+            //    {
+            //        result = usersetting.Value.ToString();
+            //    }
+            //}
 
             return result;
 

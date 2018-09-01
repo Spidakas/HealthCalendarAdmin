@@ -1,0 +1,139 @@
+OID
+INITIALS
+FORENAME
+SURNAME
+SEXXCODE	Null,
+		CC_Female,
+		CC_Male,
+		CC_NOTKWN2,
+		CC_NOTSPC1
+
+TITLECODE-	Null,
+		CC_DR,
+		CC_DRPHD
+		CC_FATHER,
+		CC_MASTER,
+		CC_MISS,
+		CC_MONSIGNOR,
+		CC_MR,
+		CC_MRS,
+		CC_MS,
+		CC_NOTKWN1,
+		CC_PROFESSOR,
+		CC_REV,
+		CC_RREV,
+		CC_SISTER
+
+MODIFIEDAT
+ENDDTTM		- Bring in records where this value is Null (i.e.Only Nulls)
+OCCUPCODE - 	Null,			- Required
+		CC_ANAESTHETIST,	- Anaesthetist, Required
+		CC_ANY,			- Not Required ( Consider for later )
+		CC_ASSISTPSYCH,		- Assistant Psychologist, Not Required
+		CC_AUDST,		- Audiologist, Not Required
+		CC_BIOMEDICAL,		- Bio-medical, Not Required
+		CC_CLERICALWORKER,	- Clerical Worker, Not Required
+		CC_CLINICALASSISTANT,	- Clinical Assistant, Not Required
+		CC_CLINNURSESPECIALI,	- Clinical Nurse Specialist, Not Required
+		CC_CLINPSYCHOLOGIST,	- Clinical Psychologist, Required
+		CC_COMMNURSE,		- Community Nurse, Not Required
+		CC_CommPeadiatrician,	- Community Paediatrician, Not Required
+		CC_DENTIST,		- Dentist, Not Required
+		CC_DIETICIAN,		- Dietician, Required
+		CC_DOCTOR,		- Doctor, Required
+		CC_GENERALDENTALPRAC,	- General dental practitioner, Not Required
+		CC_GPPRACTITIONER,	- General Medical Practitioner, Not Required
+		CC_HealthcareAssista,	- Healthcare Assistant, Not Required
+		CC_HealthCareSupport,	- Health Care Support Worker, Not Required
+		CC_HLTHCAREPRACT,	- Healthcare Practitioner, Required	
+		CC_HLTHCAREPROF,	- Health Care Professional, Required
+		CC_HLVISITOR,		- Health Visitor, Not Required
+		CC_HOSPITALADMIN,	- Hospital administrator, Not Required
+		CC_HospitalManager,	- Hospital Manager, Not Required
+		CC_HPLCONSULTANT,	- Hospital Consultant, Required
+		CC_HPLNURSE,		- Hospital Nurse, Not Required
+		CC_HPLREGISTRAR,	- Hospital Registrar, Required
+		CC_IDMCONSULTANT,	- Immunodeficiency Consultant, Required
+		CC_IDMNURSE,		- Immunodeficiency Nurse, Not Required (initially)
+		CC_ITPROFESSIONAL,	- IT professional, Not Required
+		CC_MDLSECRETARY,	- Medical Secretary (Clerical and Administrative), Not Required
+		CC_MDLSTAFF,		- Medical Staff, Required
+		CC_MIDWIFE,		- Midwife, Required
+		CC_MMILANNNURSE,	- Macmillan Nurse, Not Required
+		CC_NOTSPECIFIED,	- Not Specified, ????(Not Required to Start with)
+		CC_NSP,			- Not Specified, ????(Not Required to Start with)
+		CC_NSPPRACTITIONER,	- Nurse Practitioner, Required
+		CC_NURSEMANAGER,	- Nurse Manager, Required
+		CC_OCCUPTHERAPIST,	- Occupational Therapist, Required	
+		CC_ORTHOPTIST,		- Orthoptist, Required
+		CC_ORTHOTIST,		- Orthotist, Not Required
+		CC_OTHERS,		- Other, Not Required
+		CC_OTHERTHERAPIST,	- Other therapist, Not Required
+		CC_PAHRMACIST,		- Pharmacist, Not Required
+		CC_PHYTHERAPIST,	- Physiotherapist, Required
+		CC_PODIATRIST,		- Podiatrist, Not Required
+		CC_PRACTHLTHCAREPROF,	- Practice Health Care Professional, Not Required
+		CC_RADIOGRAPHER,	- Radiographer, Required
+		CC_RADIOLOGIST,		- Radiologist, Required
+		CC_RECEPTIONIST,	- Receptionist, Not Required
+		CC_RV9_OC_DocNConGP,	- Not Required
+		CC_SCHOOLNURSE,		- School Nurse, Not Required
+		CC_SHO/REG,		- SHO/Registrar, Required
+		CC_SHTHERAPIST,		- Sexual Health Fam Plan DR, Not Required
+		CC_SLWORKER,		- Social Worker, Required
+		CC_SOLICITOR,		- Solicitor, Not Required
+		CC_SPECIALISTNURSEPR,	- Specialist Nursing - Palliative/Respite Care, Required
+		CC_SPECIALISTREG,	- Specialist Registrar, Required
+		CC_SPEECHANDLANGTHER,	- Speech and Language Therapist, Not Required
+		CC_STAFFGRADE,		- Staff Grade, Required
+		CC_STAFNURSE,		- Staff Nurse, Required
+		CC_SUPPORTWORKER,	- Support Worker, Not Required
+		CC_TECHINSTRUCTOR,	- Technical Instructor, Not Required
+		TC_CSCSupportStaff,	- Not Required
+		TC_OPERDEPTPRAC,	- Operating Department Practitioner, Required
+		TC_Specialist_Pract,	- Specialist Practitioner, Required
+		
+ISCAREPROVIDER - Only bring in when "1" or "Null"
+
+
+MAINIDENTIFIER
+SOURCEOID
+SOURCETYPE
+OWNERORGANISATIONOID
+RONEOID
+UITYPCODE
+
+--------------------------------------------------
+
+OCCUPCODE - 	Null,			- Required
+		CC_ANAESTHETIST,	- Required
+		CC_CLINPSYCHOLOGIST,	- Required
+		CC_DIETICIAN,		- Required
+		CC_DOCTOR,		- Required
+		CC_HLTHCAREPRACT,	- Required
+		CC_HLTHCAREPROF,	- Required
+		CC_HPLCONSULTANT,	- Required
+		CC_HPLREGISTRAR,	- Required
+		CC_IDMCONSULTANT,	- Required
+		CC_MDLSTAFF,		- Required
+		CC_MIDWIFE,		- Required
+		CC_NSPPRACTITIONER,	- Required
+		CC_NURSEMANAGER,	- Required
+		CC_OCCUPTHERAPIST,	- Required
+		CC_ORTHOPTIST,		- Required
+		CC_PHYTHERAPIST,	- Required
+		CC_RADIOGRAPHER,	- Required
+		CC_RADIOLOGIST,		- Required
+		CC_SHO/REG,		- Required
+		CC_SLWORKER,		- Required
+		CC_SPECIALISTNURSEPR,	- Required
+		CC_SPECIALISTREG,	- Required
+		CC_STAFFGRADE,		- Required
+		CC_STAFNURSE,		- Required
+		TC_OPERDEPTPRAC		- Required
+		TC_Specialist_Pract	- Required
+
+
+OCCUPCODE - 	IS NULL,'CC_ANAESTHETIST','CC_CLINPSYCHOLOGIST','CC_DIETICIAN','CC_DOCTOR','CC_HLTHCAREPRACT','CC_HLTHCAREPROF','CC_HPLCONSULTANT','CC_HPLREGISTRAR','CC_IDMCONSULTANT','CC_MDLSTAFF','CC_MIDWIFE','CC_NSPPRACTITIONER','CC_NURSEMANAGER','CC_OCCUPTHERAPIST','CC_ORTHOPTIST','CC_PHYTHERAPIST','CC_RADIOGRAPHER','CC_RADIOLOGIST','CC_SHO/REG','CC_SLWORKER','CC_SPECIALISTNURSEPR','CC_SPECIALISTREG','CC_STAFFGRADE','CC_STAFNURSE','TC_OPERDEPTPRAC','TC_Specialist_Pract'
+
+
