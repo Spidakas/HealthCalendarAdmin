@@ -96,7 +96,7 @@
             this.txtboxSearchFirstname.AccessibleRole = System.Windows.Forms.AccessibleRole.Text;
             this.txtboxSearchFirstname.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtboxSearchFirstname.Location = new System.Drawing.Point(116, 11);
-            this.txtboxSearchFirstname.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.txtboxSearchFirstname.Margin = new System.Windows.Forms.Padding(1);
             this.txtboxSearchFirstname.Name = "txtboxSearchFirstname";
             this.txtboxSearchFirstname.ShortcutsEnabled = false;
             this.txtboxSearchFirstname.Size = new System.Drawing.Size(130, 19);
@@ -136,7 +136,7 @@
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvSubscribers.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgvSubscribers.Location = new System.Drawing.Point(9, 74);
-            this.dgvSubscribers.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.dgvSubscribers.Margin = new System.Windows.Forms.Padding(1);
             this.dgvSubscribers.MultiSelect = false;
             this.dgvSubscribers.Name = "dgvSubscribers";
             this.dgvSubscribers.ReadOnly = true;
@@ -157,7 +157,7 @@
             this.btnGoogleEmailClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.900001F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGoogleEmailClear.ForeColor = System.Drawing.Color.White;
             this.btnGoogleEmailClear.Location = new System.Drawing.Point(36, 15);
-            this.btnGoogleEmailClear.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnGoogleEmailClear.Margin = new System.Windows.Forms.Padding(1);
             this.btnGoogleEmailClear.Name = "btnGoogleEmailClear";
             this.btnGoogleEmailClear.Size = new System.Drawing.Size(29, 27);
             this.btnGoogleEmailClear.TabIndex = 25;
@@ -175,7 +175,7 @@
             this.btnGoogleEmailUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.900001F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGoogleEmailUpdate.ForeColor = System.Drawing.Color.White;
             this.btnGoogleEmailUpdate.Location = new System.Drawing.Point(6, 15);
-            this.btnGoogleEmailUpdate.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnGoogleEmailUpdate.Margin = new System.Windows.Forms.Padding(1);
             this.btnGoogleEmailUpdate.Name = "btnGoogleEmailUpdate";
             this.btnGoogleEmailUpdate.Size = new System.Drawing.Size(29, 27);
             this.btnGoogleEmailUpdate.TabIndex = 24;
@@ -188,7 +188,7 @@
             this.txtboxGoogleEmail.Enabled = false;
             this.txtboxGoogleEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtboxGoogleEmail.Location = new System.Drawing.Point(49, 46);
-            this.txtboxGoogleEmail.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.txtboxGoogleEmail.Margin = new System.Windows.Forms.Padding(1);
             this.txtboxGoogleEmail.Name = "txtboxGoogleEmail";
             this.txtboxGoogleEmail.Size = new System.Drawing.Size(144, 20);
             this.txtboxGoogleEmail.TabIndex = 23;
@@ -213,7 +213,7 @@
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(746, 354);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(1);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(32, 32);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -232,7 +232,7 @@
             this.pnlFooter.Controls.Add(this.textBox1);
             this.pnlFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlFooter.Location = new System.Drawing.Point(0, 454);
-            this.pnlFooter.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pnlFooter.Margin = new System.Windows.Forms.Padding(2);
             this.pnlFooter.Name = "pnlFooter";
             this.pnlFooter.Size = new System.Drawing.Size(789, 24);
             this.pnlFooter.TabIndex = 0;
@@ -250,7 +250,7 @@
             // 
             this.progressBar.ForeColor = System.Drawing.Color.OrangeRed;
             this.progressBar.Location = new System.Drawing.Point(186, 0);
-            this.progressBar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.progressBar.Margin = new System.Windows.Forms.Padding(2);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(371, 22);
             this.progressBar.TabIndex = 0;
@@ -264,7 +264,7 @@
             this.textBox2.Font = new System.Drawing.Font("Segoe UI", 10.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox2.ForeColor = System.Drawing.Color.Black;
             this.textBox2.Location = new System.Drawing.Point(667, 0);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(2);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(120, 18);
             this.textBox2.TabIndex = 0;
@@ -278,7 +278,7 @@
             this.textBox1.Font = new System.Drawing.Font("Segoe UI", 10.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.ForeColor = System.Drawing.Color.Black;
             this.textBox1.Location = new System.Drawing.Point(0, 0);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(109, 18);
             this.textBox1.TabIndex = 0;
@@ -294,7 +294,7 @@
             this.btnGoogleCreateShare.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGoogleCreateShare.ForeColor = System.Drawing.Color.White;
             this.btnGoogleCreateShare.Location = new System.Drawing.Point(68, 17);
-            this.btnGoogleCreateShare.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnGoogleCreateShare.Margin = new System.Windows.Forms.Padding(1);
             this.btnGoogleCreateShare.Name = "btnGoogleCreateShare";
             this.btnGoogleCreateShare.Size = new System.Drawing.Size(29, 27);
             this.btnGoogleCreateShare.TabIndex = 26;
@@ -311,7 +311,7 @@
             this.btnSampleGoogleData.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSampleGoogleData.ForeColor = System.Drawing.Color.White;
             this.btnSampleGoogleData.Location = new System.Drawing.Point(99, 17);
-            this.btnSampleGoogleData.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnSampleGoogleData.Margin = new System.Windows.Forms.Padding(1);
             this.btnSampleGoogleData.Name = "btnSampleGoogleData";
             this.btnSampleGoogleData.Size = new System.Drawing.Size(29, 27);
             this.btnSampleGoogleData.TabIndex = 27;
@@ -329,7 +329,7 @@
             this.btnClearGoogleCalendar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClearGoogleCalendar.ForeColor = System.Drawing.Color.White;
             this.btnClearGoogleCalendar.Location = new System.Drawing.Point(130, 16);
-            this.btnClearGoogleCalendar.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnClearGoogleCalendar.Margin = new System.Windows.Forms.Padding(1);
             this.btnClearGoogleCalendar.Name = "btnClearGoogleCalendar";
             this.btnClearGoogleCalendar.Size = new System.Drawing.Size(29, 27);
             this.btnClearGoogleCalendar.TabIndex = 28;
@@ -347,7 +347,7 @@
             this.btnDeleteGoogleCalendar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDeleteGoogleCalendar.ForeColor = System.Drawing.Color.White;
             this.btnDeleteGoogleCalendar.Location = new System.Drawing.Point(162, 17);
-            this.btnDeleteGoogleCalendar.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnDeleteGoogleCalendar.Margin = new System.Windows.Forms.Padding(1);
             this.btnDeleteGoogleCalendar.Name = "btnDeleteGoogleCalendar";
             this.btnDeleteGoogleCalendar.Size = new System.Drawing.Size(29, 27);
             this.btnDeleteGoogleCalendar.TabIndex = 29;
@@ -362,7 +362,7 @@
             this.btnSendExchangeEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSendExchangeEmail.ForeColor = System.Drawing.Color.White;
             this.btnSendExchangeEmail.Location = new System.Drawing.Point(708, 390);
-            this.btnSendExchangeEmail.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnSendExchangeEmail.Margin = new System.Windows.Forms.Padding(1);
             this.btnSendExchangeEmail.Name = "btnSendExchangeEmail";
             this.btnSendExchangeEmail.Size = new System.Drawing.Size(70, 32);
             this.btnSendExchangeEmail.TabIndex = 30;
@@ -378,7 +378,7 @@
             this.txtboxSearchLastname.AccessibleRole = System.Windows.Forms.AccessibleRole.Text;
             this.txtboxSearchLastname.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtboxSearchLastname.Location = new System.Drawing.Point(116, 38);
-            this.txtboxSearchLastname.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.txtboxSearchLastname.Margin = new System.Windows.Forms.Padding(1);
             this.txtboxSearchLastname.Name = "txtboxSearchLastname";
             this.txtboxSearchLastname.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.txtboxSearchLastname.ShortcutsEnabled = false;
@@ -430,7 +430,7 @@
             this.txtboxSearchMainIdentifier.AccessibleRole = System.Windows.Forms.AccessibleRole.Text;
             this.txtboxSearchMainIdentifier.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtboxSearchMainIdentifier.Location = new System.Drawing.Point(474, 40);
-            this.txtboxSearchMainIdentifier.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.txtboxSearchMainIdentifier.Margin = new System.Windows.Forms.Padding(1);
             this.txtboxSearchMainIdentifier.Name = "txtboxSearchMainIdentifier";
             this.txtboxSearchMainIdentifier.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.txtboxSearchMainIdentifier.ShortcutsEnabled = false;
@@ -522,7 +522,7 @@
             "Operating Department Practitioner",
             "Specialist Practitioner"});
             this.comboBoxOccupation.Location = new System.Drawing.Point(474, 11);
-            this.comboBoxOccupation.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBoxOccupation.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxOccupation.Name = "comboBoxOccupation";
             this.comboBoxOccupation.Size = new System.Drawing.Size(158, 21);
             this.comboBoxOccupation.TabIndex = 5;
@@ -563,7 +563,7 @@
             "Right Reverend",
             "Sister"});
             this.comboBoxTitle.Location = new System.Drawing.Point(296, 38);
-            this.comboBoxTitle.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBoxTitle.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxTitle.Name = "comboBoxTitle";
             this.comboBoxTitle.Size = new System.Drawing.Size(75, 21);
             this.comboBoxTitle.TabIndex = 4;
@@ -606,7 +606,7 @@
             "Not Known",
             "Not Specified"});
             this.comboBoxSex.Location = new System.Drawing.Point(296, 10);
-            this.comboBoxSex.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBoxSex.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxSex.Name = "comboBoxSex";
             this.comboBoxSex.Size = new System.Drawing.Size(75, 21);
             this.comboBoxSex.TabIndex = 3;
@@ -618,7 +618,7 @@
             this.btnClearSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.900001F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClearSearch.ForeColor = System.Drawing.Color.White;
             this.btnClearSearch.Location = new System.Drawing.Point(658, 19);
-            this.btnClearSearch.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnClearSearch.Margin = new System.Windows.Forms.Padding(1);
             this.btnClearSearch.Name = "btnClearSearch";
             this.btnClearSearch.Size = new System.Drawing.Size(64, 30);
             this.btnClearSearch.TabIndex = 7;
@@ -637,9 +637,9 @@
             this.groupBoxGoogle.Controls.Add(this.btnSampleGoogleData);
             this.groupBoxGoogle.Controls.Add(this.btnGoogleCreateShare);
             this.groupBoxGoogle.Location = new System.Drawing.Point(437, 344);
-            this.groupBoxGoogle.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBoxGoogle.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxGoogle.Name = "groupBoxGoogle";
-            this.groupBoxGoogle.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBoxGoogle.Padding = new System.Windows.Forms.Padding(2);
             this.groupBoxGoogle.Size = new System.Drawing.Size(199, 76);
             this.groupBoxGoogle.TabIndex = 45;
             this.groupBoxGoogle.TabStop = false;
@@ -656,9 +656,9 @@
             this.groupBoxNHSNet.Controls.Add(this.btnSampleNHSNetData);
             this.groupBoxNHSNet.Controls.Add(this.btnNHSNetCreateShare);
             this.groupBoxNHSNet.Location = new System.Drawing.Point(223, 344);
-            this.groupBoxNHSNet.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBoxNHSNet.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxNHSNet.Name = "groupBoxNHSNet";
-            this.groupBoxNHSNet.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBoxNHSNet.Padding = new System.Windows.Forms.Padding(2);
             this.groupBoxNHSNet.Size = new System.Drawing.Size(211, 76);
             this.groupBoxNHSNet.TabIndex = 46;
             this.groupBoxNHSNet.TabStop = false;
@@ -683,7 +683,7 @@
             this.txtboxNHSNetEmail.Enabled = false;
             this.txtboxNHSNetEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtboxNHSNetEmail.Location = new System.Drawing.Point(57, 46);
-            this.txtboxNHSNetEmail.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.txtboxNHSNetEmail.Margin = new System.Windows.Forms.Padding(1);
             this.txtboxNHSNetEmail.Name = "txtboxNHSNetEmail";
             this.txtboxNHSNetEmail.Size = new System.Drawing.Size(144, 20);
             this.txtboxNHSNetEmail.TabIndex = 16;
@@ -699,7 +699,7 @@
             this.btnDeleteNHSNetCalendar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDeleteNHSNetCalendar.ForeColor = System.Drawing.Color.White;
             this.btnDeleteNHSNetCalendar.Location = new System.Drawing.Point(172, 17);
-            this.btnDeleteNHSNetCalendar.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnDeleteNHSNetCalendar.Margin = new System.Windows.Forms.Padding(1);
             this.btnDeleteNHSNetCalendar.Name = "btnDeleteNHSNetCalendar";
             this.btnDeleteNHSNetCalendar.Size = new System.Drawing.Size(29, 27);
             this.btnDeleteNHSNetCalendar.TabIndex = 22;
@@ -716,7 +716,7 @@
             this.btnNHSNetEmailClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.900001F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNHSNetEmailClear.ForeColor = System.Drawing.Color.White;
             this.btnNHSNetEmailClear.Location = new System.Drawing.Point(36, 15);
-            this.btnNHSNetEmailClear.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnNHSNetEmailClear.Margin = new System.Windows.Forms.Padding(1);
             this.btnNHSNetEmailClear.Name = "btnNHSNetEmailClear";
             this.btnNHSNetEmailClear.Size = new System.Drawing.Size(29, 27);
             this.btnNHSNetEmailClear.TabIndex = 18;
@@ -734,7 +734,7 @@
             this.btnNHSNetEmailUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.900001F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNHSNetEmailUpdate.ForeColor = System.Drawing.Color.White;
             this.btnNHSNetEmailUpdate.Location = new System.Drawing.Point(6, 15);
-            this.btnNHSNetEmailUpdate.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnNHSNetEmailUpdate.Margin = new System.Windows.Forms.Padding(1);
             this.btnNHSNetEmailUpdate.Name = "btnNHSNetEmailUpdate";
             this.btnNHSNetEmailUpdate.Size = new System.Drawing.Size(29, 27);
             this.btnNHSNetEmailUpdate.TabIndex = 17;
@@ -752,7 +752,7 @@
             this.btnClearNHSNetCalendar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClearNHSNetCalendar.ForeColor = System.Drawing.Color.White;
             this.btnClearNHSNetCalendar.Location = new System.Drawing.Point(140, 16);
-            this.btnClearNHSNetCalendar.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnClearNHSNetCalendar.Margin = new System.Windows.Forms.Padding(1);
             this.btnClearNHSNetCalendar.Name = "btnClearNHSNetCalendar";
             this.btnClearNHSNetCalendar.Size = new System.Drawing.Size(29, 27);
             this.btnClearNHSNetCalendar.TabIndex = 21;
@@ -769,7 +769,7 @@
             this.btnSampleNHSNetData.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSampleNHSNetData.ForeColor = System.Drawing.Color.White;
             this.btnSampleNHSNetData.Location = new System.Drawing.Point(109, 17);
-            this.btnSampleNHSNetData.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnSampleNHSNetData.Margin = new System.Windows.Forms.Padding(1);
             this.btnSampleNHSNetData.Name = "btnSampleNHSNetData";
             this.btnSampleNHSNetData.Size = new System.Drawing.Size(29, 27);
             this.btnSampleNHSNetData.TabIndex = 20;
@@ -787,7 +787,7 @@
             this.btnNHSNetCreateShare.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNHSNetCreateShare.ForeColor = System.Drawing.Color.White;
             this.btnNHSNetCreateShare.Location = new System.Drawing.Point(68, 17);
-            this.btnNHSNetCreateShare.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnNHSNetCreateShare.Margin = new System.Windows.Forms.Padding(1);
             this.btnNHSNetCreateShare.Name = "btnNHSNetCreateShare";
             this.btnNHSNetCreateShare.Size = new System.Drawing.Size(39, 27);
             this.btnNHSNetCreateShare.TabIndex = 19;
@@ -806,9 +806,9 @@
             this.groupBoxExchange.Controls.Add(this.btnSampleExchangeData);
             this.groupBoxExchange.Controls.Add(this.btnExchangeCreateShare);
             this.groupBoxExchange.Location = new System.Drawing.Point(9, 344);
-            this.groupBoxExchange.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBoxExchange.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxExchange.Name = "groupBoxExchange";
-            this.groupBoxExchange.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBoxExchange.Padding = new System.Windows.Forms.Padding(2);
             this.groupBoxExchange.Size = new System.Drawing.Size(211, 76);
             this.groupBoxExchange.TabIndex = 47;
             this.groupBoxExchange.TabStop = false;
@@ -833,7 +833,7 @@
             this.txtboxExchangeEmail.Enabled = false;
             this.txtboxExchangeEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtboxExchangeEmail.Location = new System.Drawing.Point(80, 46);
-            this.txtboxExchangeEmail.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.txtboxExchangeEmail.Margin = new System.Windows.Forms.Padding(1);
             this.txtboxExchangeEmail.Name = "txtboxExchangeEmail";
             this.txtboxExchangeEmail.Size = new System.Drawing.Size(130, 20);
             this.txtboxExchangeEmail.TabIndex = 9;
@@ -849,7 +849,7 @@
             this.btnDeleteExchangeCalendar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDeleteExchangeCalendar.ForeColor = System.Drawing.Color.White;
             this.btnDeleteExchangeCalendar.Location = new System.Drawing.Point(162, 17);
-            this.btnDeleteExchangeCalendar.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnDeleteExchangeCalendar.Margin = new System.Windows.Forms.Padding(1);
             this.btnDeleteExchangeCalendar.Name = "btnDeleteExchangeCalendar";
             this.btnDeleteExchangeCalendar.Size = new System.Drawing.Size(29, 27);
             this.btnDeleteExchangeCalendar.TabIndex = 15;
@@ -866,7 +866,7 @@
             this.btnExchangeEmailClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.900001F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExchangeEmailClear.ForeColor = System.Drawing.Color.White;
             this.btnExchangeEmailClear.Location = new System.Drawing.Point(36, 15);
-            this.btnExchangeEmailClear.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnExchangeEmailClear.Margin = new System.Windows.Forms.Padding(1);
             this.btnExchangeEmailClear.Name = "btnExchangeEmailClear";
             this.btnExchangeEmailClear.Size = new System.Drawing.Size(29, 27);
             this.btnExchangeEmailClear.TabIndex = 11;
@@ -884,7 +884,7 @@
             this.btnExchangeEmailUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.900001F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExchangeEmailUpdate.ForeColor = System.Drawing.Color.White;
             this.btnExchangeEmailUpdate.Location = new System.Drawing.Point(6, 15);
-            this.btnExchangeEmailUpdate.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnExchangeEmailUpdate.Margin = new System.Windows.Forms.Padding(1);
             this.btnExchangeEmailUpdate.Name = "btnExchangeEmailUpdate";
             this.btnExchangeEmailUpdate.Size = new System.Drawing.Size(29, 27);
             this.btnExchangeEmailUpdate.TabIndex = 10;
@@ -902,7 +902,7 @@
             this.btnClearExchangeCalendar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClearExchangeCalendar.ForeColor = System.Drawing.Color.White;
             this.btnClearExchangeCalendar.Location = new System.Drawing.Point(131, 17);
-            this.btnClearExchangeCalendar.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnClearExchangeCalendar.Margin = new System.Windows.Forms.Padding(1);
             this.btnClearExchangeCalendar.Name = "btnClearExchangeCalendar";
             this.btnClearExchangeCalendar.Size = new System.Drawing.Size(29, 27);
             this.btnClearExchangeCalendar.TabIndex = 14;
@@ -919,7 +919,7 @@
             this.btnSampleExchangeData.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSampleExchangeData.ForeColor = System.Drawing.Color.White;
             this.btnSampleExchangeData.Location = new System.Drawing.Point(100, 17);
-            this.btnSampleExchangeData.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnSampleExchangeData.Margin = new System.Windows.Forms.Padding(1);
             this.btnSampleExchangeData.Name = "btnSampleExchangeData";
             this.btnSampleExchangeData.Size = new System.Drawing.Size(29, 27);
             this.btnSampleExchangeData.TabIndex = 13;
@@ -937,7 +937,7 @@
             this.btnExchangeCreateShare.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExchangeCreateShare.ForeColor = System.Drawing.Color.White;
             this.btnExchangeCreateShare.Location = new System.Drawing.Point(68, 17);
-            this.btnExchangeCreateShare.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnExchangeCreateShare.Margin = new System.Windows.Forms.Padding(1);
             this.btnExchangeCreateShare.Name = "btnExchangeCreateShare";
             this.btnExchangeCreateShare.Size = new System.Drawing.Size(29, 27);
             this.btnExchangeCreateShare.TabIndex = 12;
@@ -961,7 +961,7 @@
             this.Controls.Add(this.groupBoxGoogle);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.Margin = new System.Windows.Forms.Padding(1);
             this.MaximumSize = new System.Drawing.Size(1205, 611);
             this.MinimumSize = new System.Drawing.Size(805, 351);
             this.Name = "HealthCalendarAdmin";

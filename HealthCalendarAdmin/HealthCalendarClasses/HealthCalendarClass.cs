@@ -55,6 +55,8 @@ namespace HealthCalendarClasses
         public string AppleEmail { get; set; }
         public string AppleCalendarID { get; set; }
 
+        public AutodiscoverService ExchangeAutoDiscoverService { get; set; }
+
         public string HealthOrgCode { get; set; }
         public string HealthOrgName { get; set; }
         public string HealthOrgLocation { get; set; }
@@ -241,6 +243,10 @@ namespace HealthCalendarClasses
                 return isSuccess;
             }
 
+            // check to see if user exists on the exchange server
+
+
+
             CalendarFolder folder = new CalendarFolder(c.ExchangeCalendarService);
             folder.DisplayName = "Trust" + c.HealthOrgCode + c.Title + " " + c.FirstName + " " + c.LastName + " " + c.SubscriberID;
             c.ExchangeCalendarName = folder.DisplayName;
@@ -288,7 +294,55 @@ namespace HealthCalendarClasses
 
         }
 
+        //UserSettingName[] allSettings = (UserSettingName[])Enum.GetValues(typeof(UserSettingName));
+
         /*public Dictionary<string, string> GetUserSettings(AutodiscoverService autodiscoverService)
+        {
+
+            // Get the user settings.
+            // Submit a request and get the settings. The response contains only the
+            // settings that are requested, if they exist. 
+            GetUserSettingsResponse userresponse = autodiscoverService.GetUserSettings(
+                txtImpersonatedUser.Text,
+                UserSettingName.UserDisplayName,
+                UserSettingName.InternalMailboxServer,
+                UserSettingName.UserDN
+            );
+
+            Dictionary<string, string> myUserSettings = new Dictionary<string, string>();
+            // Obviously this should be cleaned up with a switch statement 
+            // or something, but I was working through the problem hence the 
+            // extra effort on the code
+            foreach (KeyValuePair<UserSettingName, Object> usersetting in userresponse.Settings)
+            {
+
+                if (usersetting.Key.ToString() == "InternalMailboxServer")
+                {
+                    string[] arrResult = usersetting.Value.ToString().Split('.');
+
+                    myUserSettings.Add("InternalMailboxServer", arrResult[0].ToString());
+
+                }
+                if (usersetting.Key.ToString() == "UserDisplayName")
+                {
+                    string[] arrResult = usersetting.Value.ToString().Split('.');
+
+                    myUserSettings.Add("UserDisplayName", arrResult[0].ToString());
+
+                }
+                if (usersetting.Key.ToString() == "UserDN")
+                {
+                    string[] arrResult = usersetting.Value.ToString().Split('.');
+
+                    myUserSettings.Add("UserDN", arrResult[0].ToString());
+
+                }
+            }
+
+            return myUserSettings;
+        }
+
+        public Dictionary<string, string> GetUserSettings(AutodiscoverService autodiscoverService)
         {
 
             // Get the user settings.
@@ -1352,30 +1406,40 @@ namespace HealthCalendarClasses
         {
 
             bool isSuccess = false;
-            SqlConnection conn = new SqlConnection(MyConnString);
-
-            string sql = "SELECT [OrganisationName],[OrganisationCode],[OrgLocation],[GoogleMasterAccount],[NHSNetExchangeServer],[NHSNetCredentials],[NHSNetMasterAccount],[ExchangeExchangeServer],[ExchangeCredentials],[ExchangeMasterAccount] " +
-                "FROM[HealthCalendar].[dbo].[Settings] " +
-                "WHERE[HealthCalendar].[dbo].[Settings].[OrganisationCode]='RTX'";
-            SqlCommand cmd = new SqlCommand(sql, conn);
-            conn.Open();
-            SqlDataReader readerClientID = cmd.ExecuteReader();
-            while (readerClientID.Read())
+            try
             {
-                c.HealthOrgName = readerClientID.GetString(0);
-                c.HealthOrgCode = readerClientID.GetString(1);
-                c.HealthOrgLocation = readerClientID.GetString(2);
-                c.GoogleOrgMasterAccount = readerClientID.GetString(3);
-                c.NHSNetExchangeServer = readerClientID.GetString(4);
-                c.NHSNetOrgMasterCredentials = readerClientID.GetString(5);
-                c.NHSNetOrgMasterAccount = readerClientID.GetString(6);
-                c.ExchangeExchangeServer = readerClientID.GetString(7);
-                c.ExchangeOrgMasterCredentials = readerClientID.GetString(8);
-                c.ExchangeOrgMasterAccount = readerClientID.GetString(9);
+                using (SqlConnection conn = new SqlConnection(MyConnString))
+                {
+                    string sql = "SELECT [OrganisationName],[OrganisationCode],[OrgLocation],[GoogleMasterAccount],[NHSNetExchangeServer],[NHSNetCredentials],[NHSNetMasterAccount],[ExchangeExchangeServer],[ExchangeCredentials],[ExchangeMasterAccount] " +
+                        "FROM[HealthCalendar].[dbo].[Settings] " +
+                        "WHERE[HealthCalendar].[dbo].[Settings].[OrganisationCode]='RTX'";
+                    using (SqlCommand cmd = new SqlCommand(sql, conn))
+                    {
+                        conn.Open();
+                        SqlDataReader readerClientID = cmd.ExecuteReader();
+                        while (readerClientID.Read())
+                        {
+                            c.HealthOrgName = readerClientID.GetString(0);
+                            c.HealthOrgCode = readerClientID.GetString(1);
+                            c.HealthOrgLocation = readerClientID.GetString(2);
+                            c.GoogleOrgMasterAccount = readerClientID.GetString(3);
+                            c.NHSNetExchangeServer = readerClientID.GetString(4);
+                            c.NHSNetOrgMasterCredentials = readerClientID.GetString(5);
+                            c.NHSNetOrgMasterAccount = readerClientID.GetString(6);
+                            c.ExchangeExchangeServer = readerClientID.GetString(7);
+                            c.ExchangeOrgMasterCredentials = readerClientID.GetString(8);
+                            c.ExchangeOrgMasterAccount = readerClientID.GetString(9);
 
-                isSuccess = true;
+                            isSuccess = true;
+                        }
+                        readerClientID.Close();
+                    }
+                }
             }
-            readerClientID.Close();
+            catch {
+                return isSuccess;
+            }
+
 
             return isSuccess;
         }
@@ -1459,17 +1523,129 @@ namespace HealthCalendarClasses
             return isSuccess;
         }
 
+
+
+
         public bool GetExchangeAuthorization(HealthCalendarClass c)
         {
             bool isSuccess = false;
             CertificateCallback.Initialize();
-            c.ExchangeCalendarService = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
-            c.ExchangeCalendarService.Credentials = new WebCredentials(c.ExchangeOrgMasterAccount, c.ExchangeOrgMasterCredentials);
-            c.ExchangeCalendarService.TraceEnabled = true;
-            c.ExchangeCalendarService.TraceFlags = TraceFlags.All;
-            c.ExchangeCalendarService.Url = new Uri(c.ExchangeExchangeServer);
+            try
+            {
+                c.ExchangeCalendarService = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
+                c.ExchangeCalendarService.UseDefaultCredentials = true;
+                c.ExchangeCalendarService.TraceEnabled = true;
+                c.ExchangeCalendarService.TraceFlags = TraceFlags.All;
+                c.ExchangeCalendarService.Timeout=6000;
+                c.ExchangeCalendarService.AutodiscoverUrl(c.ExchangeOrgMasterAccount, RedirectionUrlValidationCallback);
+            }
+            catch
+            {
+                return isSuccess;
+            }
 
-            isSuccess = true;
+            try
+            {
+                /*IList<UserSettingName> settingNames = new List<UserSettingName>();
+                settingNames.Add(UserSettingName.CasVersion);
+                settingNames.Add(UserSettingName.EwsSupportedSchemas);
+                settingNames.Add(UserSettingName.ExternalEwsUrl);
+                settingNames.Add(UserSettingName.ExternalMailboxServer);
+                settingNames.Add(UserSettingName.PublicFolderServer);
+                settingNames.Add(UserSettingName.UserDeploymentId);
+                settingNames.Add(UserSettingName.UserDisplayName);
+                settingNames.Add(UserSettingName.UserDN);
+                */
+
+                /*UserSettingName[] allSettings = (UserSettingName[])Enum.GetValues(typeof(UserSettingName));
+                c.ExchangeEmail = "diane.harrison@mbhci.nhs.uk";
+
+                GetUserSettingsResponse response = c.ExchangeAutoDiscoverService.GetUserSettings(c.ExchangeEmail, allSettings);
+
+                foreach (UserSettingName settingKey in response.Settings.Keys)
+                {
+                    MessageBox.Show(string.Format("{0}: {1}", settingKey, response.Settings[settingKey]));
+                    //Console.WriteLine(string.Format("{0}: {1}", settingKey, response.Settings[settingKey]));
+                }*/
+
+                /*if (response.UserResponses.Count > 0)
+                {
+                    UserResponse userResponse = response.UserResponses[0];
+
+                    UserSetting casVersionUserSetting = userResponse.UserSettings[UserSettingName.CasVersion];
+
+                    if (casVersionUserSetting != null)
+                    {
+                        Console.WriteLine("CasVersion=" + casVersionUserSetting.Value);
+                    }
+
+                    UserSetting ewsSupportedSchemasUserSetting = userResponse.UserSettings[UserSettingName.EwsSupportedSchemas];
+
+                    if (ewsSupportedSchemasUserSetting != null)
+                    {
+                        Console.WriteLine("EwsSupportedSchemas=" + ewsSupportedSchemasUserSetting.Value);
+                    }
+
+                    UserSetting externalEwsUrlUserSetting = userResponse.UserSettings[UserSettingName.ExternalEwsUrl];
+
+                    if (externalEwsUrlUserSetting != null)
+                    {
+                        Console.WriteLine("ExternalEwsUrl=" + externalEwsUrlUserSetting.Value);
+                    }
+
+                    UserSetting externalMailboxServerUserSetting = userResponse.UserSettings[UserSettingName.ExternalMailboxServer];
+
+                    if (externalMailboxServerUserSetting != null)
+                    {
+                        Console.WriteLine("ExternalMailboxServer=" + externalMailboxServerUserSetting.Value);
+                    }
+
+                    UserSetting publicFolderServerUserSetting = userResponse.UserSettings[UserSettingName.PublicFolderServer];
+
+                    if (publicFolderServerUserSetting != null)
+                    {
+                        Console.WriteLine("PublicFolderServer=" + publicFolderServerUserSetting.Value);
+                    }
+
+                    UserSetting userDeploymentIdUserSetting = userResponse.UserSettings[UserSettingName.UserDeploymentId];
+
+                    if (userDeploymentIdUserSetting != null)
+                    {
+                        Console.WriteLine("UserDeploymentId=" + userDeploymentIdUserSetting.Value);
+                    }
+
+                    UserSetting userDisplayNameUserSetting = userResponse.UserSettings[UserSettingName.UserDisplayName];
+
+                    if (userDisplayNameUserSetting != null)
+                    {
+                        Console.WriteLine("UserDisplayName=" + userDisplayNameUserSetting.Value);
+                    }
+
+                    UserSetting userDNUserSetting = userResponse.UserSettings[UserSettingName.UserDN];
+
+                    if (userDNUserSetting != null)
+                    {
+                        Console.WriteLine("UserDN=" + userDNUserSetting.Value);
+                    }
+
+                }
+
+                Console.Read();*/
+            }
+            catch (ServiceRequestException ex)
+            {
+                //Console.WriteLine("Error: " + ex.Message);
+                //Console.WriteLine("Error: " + ex.XmlMessage);
+                //Console.Read();
+            }
+            catch (WebException ex)
+            {
+                //Console.WriteLine("Error: " + ex.Message);
+                //Console.Read();
+            }
+
+
+                isSuccess = true;
             return isSuccess;
         }
 

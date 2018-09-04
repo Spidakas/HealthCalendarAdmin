@@ -44,10 +44,20 @@ namespace HealthCalendarAdmin
         {
             int rc;
             bool successA = c.GetTrustSettings(c);
-            bool successB = c.GetGoogleClientSecret(c);
-            bool successC = c.GetGoogleAuthorization(c);
+            if (successA == false)
+            {
+                MessageBox.Show("Cannot connect to Health Calender database.");
+            }
+
+            //bool successB = c.GetGoogleClientSecret(c);
+            //bool successC = c.GetGoogleAuthorization(c);
             bool successD = c.GetNHSNetAuthorization(c);
             bool successE = c.GetExchangeAuthorization(c);
+            if (successE == false)
+            {
+                MessageBox.Show("Cannot connect to Exchange Server. Please contact your IT Department.");
+            }
+
 
             // Create the ToolTip and associate with the Form container.
             ToolTip toolTip1 = new ToolTip();
