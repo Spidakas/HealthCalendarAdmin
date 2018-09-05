@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HealthCalendarAdmin));
             this.txtboxSearchFirstname = new System.Windows.Forms.TextBox();
             this.lblSearchFirstname = new System.Windows.Forms.Label();
@@ -48,7 +48,6 @@
             this.btnClearGoogleCalendar = new System.Windows.Forms.Button();
             this.bgWorker = new System.ComponentModel.BackgroundWorker();
             this.btnDeleteGoogleCalendar = new System.Windows.Forms.Button();
-            this.btnSendExchangeEmail = new System.Windows.Forms.Button();
             this.txtboxSearchLastname = new System.Windows.Forms.TextBox();
             this.groupBoxSearch = new System.Windows.Forms.GroupBox();
             this.lblSearchMainIdentifier = new System.Windows.Forms.Label();
@@ -126,15 +125,15 @@
             this.dgvSubscribers.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvSubscribers.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.dgvSubscribers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvSubscribers.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvSubscribers.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvSubscribers.Location = new System.Drawing.Point(9, 74);
             this.dgvSubscribers.Margin = new System.Windows.Forms.Padding(1);
             this.dgvSubscribers.MultiSelect = false;
@@ -354,22 +353,6 @@
             this.btnDeleteGoogleCalendar.UseVisualStyleBackColor = false;
             this.btnDeleteGoogleCalendar.Visible = false;
             this.btnDeleteGoogleCalendar.Click += new System.EventHandler(this.btnDeleteGoogleCalendar_Click);
-            // 
-            // btnSendExchangeEmail
-            // 
-            this.btnSendExchangeEmail.BackColor = System.Drawing.Color.OliveDrab;
-            this.btnSendExchangeEmail.Enabled = false;
-            this.btnSendExchangeEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSendExchangeEmail.ForeColor = System.Drawing.Color.White;
-            this.btnSendExchangeEmail.Location = new System.Drawing.Point(708, 390);
-            this.btnSendExchangeEmail.Margin = new System.Windows.Forms.Padding(1);
-            this.btnSendExchangeEmail.Name = "btnSendExchangeEmail";
-            this.btnSendExchangeEmail.Size = new System.Drawing.Size(70, 32);
-            this.btnSendExchangeEmail.TabIndex = 30;
-            this.btnSendExchangeEmail.Text = "Send Exchange Email";
-            this.btnSendExchangeEmail.UseVisualStyleBackColor = false;
-            this.btnSendExchangeEmail.Visible = false;
-            this.btnSendExchangeEmail.Click += new System.EventHandler(this.btnSendExchangeEmail_Click);
             // 
             // txtboxSearchLastname
             // 
@@ -954,7 +937,6 @@
             this.Controls.Add(this.groupBoxExchange);
             this.Controls.Add(this.groupBoxNHSNet);
             this.Controls.Add(this.groupBoxSearch);
-            this.Controls.Add(this.btnSendExchangeEmail);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.dgvSubscribers);
             this.Controls.Add(this.pnlFooter);
@@ -1005,7 +987,6 @@
         private System.ComponentModel.BackgroundWorker bgWorker;
         private System.Windows.Forms.Label lblPercent;
         private System.Windows.Forms.Button btnDeleteGoogleCalendar;
-        private System.Windows.Forms.Button btnSendExchangeEmail;
         private System.Windows.Forms.TextBox txtboxSearchLastname;
         private System.Windows.Forms.GroupBox groupBoxSearch;
         private System.Windows.Forms.Button btnClearSearch;

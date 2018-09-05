@@ -73,33 +73,16 @@ namespace HealthCalendarClasses
         static string ApplicationName = "HealthCalendar";
         public CalendarService GoogleCalenderService  { get; set; }
         public ExchangeService NHSNetCalendarService { get; set; }
+        public AutodiscoverService GoogleCalenderAutoDiscoverService { get; set; }
+        public AutodiscoverService NHSNetCalendarAutoDiscoverService { get; set; }
+        public string NHSNetDisplayName { get; set; }
+        public string NHSNetFQDN { get; set; }
+        public string NHSNetUserDN { get; set; }
         public ExchangeService ExchangeCalendarService { get; set; }
-
+        public string ExchangeDisplayName { get; set; }
+        public string ExchangeFQDN { get; set; }
         static string MyConnString = ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString;
 
-
-        public void SendExchangeTestEmail(HealthCalendarClass c)
-        {
-            //ExchangeService service = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
-            //service.Credentials = new WebCredentials("michael.georgiades@mbht.nhs.uk", "Lancaster345!!");
-            //service.Credentials = new WebCredentials( c.NHSNetOrgMasterAccount, c.NHSNetOrgMasterCredentials);
-            //service.TraceEnabled = true;
-            //service.TraceFlags = TraceFlags.All;
-            //service.AutodiscoverUrl("michael.georgiades@mbht.nhs.uk", RedirectionUrlValidationCallback);
-            //service.Url = new Uri("https://canlfgh-mail01.xcanl.nhs.uk/EWS/Exchange.asmx");
-            //service.Url = new Uri("https://mail.nhs.net/ews/exchange.asmx");
-
-
-            //EmailMessage email = new EmailMessage(service);
-            //email.ToRecipients.Add("michael.georgiades@mbht.nhs.uk");
-            //email.ToRecipients.Add("michael.georgiades@nhs.net");
-            //email.Subject = "HelloWorld";
-            //email.Body = new MessageBody("This is the first email I've sent by using the EWS Managed API");
-            //email.Send();
-            CalendarFolder folder = new CalendarFolder(c.NHSNetCalendarService);
-            folder.DisplayName = "New calendar folder";            
-            folder.Save(WellKnownFolderName.Calendar);
-        }
 
         public bool CreateShareGoogleDiary(HealthCalendarClass c)
         {
@@ -423,47 +406,48 @@ namespace HealthCalendarClasses
 
 
 
-        public void CreateSharingMessageAttachment(string folderid, string userSharing, string userSharingEntryID, string invitationMailboxID, string userSharedTo, string dataType)
+        public void CreateSharingMessageAttachment(string folderid, string userSharing, string userSharingEntryID, string invitationMailboxID, string userSharedTo, string dataType, HealthCalendarClass c, int CalendarType)
         {
 
             XmlDocument sharedMetadataXML = new XmlDocument();
 
             try
-            {
-                // just logging stuff as well during my debugging
-                using (StreamWriter w = new StreamWriter("SharingMessageMetaData.txt", false, Encoding.ASCII))
+            {     
+                // Create a String that contains our new sharing_metadata.xml file
+                StringBuilder metadataString = new StringBuilder("<?xml version=\"1.0\"?>");
+                metadataString.Append("<SharingMessage xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" ");
+                metadataString.Append("xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" ");
+                metadataString.Append("xmlns=\"http://schemas.microsoft.com/sharing/2008\">");
+                metadataString.Append("<DataType>" + dataType + "</DataType>");
+                metadataString.Append("<Initiator>");
+                if (CalendarType==1)
                 {
-                    // Create a String that contains our new sharing_metadata.xml file
-                    StringBuilder metadataString = new StringBuilder("<?xml version=\"1.0\"?>");
-                    metadataString.Append("<SharingMessage xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" ");
-                    metadataString.Append("xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" ");
-                    metadataString.Append("xmlns=\"http://schemas.microsoft.com/sharing/2008\">");
-                    metadataString.Append("<DataType>" + dataType + "</DataType>");
-                    metadataString.Append("<Initiator>");
-                    //metadataString.Append("<Name>" + GetDisplayName(userSharing) + "</Name>");
-                    metadataString.Append("<SmtpAddress>" + userSharing + "</SmtpAddress><EntryId>" + userSharingEntryID.Trim());
-                    metadataString.Append("</EntryId>");
-                    metadataString.Append("</Initiator>");
-                    metadataString.Append("<Invitation>");
-                    metadataString.Append("<Providers>");
-                    metadataString.Append("<Provider Type=\"ms-exchange-internal\" TargetRecipients=\"" + userSharedTo + "\">");
-                    metadataString.Append("<FolderId xmlns=\"http://schemas.microsoft.com/exchange/sharing/2008\">");
-                    metadataString.Append(folderid);
-                    metadataString.Append("</FolderId>");
-                    metadataString.Append("<MailboxId xmlns=\"http://schemas.microsoft.com/exchange/sharing/2008\">");
-                    metadataString.Append(invitationMailboxID);
-                    metadataString.Append("</MailboxId>");
-                    metadataString.Append("</Provider>");
-                    metadataString.Append("</Providers>");
-                    metadataString.Append("</Invitation>");
-                    metadataString.Append("</SharingMessage>");
-                    // MessageBox.Show(metadataString.ToString(), "metadataString before loading into soapEnvelope");
-                    sharedMetadataXML.LoadXml(metadataString.ToString());
-                    //ExchangeFolderPermissionsManager.form1.Log(metadataString.ToString(), w, "Generate XML");
-
-                    // MessageBox.Show("returning SOAP envelope now");
-                    w.Close();
+                    metadataString.Append("<Name>" + c.ExchangeDisplayName + "</Name>");
                 }
+                if (CalendarType == 2)
+                {
+                    metadataString.Append("<Name>" + c.NHSNetDisplayName + "</Name>");
+                }
+                metadataString.Append("<SmtpAddress>" + userSharing + "</SmtpAddress><EntryId>" + userSharingEntryID.Trim());
+                metadataString.Append("</EntryId>");
+                metadataString.Append("</Initiator>");
+                metadataString.Append("<Invitation>");
+                metadataString.Append("<Providers>");
+                metadataString.Append("<Provider Type=\"ms-exchange-internal\" TargetRecipients=\"" + userSharedTo + "\">");
+                metadataString.Append("<FolderId xmlns=\"http://schemas.microsoft.com/exchange/sharing/2008\">");
+                metadataString.Append(folderid);
+                metadataString.Append("</FolderId>");
+                metadataString.Append("<MailboxId xmlns=\"http://schemas.microsoft.com/exchange/sharing/2008\">");
+                metadataString.Append(invitationMailboxID);
+                metadataString.Append("</MailboxId>");
+                metadataString.Append("</Provider>");
+                metadataString.Append("</Providers>");
+                metadataString.Append("</Invitation>");
+                metadataString.Append("</SharingMessage>");
+                sharedMetadataXML.LoadXml(metadataString.ToString());
+
+                //var logger = NLog.LogManager.GetCurrentClassLogger();
+                //logger.Info(metadataString.ToString());                
 
                 string tmpPath = Application.StartupPath + "\\temp\\";
                 sharedMetadataXML.Save(tmpPath + "sharing_metadata.xml");
@@ -475,6 +459,9 @@ namespace HealthCalendarClasses
 
             }
         }
+
+
+
         public String GetConvertedEWSIDinHex(ExchangeService esb, String sID, String strSMTPAdd)
         {
             // Create a request to convert identifiers.
@@ -505,25 +492,8 @@ namespace HealthCalendarClasses
             // Get LegacyDN Using the function above this one 
             //string sharedByLegacyDN = GetMailboxDN();
             // A conversion function from earlier
-            //string legacyDNinHex = ConvertStringToHex(sharedByLegacyDN);
+            //string legacyDNinHex = ConvertStringToHex(sharedByLegacyDN);            
 
-            
-
-            // Note while I was debugging I logged this to a text file as well
-            //using (StreamWriter w = new StreamWriter("BuildAddressBookEntryIdResult.txt"))
-            //{
-
-                //addBookEntryId.Append("00000000"); /* Flags */
-                //addBookEntryId.Append("DCA740C8C042101AB4B908002B2FE182"); /* ProviderUID */
-                //addBookEntryId.Append("01000000"); /* Version */
-                //addBookEntryId.Append("00000000"); /* Type - 00 00 00 00  = Local Mail User */
-                //addBookEntryId.Append(legacyDNinHex); /* Returns the userDN of the impersonated user */
-                //addBookEntryId.Append("00"); /* terminator bit */
-
-                //Log(addBookEntryId.ToString(), w, "GetAddBookEntryId");
-                //w.Close();
-
-            //}
             StringBuilder addBookEntryId = new StringBuilder();
 
             addBookEntryId.Append("00000000"); /* Flags */
@@ -532,8 +502,9 @@ namespace HealthCalendarClasses
             addBookEntryId.Append("00000000"); /* Type - 00 00 00 00  = Local Mail User */
             //addBookEntryId.Append(legacyDNinHex); /* Returns the userDN of the impersonated user */
             addBookEntryId.Append("00"); /* terminator bit */
-            var logger = NLog.LogManager.GetCurrentClassLogger();
-            logger.Info(addBookEntryId.ToString());
+            
+            //var logger = NLog.LogManager.GetCurrentClassLogger();
+            //logger.Info(addBookEntryId.ToString());
 
             result = addBookEntryId.ToString();
             c.NHSNetCalendarService.ImpersonatedUserId = null;
@@ -545,34 +516,47 @@ namespace HealthCalendarClasses
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-        public String GetInvitationMailboxId(HealthCalendarClass c)
+        public String GetInvitationMailboxId(HealthCalendarClass c, int CalendarType)
         {
-            c.NHSNetCalendarService.ImpersonatedUserId = new ImpersonatedUserId(ConnectingIdType.SmtpAddress, c.NHSNetEmail);
+            if (CalendarType == 1)
+            {
+                c.ExchangeCalendarService.ImpersonatedUserId = new ImpersonatedUserId(ConnectingIdType.SmtpAddress, c.ExchangeEmail);
+            }
+            if (CalendarType == 2)
+            {
+                c.NHSNetCalendarService.ImpersonatedUserId = new ImpersonatedUserId(ConnectingIdType.SmtpAddress, c.NHSNetEmail);
+            }
+            
             // Generate The Store Entry Id for the impersonated user
             StringBuilder MailboxIDPointer = new StringBuilder();
 
-            // Notice again the logging for debugging the results
-            using (StreamWriter w = new StreamWriter("BuildInvitationMailboxIdResult.txt"))
+
+            MailboxIDPointer.Append("00000000"); /* Flags */
+            MailboxIDPointer.Append("38A1BB1005E5101AA1BB08002B2A56C2"); /* ProviderUID */
+            MailboxIDPointer.Append("00"); /* Version */
+            MailboxIDPointer.Append("00"); /* Flag */
+            MailboxIDPointer.Append("454D534D44422E444C4C00000000"); /* DLLFileName */
+            MailboxIDPointer.Append("00000000"); /* Wrapped Flags */
+            MailboxIDPointer.Append("1B55FA20AA6611CD9BC800AA002FC45A"); /* WrappedProvider UID (Mailbox Store Object) */
+            MailboxIDPointer.Append("0C000000"); /* Wrapped Type (Mailbox Store) */
+            //MailboxIDPointer.Append(ConvertStringToHex(GetMailboxServer()).ToString()); /* ServerShortname (FQDN) */
+            MailboxIDPointer.Append("00"); /* termination bit */
+            MailboxIDPointer.Append(ConvertStringToHex(GetMailboxDN()).ToString()); /* Returns the userDN of the impersonated user */
+            MailboxIDPointer.Append("00"); /* terminator bit */
+
+            //var logger = NLog.LogManager.GetCurrentClassLogger();
+            //logger.Info(MailboxIDPointer.ToString());
+
+            if (CalendarType == 1)
             {
 
-                MailboxIDPointer.Append("00000000"); /* Flags */
-                MailboxIDPointer.Append("38A1BB1005E5101AA1BB08002B2A56C2"); /* ProviderUID */
-                MailboxIDPointer.Append("00"); /* Version */
-                MailboxIDPointer.Append("00"); /* Flag */
-                MailboxIDPointer.Append("454D534D44422E444C4C00000000"); /* DLLFileName */
-                MailboxIDPointer.Append("00000000"); /* Wrapped Flags */
-                MailboxIDPointer.Append("1B55FA20AA6611CD9BC800AA002FC45A"); /* WrappedProvider UID (Mailbox Store Object) */
-                MailboxIDPointer.Append("0C000000"); /* Wrapped Type (Mailbox Store) */
-                //MailboxIDPointer.Append(ConvertStringToHex(GetMailboxServer()).ToString()); /* ServerShortname (FQDN) */
-                MailboxIDPointer.Append("00"); /* termination bit */
-                //MailboxIDPointer.Append(ConvertStringToHex(GetMailboxDN()).ToString()); /* Returns the userDN of the impersonated user */
-                MailboxIDPointer.Append("00"); /* terminator bit */
-
-                //Log(MailboxIDPointer.ToString(), w, "GetInvitiationEntryID");
-                w.Close();
-
             }
-            c.NHSNetCalendarService.ImpersonatedUserId = null;
+            if (CalendarType == 2)
+            {
+                c.NHSNetCalendarService.ImpersonatedUserId = null;
+            }
+
+            
             return MailboxIDPointer.ToString();
 
         }
@@ -1513,16 +1497,63 @@ namespace HealthCalendarClasses
         public bool GetNHSNetAuthorization(HealthCalendarClass c)
         {
             bool isSuccess = false;
-            c.NHSNetCalendarService = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
-            c.NHSNetCalendarService.Credentials = new WebCredentials(c.NHSNetOrgMasterAccount, c.NHSNetOrgMasterCredentials);
-            c.NHSNetCalendarService.TraceEnabled = true;
-            c.NHSNetCalendarService.TraceFlags = TraceFlags.All;
-            c.NHSNetCalendarService.Url = new Uri(c.NHSNetExchangeServer);
 
+            try
+            {
+                c.NHSNetCalendarService = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
+                c.NHSNetCalendarService.Credentials = new WebCredentials(c.NHSNetOrgMasterAccount, c.NHSNetOrgMasterCredentials);
+                c.NHSNetCalendarService.TraceEnabled = true;
+                c.NHSNetCalendarService.TraceFlags = TraceFlags.All;
+                c.NHSNetCalendarService.Url = new Uri(c.NHSNetExchangeServer);
+                //NameResolutionCollection ncCol = c.NHSNetCalendarService.ResolveName(c.NHSNetOrgMasterAccount, ResolveNameSearchLocation.DirectoryOnly, true);
+                //c.NHSNetDisplayName = ncCol[0].Contact.DisplayName;
+                // Create an AutodiscoverService object to provide user settings.
+
+                c.NHSNetCalendarAutoDiscoverService = new AutodiscoverService();
+                c.NHSNetCalendarAutoDiscoverService.Credentials = new NetworkCredential(c.NHSNetOrgMasterAccount, c.NHSNetOrgMasterCredentials);
+                UserSettingName[] allSettings = (UserSettingName[])Enum.GetValues(typeof(UserSettingName));
+                //GetUserSettingsResponse response = GetUserSettings(c.NHSNetCalendarAutoDiscoverService, c.NHSNetOrgMasterAccount, 10, allSettings);
+                GetUserSettingsResponse userresponse = c.NHSNetCalendarAutoDiscoverService.GetUserSettings(
+                    c.NHSNetOrgMasterAccount,
+                    UserSettingName.UserDisplayName,
+                    UserSettingName.InternalMailboxServer,
+                    UserSettingName.UserDN);
+                Dictionary<string, string> myUserSettings = new Dictionary<string, string>();
+                // Obviously this should be cleaned up with a switch statement 
+                // or something, but I was working through the problem hence the 
+                // extra effort on the code
+                foreach (KeyValuePair<UserSettingName, Object> usersetting in userresponse.Settings)
+                {
+
+                    if (usersetting.Key.ToString() == "InternalMailboxServer")
+                    {
+                        string[] arrResult = usersetting.Value.ToString().Split('.');
+                        c.NHSNetFQDN = arrResult[0].ToString();
+                        //myUserSettings.Add("InternalMailboxServer", arrResult[0].ToString());
+                    }
+                    if (usersetting.Key.ToString() == "UserDisplayName")
+                    {
+                        string[] arrResult = usersetting.Value.ToString().Split('.');
+                        c.NHSNetDisplayName = arrResult[0].ToString();
+                        //myUserSettings.Add("UserDisplayName", arrResult[0].ToString());
+
+                    }
+                    if (usersetting.Key.ToString() == "UserDN")
+                    {
+                        string[] arrResult = usersetting.Value.ToString().Split('.');
+                        c.NHSNetUserDN = arrResult[0].ToString();
+                        //myUserSettings.Add("UserDN", arrResult[0].ToString());
+                    }
+                    MessageBox.Show("Unable to connect to NHS Net Server. Please contact your IT Department.");
+                }
+            }
+            catch
+            {
+                return isSuccess;
+            }
             isSuccess = true;
             return isSuccess;
         }
-
 
 
 
@@ -1538,6 +1569,33 @@ namespace HealthCalendarClasses
                 c.ExchangeCalendarService.TraceFlags = TraceFlags.All;
                 c.ExchangeCalendarService.Timeout=6000;
                 c.ExchangeCalendarService.AutodiscoverUrl(c.ExchangeOrgMasterAccount, RedirectionUrlValidationCallback);
+                NameResolutionCollection ncCol = c.ExchangeCalendarService.ResolveName(c.ExchangeOrgMasterAccount, ResolveNameSearchLocation.DirectoryOnly, true);
+                c.ExchangeDisplayName = ncCol[0].Contact.DisplayName;
+
+                /*AutodiscoverService autodiscoverService = new AutodiscoverService("domain.contoso.com");
+                autodiscoverService.Credentials = new NetworkCredential("User1", "password", "domain.contoso.com");
+
+                // Submit a request and get the settings. The response contains only the
+                // setttings that are requested, if they exist.
+
+                GetUserSettingsResponse userresponse = autodiscoverService.GetUserSettings(
+                    "User1@Contoso.com",
+                    UserSettingName.UserDN,
+                    UserSettingName.UserDeploymentId,
+                    UserSettingName.InternalMailboxServer,
+                    UserSettingName.MailboxDN,
+                    UserSettingName.PublicFolderServer,
+                    UserSettingName.ActiveDirectoryServer,
+                    UserSettingName.ExternalMailboxServer,
+                    UserSettingName.EcpDeliveryReportUrlFragment,
+                    UserSettingName.EcpPublishingUrlFragment,
+                    UserSettingName.EcpTextMessagingUrlFragment,
+                    UserSettingName.ExternalEwsUrl,
+                    UserSettingName.CasVersion,
+                    UserSettingName.EwsSupportedSchemas);*/
+
+                //c.ExchangeFQDN
+
             }
             catch
             {
@@ -1649,6 +1707,39 @@ namespace HealthCalendarClasses
             return isSuccess;
         }
 
+
+        public static GetUserSettingsResponse GetUserSettings(
+          AutodiscoverService service,
+          string emailAddress,
+          int maxHops,
+          params UserSettingName[] settings)
+        {
+            Uri url = null;
+            GetUserSettingsResponse response = null;
+
+            for (int attempt = 0; attempt < maxHops; attempt++)
+            {
+                service.Url = url;
+                service.EnableScpLookup = (attempt < 2);
+
+                response = service.GetUserSettings(emailAddress, settings);
+
+                if (response.ErrorCode == AutodiscoverErrorCode.RedirectAddress)
+                {
+                    url = new Uri(response.RedirectTarget);
+                }
+                else if (response.ErrorCode == AutodiscoverErrorCode.RedirectUrl)
+                {
+                    url = new Uri(response.RedirectTarget);
+                }
+                else
+                {
+                    return response;
+                }
+            }
+
+            throw new Exception("No suitable Autodiscover endpoint was found.");
+        }
 
         /*public bool Delete(HealthCalendarClass c)
         {

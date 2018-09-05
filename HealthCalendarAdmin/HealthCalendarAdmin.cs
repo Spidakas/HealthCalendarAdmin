@@ -52,10 +52,14 @@ namespace HealthCalendarAdmin
             //bool successB = c.GetGoogleClientSecret(c);
             //bool successC = c.GetGoogleAuthorization(c);
             bool successD = c.GetNHSNetAuthorization(c);
+            if (successD == false)
+            {
+                MessageBox.Show("Unable to connect to NHS Net Server. Please contact your IT Department.");
+            }
             bool successE = c.GetExchangeAuthorization(c);
             if (successE == false)
             {
-                MessageBox.Show("Cannot connect to Exchange Server. Please contact your IT Department.");
+                MessageBox.Show("Unable to connect to Exchange Server. Please contact your IT Department.");
             }
 
 
@@ -595,7 +599,7 @@ namespace HealthCalendarAdmin
 
         private void btnSendExchangeEmail_Click(object sender, EventArgs e)
         {
-            c.SendExchangeTestEmail(c);
+           
         }
 
         private void dgvSubscribers_RowEnter(object sender, DataGridViewCellEventArgs e)
