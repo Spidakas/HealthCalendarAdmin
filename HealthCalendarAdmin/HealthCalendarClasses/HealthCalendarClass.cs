@@ -75,12 +75,16 @@ namespace HealthCalendarClasses
         public ExchangeService NHSNetCalendarService { get; set; }
         public AutodiscoverService GoogleCalenderAutoDiscoverService { get; set; }
         public AutodiscoverService NHSNetCalendarAutoDiscoverService { get; set; }
+        public AutodiscoverService ExchangeCalendarAutoDiscoverService { get; set; }
+
         public string NHSNetDisplayName { get; set; }
         public string NHSNetFQDN { get; set; }
         public string NHSNetUserDN { get; set; }
         public ExchangeService ExchangeCalendarService { get; set; }
         public string ExchangeDisplayName { get; set; }
         public string ExchangeFQDN { get; set; }
+        public string ExchangeUserDN { get; set; }
+
         static string MyConnString = ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString;
 
 
@@ -1394,7 +1398,7 @@ namespace HealthCalendarClasses
             {
                 using (SqlConnection conn = new SqlConnection(MyConnString))
                 {
-                    string sql = "SELECT [OrganisationName],[OrganisationCode],[OrgLocation],[GoogleMasterAccount],[NHSNetExchangeServer],[NHSNetCredentials],[NHSNetMasterAccount],[ExchangeExchangeServer],[ExchangeCredentials],[ExchangeMasterAccount] " +
+                    string sql = "SELECT [OrganisationName],[OrganisationCode],[OrgLocation],[GoogleMasterAccount],[NHSNetExchangeServer],[NHSNetCredentials],[NHSNetMasterAccount],[NHSNetDisplayName],[NHSNetFQDN],[NHSNetUserDN],[ExchangeExchangeServer],[ExchangeCredentials],[ExchangeMasterAccount] " +
                         "FROM[HealthCalendar].[dbo].[Settings] " +
                         "WHERE[HealthCalendar].[dbo].[Settings].[OrganisationCode]='RTX'";
                     using (SqlCommand cmd = new SqlCommand(sql, conn))
@@ -1410,9 +1414,12 @@ namespace HealthCalendarClasses
                             c.NHSNetExchangeServer = readerClientID.GetString(4);
                             c.NHSNetOrgMasterCredentials = readerClientID.GetString(5);
                             c.NHSNetOrgMasterAccount = readerClientID.GetString(6);
-                            c.ExchangeExchangeServer = readerClientID.GetString(7);
-                            c.ExchangeOrgMasterCredentials = readerClientID.GetString(8);
-                            c.ExchangeOrgMasterAccount = readerClientID.GetString(9);
+                            c.NHSNetDisplayName = readerClientID.GetString(7);
+                            c.NHSNetFQDN = readerClientID.GetString(8);
+                            c.NHSNetUserDN = readerClientID.GetString(9);
+                            c.ExchangeExchangeServer = readerClientID.GetString(10);
+                            c.ExchangeOrgMasterCredentials = readerClientID.GetString(11);
+                            c.ExchangeOrgMasterAccount = readerClientID.GetString(12);
 
                             isSuccess = true;
                         }
@@ -1497,7 +1504,7 @@ namespace HealthCalendarClasses
         public bool GetNHSNetAuthorization(HealthCalendarClass c)
         {
             bool isSuccess = false;
-
+            bool isGetUserDetailsSuccess = false;
             try
             {
                 c.NHSNetCalendarService = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
@@ -1505,6 +1512,58 @@ namespace HealthCalendarClasses
                 c.NHSNetCalendarService.TraceEnabled = true;
                 c.NHSNetCalendarService.TraceFlags = TraceFlags.All;
                 c.NHSNetCalendarService.Url = new Uri(c.NHSNetExchangeServer);
+                //isGetUserDetailsSuccess = GetNHSNetMasterUserDetails( c );
+            }
+            catch
+            {
+                return isSuccess;
+            }
+            isSuccess = true;
+            return isSuccess;
+        }
+
+
+        public bool GetExchangeAuthorization(HealthCalendarClass c)
+        {
+            bool isSuccess = false;
+            bool isGetUserDetailsSuccess = false;
+            
+            CertificateCallback.Initialize();
+            try
+            {
+                c.ExchangeCalendarService = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
+                c.ExchangeCalendarService.UseDefaultCredentials = true;
+                c.ExchangeCalendarService.TraceEnabled = true;
+                c.ExchangeCalendarService.TraceFlags = TraceFlags.All;
+                c.ExchangeCalendarService.Timeout=6000;
+                c.ExchangeCalendarService.AutodiscoverUrl(c.ExchangeOrgMasterAccount, RedirectionUrlValidationCallback);
+                //isGetUserDetailsSuccess = GetExchangeMasterUserDetails( c );
+            }
+            catch
+            {
+                return isSuccess;
+            }
+
+            isSuccess = true;
+            return isSuccess;
+        }
+
+        /// <summary>
+        /// When accessing this the GetUserSettings API this method takes around 2-3 minutes to exexute.
+        /// The UserSettings are therefore taken from the HealthCalendar.Settings table
+        /// At a later point the application could be extended to include functionality(e.g. dialogs) which is is used to configure these settings
+        /// within the HealthCalendar.Settings table
+        /// 
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public bool GetNHSNetMasterUserDetails(HealthCalendarClass c)
+        {
+            bool isSuccess = false;
+
+            try
+            {
+
                 //NameResolutionCollection ncCol = c.NHSNetCalendarService.ResolveName(c.NHSNetOrgMasterAccount, ResolveNameSearchLocation.DirectoryOnly, true);
                 //c.NHSNetDisplayName = ncCol[0].Contact.DisplayName;
                 // Create an AutodiscoverService object to provide user settings.
@@ -1519,9 +1578,6 @@ namespace HealthCalendarClasses
                     UserSettingName.InternalMailboxServer,
                     UserSettingName.UserDN);
                 Dictionary<string, string> myUserSettings = new Dictionary<string, string>();
-                // Obviously this should be cleaned up with a switch statement 
-                // or something, but I was working through the problem hence the 
-                // extra effort on the code
                 foreach (KeyValuePair<UserSettingName, Object> usersetting in userresponse.Settings)
                 {
 
@@ -1529,20 +1585,17 @@ namespace HealthCalendarClasses
                     {
                         string[] arrResult = usersetting.Value.ToString().Split('.');
                         c.NHSNetFQDN = arrResult[0].ToString();
-                        //myUserSettings.Add("InternalMailboxServer", arrResult[0].ToString());
                     }
                     if (usersetting.Key.ToString() == "UserDisplayName")
                     {
                         string[] arrResult = usersetting.Value.ToString().Split('.');
                         c.NHSNetDisplayName = arrResult[0].ToString();
-                        //myUserSettings.Add("UserDisplayName", arrResult[0].ToString());
 
                     }
                     if (usersetting.Key.ToString() == "UserDN")
                     {
                         string[] arrResult = usersetting.Value.ToString().Split('.');
                         c.NHSNetUserDN = arrResult[0].ToString();
-                        //myUserSettings.Add("UserDN", arrResult[0].ToString());
                     }
                     MessageBox.Show("Unable to connect to NHS Net Server. Please contact your IT Department.");
                 }
@@ -1555,155 +1608,61 @@ namespace HealthCalendarClasses
             return isSuccess;
         }
 
-
-
-        public bool GetExchangeAuthorization(HealthCalendarClass c)
+        /// <summary>
+        /// When accessing this the GetUserSettings API this method takes a long time to execute
+        /// The UserSettings are therefore taken from the HealthCalendar.Settings table
+        /// At a later point the application could be extended to include functionality(e.g. dialogs) which is is used to configure these settings
+        /// within the HealthCalendar.Settings table
+        /// 
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public bool GetExchangeMasterUserDetails(HealthCalendarClass c)
         {
             bool isSuccess = false;
-            CertificateCallback.Initialize();
+
             try
             {
-                c.ExchangeCalendarService = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
-                c.ExchangeCalendarService.UseDefaultCredentials = true;
-                c.ExchangeCalendarService.TraceEnabled = true;
-                c.ExchangeCalendarService.TraceFlags = TraceFlags.All;
-                c.ExchangeCalendarService.Timeout=6000;
-                c.ExchangeCalendarService.AutodiscoverUrl(c.ExchangeOrgMasterAccount, RedirectionUrlValidationCallback);
-                NameResolutionCollection ncCol = c.ExchangeCalendarService.ResolveName(c.ExchangeOrgMasterAccount, ResolveNameSearchLocation.DirectoryOnly, true);
-                c.ExchangeDisplayName = ncCol[0].Contact.DisplayName;
 
-                /*AutodiscoverService autodiscoverService = new AutodiscoverService("domain.contoso.com");
-                autodiscoverService.Credentials = new NetworkCredential("User1", "password", "domain.contoso.com");
+                //NameResolutionCollection ncCol = c.ExchangeCalendarService.ResolveName(c.ExchangeOrgMasterAccount, ResolveNameSearchLocation.DirectoryOnly, true);
+                //c.ExchangeDisplayName = ncCol[0].Contact.DisplayName;
+                // Create an AutodiscoverService object to provide user settings.
 
-                // Submit a request and get the settings. The response contains only the
-                // setttings that are requested, if they exist.
-
-                GetUserSettingsResponse userresponse = autodiscoverService.GetUserSettings(
-                    "User1@Contoso.com",
-                    UserSettingName.UserDN,
-                    UserSettingName.UserDeploymentId,
+                c.ExchangeCalendarAutoDiscoverService = new AutodiscoverService();
+                c.ExchangeCalendarAutoDiscoverService.Credentials = new NetworkCredential(c.ExchangeOrgMasterAccount, c.ExchangeOrgMasterCredentials);
+                UserSettingName[] allSettings = (UserSettingName[])Enum.GetValues(typeof(UserSettingName));
+                GetUserSettingsResponse userresponse = c.ExchangeCalendarAutoDiscoverService.GetUserSettings(
+                    c.ExchangeOrgMasterAccount,
+                    UserSettingName.UserDisplayName,
                     UserSettingName.InternalMailboxServer,
-                    UserSettingName.MailboxDN,
-                    UserSettingName.PublicFolderServer,
-                    UserSettingName.ActiveDirectoryServer,
-                    UserSettingName.ExternalMailboxServer,
-                    UserSettingName.EcpDeliveryReportUrlFragment,
-                    UserSettingName.EcpPublishingUrlFragment,
-                    UserSettingName.EcpTextMessagingUrlFragment,
-                    UserSettingName.ExternalEwsUrl,
-                    UserSettingName.CasVersion,
-                    UserSettingName.EwsSupportedSchemas);*/
+                    UserSettingName.UserDN);
+                Dictionary<string, string> myUserSettings = new Dictionary<string, string>();
+                foreach (KeyValuePair<UserSettingName, Object> usersetting in userresponse.Settings)
+                {
 
-                //c.ExchangeFQDN
-
+                    if (usersetting.Key.ToString() == "InternalMailboxServer")
+                    {
+                        string[] arrResult = usersetting.Value.ToString().Split('.');
+                        c.ExchangeFQDN = arrResult[0].ToString();
+                    }
+                    if (usersetting.Key.ToString() == "UserDisplayName")
+                    {
+                        string[] arrResult = usersetting.Value.ToString().Split('.');
+                        c.ExchangeDisplayName = arrResult[0].ToString();
+                    }
+                    if (usersetting.Key.ToString() == "UserDN")
+                    {
+                        string[] arrResult = usersetting.Value.ToString().Split('.');
+                        c.ExchangeUserDN = arrResult[0].ToString();
+                    }
+                    MessageBox.Show("Unable to connect to NHS Net Server. Please contact your IT Department.");
+                }
             }
             catch
             {
                 return isSuccess;
             }
-
-            try
-            {
-                /*IList<UserSettingName> settingNames = new List<UserSettingName>();
-                settingNames.Add(UserSettingName.CasVersion);
-                settingNames.Add(UserSettingName.EwsSupportedSchemas);
-                settingNames.Add(UserSettingName.ExternalEwsUrl);
-                settingNames.Add(UserSettingName.ExternalMailboxServer);
-                settingNames.Add(UserSettingName.PublicFolderServer);
-                settingNames.Add(UserSettingName.UserDeploymentId);
-                settingNames.Add(UserSettingName.UserDisplayName);
-                settingNames.Add(UserSettingName.UserDN);
-                */
-
-                /*UserSettingName[] allSettings = (UserSettingName[])Enum.GetValues(typeof(UserSettingName));
-                c.ExchangeEmail = "diane.harrison@mbhci.nhs.uk";
-
-                GetUserSettingsResponse response = c.ExchangeAutoDiscoverService.GetUserSettings(c.ExchangeEmail, allSettings);
-
-                foreach (UserSettingName settingKey in response.Settings.Keys)
-                {
-                    MessageBox.Show(string.Format("{0}: {1}", settingKey, response.Settings[settingKey]));
-                    //Console.WriteLine(string.Format("{0}: {1}", settingKey, response.Settings[settingKey]));
-                }*/
-
-                /*if (response.UserResponses.Count > 0)
-                {
-                    UserResponse userResponse = response.UserResponses[0];
-
-                    UserSetting casVersionUserSetting = userResponse.UserSettings[UserSettingName.CasVersion];
-
-                    if (casVersionUserSetting != null)
-                    {
-                        Console.WriteLine("CasVersion=" + casVersionUserSetting.Value);
-                    }
-
-                    UserSetting ewsSupportedSchemasUserSetting = userResponse.UserSettings[UserSettingName.EwsSupportedSchemas];
-
-                    if (ewsSupportedSchemasUserSetting != null)
-                    {
-                        Console.WriteLine("EwsSupportedSchemas=" + ewsSupportedSchemasUserSetting.Value);
-                    }
-
-                    UserSetting externalEwsUrlUserSetting = userResponse.UserSettings[UserSettingName.ExternalEwsUrl];
-
-                    if (externalEwsUrlUserSetting != null)
-                    {
-                        Console.WriteLine("ExternalEwsUrl=" + externalEwsUrlUserSetting.Value);
-                    }
-
-                    UserSetting externalMailboxServerUserSetting = userResponse.UserSettings[UserSettingName.ExternalMailboxServer];
-
-                    if (externalMailboxServerUserSetting != null)
-                    {
-                        Console.WriteLine("ExternalMailboxServer=" + externalMailboxServerUserSetting.Value);
-                    }
-
-                    UserSetting publicFolderServerUserSetting = userResponse.UserSettings[UserSettingName.PublicFolderServer];
-
-                    if (publicFolderServerUserSetting != null)
-                    {
-                        Console.WriteLine("PublicFolderServer=" + publicFolderServerUserSetting.Value);
-                    }
-
-                    UserSetting userDeploymentIdUserSetting = userResponse.UserSettings[UserSettingName.UserDeploymentId];
-
-                    if (userDeploymentIdUserSetting != null)
-                    {
-                        Console.WriteLine("UserDeploymentId=" + userDeploymentIdUserSetting.Value);
-                    }
-
-                    UserSetting userDisplayNameUserSetting = userResponse.UserSettings[UserSettingName.UserDisplayName];
-
-                    if (userDisplayNameUserSetting != null)
-                    {
-                        Console.WriteLine("UserDisplayName=" + userDisplayNameUserSetting.Value);
-                    }
-
-                    UserSetting userDNUserSetting = userResponse.UserSettings[UserSettingName.UserDN];
-
-                    if (userDNUserSetting != null)
-                    {
-                        Console.WriteLine("UserDN=" + userDNUserSetting.Value);
-                    }
-
-                }
-
-                Console.Read();*/
-            }
-            catch (ServiceRequestException ex)
-            {
-                //Console.WriteLine("Error: " + ex.Message);
-                //Console.WriteLine("Error: " + ex.XmlMessage);
-                //Console.Read();
-            }
-            catch (WebException ex)
-            {
-                //Console.WriteLine("Error: " + ex.Message);
-                //Console.Read();
-            }
-
-
-                isSuccess = true;
+            isSuccess = true;
             return isSuccess;
         }
 
