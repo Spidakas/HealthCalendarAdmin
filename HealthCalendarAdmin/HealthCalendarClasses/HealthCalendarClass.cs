@@ -24,6 +24,7 @@ using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using Exchange101;
 using Microsoft.Exchange.WebServices.Autodiscover;
+using Attachment = Microsoft.Exchange.WebServices.Data.Attachment;
 
 namespace HealthCalendarClasses
 {
@@ -55,35 +56,39 @@ namespace HealthCalendarClasses
         public string AppleEmail { get; set; }
         public string AppleCalendarID { get; set; }
 
-        public AutodiscoverService ExchangeAutoDiscoverService { get; set; }
 
-        public string HealthOrgCode { get; set; }
         public string HealthOrgName { get; set; }
+        public string HealthOrgCode { get; set; }        
         public string HealthOrgLocation { get; set; }
+        public bool bGoogleEnabled { get; set; }
         public string GoogleOrgMasterAccount { get; set; }
         public string GoogleClientID { get; set; }
         public string GoogleClientSecret { get; set; }
-        public string NHSNetExchangeServer { get; set; }
-        public string NHSNetOrgMasterAccount { get; set; }
-        public string NHSNetOrgMasterCredentials { get; set; }
+        public bool bOutlookEnabled { get; set; }
+        public bool bExchangeEnabled { get; set; }
         public string ExchangeExchangeServer { get; set; }
         public string ExchangeOrgMasterAccount { get; set; }
         public string ExchangeOrgMasterCredentials { get; set; }
-        static string[] Scopes = { CalendarService.Scope.Calendar };
-        static string ApplicationName = "HealthCalendar";
-        public CalendarService GoogleCalenderService  { get; set; }
-        public ExchangeService NHSNetCalendarService { get; set; }
-        public AutodiscoverService GoogleCalenderAutoDiscoverService { get; set; }
-        public AutodiscoverService NHSNetCalendarAutoDiscoverService { get; set; }
-        public AutodiscoverService ExchangeCalendarAutoDiscoverService { get; set; }
-
-        public string NHSNetDisplayName { get; set; }
-        public string NHSNetFQDN { get; set; }
-        public string NHSNetUserDN { get; set; }
-        public ExchangeService ExchangeCalendarService { get; set; }
         public string ExchangeDisplayName { get; set; }
         public string ExchangeFQDN { get; set; }
         public string ExchangeUserDN { get; set; }
+        public bool bNHSNetEnabled { get; set; }
+        public string NHSNetExchangeServer { get; set; }
+        public string NHSNetOrgMasterAccount { get; set; }
+        public string NHSNetOrgMasterCredentials { get; set; }
+        public string NHSNetDisplayName { get; set; }
+        public string NHSNetFQDN { get; set; }
+        public string NHSNetUserDN { get; set; }
+
+        static string[] Scopes = { CalendarService.Scope.Calendar };
+        static string ApplicationName = "HealthCalendar";
+        public CalendarService GoogleCalenderService { get; set; }
+        public ExchangeService NHSNetCalendarService { get; set; }
+        public ExchangeService ExchangeCalendarService { get; set; }
+        public AutodiscoverService GoogleCalenderAutoDiscoverService { get; set; }
+        public AutodiscoverService NHSNetCalendarAutoDiscoverService { get; set; }
+        public AutodiscoverService ExchangeCalendarAutoDiscoverService { get; set; }
+        public AutodiscoverService ExchangeAutoDiscoverService { get; set; }
 
         static string MyConnString = ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString;
 
@@ -181,14 +186,221 @@ namespace HealthCalendarClasses
             folder.Permissions.Add(new FolderPermission(c.NHSNetEmail,FolderPermissionLevel.Reviewer));
             folder.Save(WellKnownFolderName.Calendar);
             c.NHSNetCalendarID = folder.Id.ToString();
+            c.NHSNetCalendarService.ImpersonatedUserId = null;
+            // Bind to the folder ????Is this the root folder or the calendar folder??
+            //Folder folderStoreInfo;
+            //folderStoreInfo = Folder.Bind(c.NHSNetCalendarService, WellKnownFolderName.Calendar);
+            //string EwsID1 = folderStoreInfo.Id.UniqueId;
 
-            // Bind to the folder
-            /*Folder folderStoreInfo;
-            folderStoreInfo = Folder.Bind(service, WellKnownFolderName.Calendar);
-            string EwsID = folderStoreInfo.Id.UniqueId;
+
+            string EwsID2 = folder.Id.UniqueId;
 
             // The value of folderidHex will be what we need to use for the FolderId in the xml file
-            string folderidHex = GetConvertedEWSIDinHex(service, folderid, txtImpersonatedUser.Text);*/
+            //string folderidHex = GetConvertedEWSIDinHex(c.NHSNetCalendarService, EwsID2, c.NHSNetOrgMasterAccount);
+
+
+            string tmpPath = Application.StartupPath + "\\temp\\";
+            //string folderid = GetSharedFolderId("Calendar");
+            string folderidHex = GetConvertedEWSIDinHex(c.NHSNetCalendarService, EwsID2, c.NHSNetOrgMasterAccount);
+            string initiatorEntryID = GetIntiatorEntryID(c,2);
+            string invitationMailboxID = GetInvitationMailboxId(c,2);
+            string ownerSMTPAddress = c.NHSNetOrgMasterAccount;
+            string ownerDisplayName = c.NHSNetDisplayName;
+
+            //CreateSharingMessageAttachment(string folderid,string userSharing, string userSharingEntryID, string invitationMailboxID, string userSharedTo, string dataType, HealthCalendarClass c, int CalendarType)
+            c.CreateSharingMessageAttachment(folderidHex, c.NHSNetOrgMasterAccount, initiatorEntryID, invitationMailboxID, c.NHSNetEmail,"calendar",c,2);
+
+
+            // This is where I need the binary value of that initiator ID we talked about
+            byte[] binInitiatorEntryId = HexStringToByteArray(initiatorEntryID);
+
+            // This is the Guid of the Sharing Provider in Exchange, and it's value does not change
+            //Guid binSharingProviderGuid = new Guid("{AEF00600-0000-0000-C000-000000000046}");
+            Guid PropertySetSharing = new Guid("{AEF00600-0000-0000-C000-000000000046}");
+
+            // Even though I don't think setting this property is mandatory, it just seemed like the right thing to do                                   
+            //byte[] byteSharingProviderGuid = binSharingProviderGuid.ToByteArray();
+            byte[] byteSharingProviderGuid = PropertySetSharing.ToByteArray();
+
+
+            // Sharing Properties (in order of reference according to protocol examples in: [MS-OXSHARE])
+            // Common Message Object Properties
+            // [MS-OXSHARE] 2.2.1
+            ExtendedPropertyDefinition PidTagNormalizedSubject = new ExtendedPropertyDefinition(0x0E1D, MapiPropertyType.String);
+            // The PidTagSubjectPrefix is a zero-length string, so I do not set it
+            // ExtendedPropertyDefinition PidTagSubjectPrefix = new ExtendedPropertyDefinition(0x003D, MapiPropertyType.String);
+
+            // Sharing Object Message Properties
+            // [MS-OXSHARE] 2.2.2.1
+            ExtendedPropertyDefinition PidLidSharingCapabilities = new ExtendedPropertyDefinition(PropertySetSharing, 0x8A17, MapiPropertyType.Integer);
+            // [MS-OXSHARE] 2.2.2.2
+            ExtendedPropertyDefinition PidNameXSharingCapabilities = new ExtendedPropertyDefinition(DefaultExtendedPropertySet.InternetHeaders, "X-Sharing-Capabilities", MapiPropertyType.String);
+            // Sections 2.3 and 2.4 are also zero-length strings, so I won't set those either
+            // [MS-OXSHARE] 2.2.2.3
+            // ExtendedPropertyDefinition PidLidSharingConfigurationUrl = new   //ExtendedPropertyDefinition(PropertySetSharing, 0x8A24, MapiPropertyType.String);
+            // [MS-OXSHARE] 2.2.2.4
+            //ExtendedPropertyDefinition PidNameXSharingConfigUrl = new //ExtendedPropertyDefinition(DefaultExtendedPropertySet.InternetHeaders, "X-Sharing-Config-Url", MapiPropertyType.String);
+            // [MS-OXSHARE] 2.2.2.5
+            ExtendedPropertyDefinition PidLidSharingFlavor = new ExtendedPropertyDefinition(PropertySetSharing, 0x8A18, MapiPropertyType.Integer);
+            // [MS-OXSHARE] 2.2.2.6
+            ExtendedPropertyDefinition PidNameXSharingFlavor = new ExtendedPropertyDefinition(DefaultExtendedPropertySet.InternetHeaders, "X-Sharing-Flavor", MapiPropertyType.String);
+            // [MS-OXSHARE] 2.2.2.7
+            ExtendedPropertyDefinition PidLidSharingInitiatorEntryId = new ExtendedPropertyDefinition(PropertySetSharing, 0x8A09, MapiPropertyType.Binary);
+            // [MS-OXSHARE] 2.2.2.8
+            ExtendedPropertyDefinition PidLidSharingInitiatorName = new ExtendedPropertyDefinition(PropertySetSharing, 0x8A07, MapiPropertyType.String);
+            // [MS-OXSHARE] 2.2.2.9
+            ExtendedPropertyDefinition PidLidSharingInitiatorSMTP = new ExtendedPropertyDefinition(PropertySetSharing, 0x8A08, MapiPropertyType.String);
+            // [MS-OXSHARE] 2.2.2.10
+            ExtendedPropertyDefinition PidLidSharingLocalType = new ExtendedPropertyDefinition(PropertySetSharing, 0x8A14, MapiPropertyType.String);
+            // [MS-OXSHARE] 2.2.2.11
+            ExtendedPropertyDefinition PidNameXSharingLocalType = new ExtendedPropertyDefinition(DefaultExtendedPropertySet.InternetHeaders, "X-Sharing-Local-Type", MapiPropertyType.String);
+            // [MS-OXSHARE] 2.2.2.12
+            ExtendedPropertyDefinition PidLidSharingProviderGuid = new ExtendedPropertyDefinition(PropertySetSharing, 0x8A01, MapiPropertyType.Binary);
+            // [MS-OXSHARE] 2.2.2.13
+            ExtendedPropertyDefinition PidNameXSharingProviderGuid = new ExtendedPropertyDefinition(DefaultExtendedPropertySet.InternetHeaders, "X-Sharing-Provider-Guid", MapiPropertyType.String);
+            // [MS-OXSHARE] 2.2.2.14
+            ExtendedPropertyDefinition PidLidSharingProviderName = new ExtendedPropertyDefinition(PropertySetSharing, 0x8A02, MapiPropertyType.String);
+            // [MS-OXSHARE] 2.2.2.15           
+            ExtendedPropertyDefinition PidNameXSharingProviderName = new ExtendedPropertyDefinition(DefaultExtendedPropertySet.InternetHeaders, "X-Sharing-Provider-Name", MapiPropertyType.String);
+            // [MS-OXSHARE] 2.2.2.16
+            ExtendedPropertyDefinition PidLidSharingProviderUrl = new ExtendedPropertyDefinition(PropertySetSharing, 0x8A03, MapiPropertyType.String);
+            // [MS-OXSHARE] 2.2.2.17
+            ExtendedPropertyDefinition PidNameXSharingProviderUrl = new ExtendedPropertyDefinition(DefaultExtendedPropertySet.InternetHeaders, "X-Sharing-Provider-URL", MapiPropertyType.String);
+            // [MS-OXSHARE] 2.2.3.1
+            ExtendedPropertyDefinition PidLidSharingRemoteName = new ExtendedPropertyDefinition(PropertySetSharing, 0x8A05, MapiPropertyType.String);
+            // [MS-OXSHARE] 2.2.3.2 
+            ExtendedPropertyDefinition PidNameXSharingRemoteName = new ExtendedPropertyDefinition(DefaultExtendedPropertySet.InternetHeaders, "X-Sharing-Remote-Name", MapiPropertyType.String);
+            // [MS-OXSHARE] 2.2.3.3
+            ExtendedPropertyDefinition PidLidSharingRemoteStoreUid = new ExtendedPropertyDefinition(PropertySetSharing, 0x8A48, MapiPropertyType.String);
+            // [MS-OXSHARE] 2.2.3.4
+            ExtendedPropertyDefinition PidNameXSharingRemoteStoreUid = new ExtendedPropertyDefinition(DefaultExtendedPropertySet.InternetHeaders, "X-Sharing-Remote-Store-Uid", MapiPropertyType.String);
+            // [MS-OXSHARE] 2.2.3.5 
+            ExtendedPropertyDefinition PidLidSharingRemoteType = new ExtendedPropertyDefinition(PropertySetSharing, 0x8A1D, MapiPropertyType.String);
+            // [MS-OXSHARE] 2.2.3.6 
+            ExtendedPropertyDefinition PidNameXSharingRemoteType = new ExtendedPropertyDefinition(DefaultExtendedPropertySet.InternetHeaders, "X-Sharing-Remote-Type", MapiPropertyType.String);
+            // [MS-OXSHARE] 2.2.3.7 
+            ExtendedPropertyDefinition PidLidSharingRemoteUid = new ExtendedPropertyDefinition(PropertySetSharing, 0x8A06, MapiPropertyType.String);
+            // [MS-OXSHARE] 2.2.3.8 
+            ExtendedPropertyDefinition PidNameXSharingRemoteUid = new ExtendedPropertyDefinition(DefaultExtendedPropertySet.InternetHeaders, "X-Sharing-Remote-Uid", MapiPropertyType.String);
+
+            // Additional Property Constraints
+            // [MS-OXSHARE] 2.2.5.1
+            ExtendedPropertyDefinition PidNameContentClass = new ExtendedPropertyDefinition(DefaultExtendedPropertySet.InternetHeaders, "Content-Class", MapiPropertyType.String);
+            // [MS-OXSHARE] 2.2.5.2
+            ExtendedPropertyDefinition PidTagMessageClass = new ExtendedPropertyDefinition(0x001A, MapiPropertyType.String);
+
+            // From troubleshooting I noticed I was missing
+            ExtendedPropertyDefinition PidTagPriority = new ExtendedPropertyDefinition(0x0026, MapiPropertyType.Integer);
+            ExtendedPropertyDefinition PidTagSensitivity = new ExtendedPropertyDefinition(0x0036, MapiPropertyType.Integer);
+            ExtendedPropertyDefinition PR_BODY_HTML = new ExtendedPropertyDefinition(0x1013, MapiPropertyType.Binary); //PR_BOD
+            ExtendedPropertyDefinition PR_BODY = new ExtendedPropertyDefinition(0x1000, MapiPropertyType.String);
+            ExtendedPropertyDefinition RecipientReassignmentProhibited = new ExtendedPropertyDefinition(0x002b, MapiPropertyType.Boolean);
+
+
+            string strPRBODYHTML = "<html dir=\"ltr\">\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">\r\n<meta name=\"GENERATOR\" content=\"MSHTML 8.00.7601.17514\">\r\n<style id=\"owaParaStyle\">P {\r\n   MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px \r\n}\r\n</style>\r\n</head>\r\n<body fPStyle=\"1\" ocsi=\"0\">\r\n<tt>\r\n<pre>SharedByUserDisplayName (SharedByUserSmtpAddress) has invited you to view his or her Microsoft Exchange Calendar.\r\n\r\nFor instructions on how to view shared folders on Exchange, see the following article:\r\n\r\nhttp://go.microsoft.com/fwlink/?LinkId=57561\r\n\r\n*~*~*~*~*~*~*~*~*~*\r\n\r\n</pre>\r\n</tt>\r\n<div>\r\n<div style=\"direction: ltr;font-family: Tahoma;color: #000000;font-size: 10pt;\">this is a test message</div>\r\n</div>\r\n</body>\r\n</html>\r\n";
+
+            string strBODY = @"
+SharedByUserDisplayName (SharedByUserSmtpAddress) has invited you to view his or
+her Microsoft Exchange Calendar.
+ 
+For instructions on how to view shared folders on Exchange, see the
+following article:
+ 
+http://go.microsoft.com/fwlink/?LinkId=57561
+ 
+*~*~*~*~*~*~*~*~*~*
+ 
+ 
+test body
+ 
+";
+
+
+            // Convert these to hex and binary equivelants to assign to their relevant
+            // extended properties
+            string hexPRBODYHTML = ConvertStringToHex(strPRBODYHTML);
+            byte[] binPRBODYHTML = HexStringToByteArray(hexPRBODYHTML);
+
+
+            // Create a new message
+            EmailMessage invitationRequest = new EmailMessage(c.NHSNetCalendarService);
+            invitationRequest.Subject = "I'd like to share my calendar with you";
+            invitationRequest.Body = "Sent by Exchange Administrator on behalf of user";
+            invitationRequest.From = ownerSMTPAddress;
+            invitationRequest.Culture = "en-GB";
+            invitationRequest.Sensitivity = Sensitivity.Normal;
+            invitationRequest.Sender = c.NHSNetOrgMasterAccount;
+
+            // Set a sharing specific property on the message
+            invitationRequest.ItemClass = "IPM.Sharing"; /* Constant Required Value [MS-ProtocolSpec] */
+
+            // Section 2.2.1
+            invitationRequest.SetExtendedProperty(PidTagNormalizedSubject, "I'd like to share my calendar with you"); /* Constant Required Value [MS-OXSHARE] 2.2.1 */
+                                                                                                                      //invitationRequest.SetExtendedProperty(PidTagSubjectPrefix, String.Empty); /* Constant Required Value [MS-OXSHARE] 2.2.1 */
+                                                                                                                      // Section 2.2.2
+            invitationRequest.SetExtendedProperty(PidLidSharingCapabilities, 0x40290); /* value for Special Folders */
+            invitationRequest.SetExtendedProperty(PidNameXSharingCapabilities, "40290"); /* Test representation of SharingCapabilities value */
+                                                                                         //invitationRequest.SetExtendedProperty(PidLidSharingConfigurationUrl, String.Empty); /* Zero-Length String [MS-OXSHARE] 2.2.2.3 */
+                                                                                         //invitationRequest.SetExtendedProperty(PidNameXSharingConfigUrl, String.Empty); /* Zero-Length String [MS-OXSHARE] 2.2.2.4 */
+            invitationRequest.SetExtendedProperty(PidLidSharingFlavor, 20310); /* Indicates Invitation for a special folder [MS-OXSHARE] 2.2.2.5 */
+            invitationRequest.SetExtendedProperty(PidNameXSharingFlavor, "20310"); /* Text representation of SharingFlavor value [MS-OXSHARE] 2.2.2.6 */
+            invitationRequest.SetExtendedProperty(PidLidSharingInitiatorEntryId, binInitiatorEntryId); /* Value from the Initiator/EntryId value in the Sharing Message attachment .xml document */
+            invitationRequest.SetExtendedProperty(PidLidSharingInitiatorSMTP, c.NHSNetOrgMasterAccount); /* Value from Initiator/Smtp Address in the Sharing message attachment .xml document */
+            invitationRequest.SetExtendedProperty(PidLidSharingInitiatorName, ownerDisplayName); /* Value from Initiator/Name Address in the Sharing message attachment .xml document */
+            invitationRequest.SetExtendedProperty(PidLidSharingLocalType, "IPF.Appointment"); /* MUST be set to PidTagContainerClass of folder to be shared */
+            invitationRequest.SetExtendedProperty(PidNameXSharingLocalType, "IPF.Appointment"); /* MUST be set to same value as PidLidSharingLocalType */
+            invitationRequest.SetExtendedProperty(PidLidSharingProviderGuid, byteSharingProviderGuid); /* Constant Required Value [MS-OXSHARE] 2.2.2.12 */
+            invitationRequest.SetExtendedProperty(PidNameXSharingProviderGuid, "AEF0060000000000C000000000000046"); /* Constant Required Value [MS-OXSHARE] 2.2.2.13 */
+            invitationRequest.SetExtendedProperty(PidLidSharingProviderName, "Microsoft Exchange"); /* Constant Required Value [MS-OXSHARE] 2.2.2.14 */
+            invitationRequest.SetExtendedProperty(PidNameXSharingProviderName, "Microsoft Exchange"); /* Constant Required Value [MS-OXSHARE] 2.2.2.15] */
+            invitationRequest.SetExtendedProperty(PidLidSharingProviderUrl, "HTTP://www.microsoft.com/exchange"); /* Constant Required Value [MS-OXSHARE] 2.2.2.16 */
+            invitationRequest.SetExtendedProperty(PidNameXSharingProviderUrl, "HTTP://www.microsoft.com/exchange"); /* Constant Required Value [MS-OXSHARE] 2.2.2.17 */
+                                                                                                                    // Section 2.2.3
+            invitationRequest.SetExtendedProperty(PidLidSharingRemoteName, "Calendar"); /* MUST be set to PidTagDisplayName of the folder being shared */
+            invitationRequest.SetExtendedProperty(PidNameXSharingRemoteName, "Calendar"); /* MUST be set to same value as PidLidSharingRemoteName */
+            invitationRequest.SetExtendedProperty(PidLidSharingRemoteStoreUid, invitationMailboxID); /* Must be set to PidTagStoreEntryId of the folder being shared */
+            invitationRequest.SetExtendedProperty(PidNameXSharingRemoteStoreUid, invitationMailboxID); /* MUST be set to same value as PidLidSharingRemoteStoreUid */
+            invitationRequest.SetExtendedProperty(PidLidSharingRemoteType, "IPF.Appointment"); /* Constant Required Value [MS-OXSHARE] 2.2.3.5 */
+            invitationRequest.SetExtendedProperty(PidNameXSharingRemoteType, "IPF.Appointment"); /* Constant Required Value [MS-OXSHARE] 2.2.3.6 */
+            invitationRequest.SetExtendedProperty(PidLidSharingRemoteUid, folderidHex); /* MUST be set to PidTagEntryId of folder being shared */
+            invitationRequest.SetExtendedProperty(PidNameXSharingRemoteUid, folderidHex); /* Must be set to same value as PidLidSharingRemoteUid */
+                                                                                          // Section 2.2.5
+            invitationRequest.SetExtendedProperty(PidNameContentClass, "Sharing"); /* Constant Required Value [MS-ProtocolSpec] */
+            invitationRequest.SetExtendedProperty(PidTagMessageClass, "IPM.Sharing"); /* Constant Required Value [MS-ProtocolSpec] */
+
+
+            // ********* ADDITIONAL MAPPED PROPERTIES IM FINDING AS I TROUBLESHOOT ********************** //
+            invitationRequest.SetExtendedProperty(PidTagPriority, 0); /* From troubleshooting I'm just trying to match up values that were missing */
+            invitationRequest.SetExtendedProperty(PidTagSensitivity, 0); /* From troubleshooting as well */
+            invitationRequest.SetExtendedProperty(PR_BODY_HTML, binPRBODYHTML); /* From troubleshooting OWA error pointing to serializing HTML failing */
+            invitationRequest.SetExtendedProperty(PR_BODY, strBODY);
+            invitationRequest.SetExtendedProperty(RecipientReassignmentProhibited, true); /* Because it seemed like a good idea */
+
+            // Add a file attachment by using a stream
+            // We need to do the following in order to prevent 3 extra bytes from being prepended to the attachment
+            string sharMetadata = File.ReadAllText(tmpPath + "sharing_metadata.xml", Encoding.ASCII);
+            byte[] fileContents;
+            UTF8Encoding encoding = new System.Text.UTF8Encoding();
+            fileContents = encoding.GetBytes(sharMetadata);
+
+            // fileContents is a Stream object that represents the content of the file to attach.
+            invitationRequest.Attachments.AddFileAttachment("sharing_metadata.xml", fileContents);
+
+            // This is where we set those "special" headers and other pertinent
+            // information I noted in Part 1 of this series...
+            Attachment thisAttachment = invitationRequest.Attachments[0];
+            thisAttachment.ContentType = "application/x-sharing-metadata-xml";
+            thisAttachment.Name = "sharing_metadata.xml";
+            thisAttachment.IsInline = false;
+
+            // Add recipient info and send message
+            invitationRequest.ToRecipients.Add(c.NHSNetEmail);
+            invitationRequest.SendAndSaveCopy();
+
+            // I always end my methods by returning the EWS 
+            // impersonated user to null to clean up
+            c.NHSNetCalendarService.ImpersonatedUserId = null;
+
 
             // Update db Record
             SqlConnection conn = new SqlConnection(MyConnString);
@@ -241,14 +453,7 @@ namespace HealthCalendarClasses
             folder.Save(WellKnownFolderName.Calendar);
             c.ExchangeCalendarID = folder.Id.ToString();
 
-            // Bind to the folder
-            /*Folder folderStoreInfo;
-            folderStoreInfo = Folder.Bind(service, WellKnownFolderName.Calendar);
-            string EwsID = folderStoreInfo.Id.UniqueId;
-
-            // The value of folderidHex will be what we need to use for the FolderId in the xml file
-            string folderidHex = GetConvertedEWSIDinHex(service, folderid, txtImpersonatedUser.Text);*/
-
+   
             // Update db Record
             SqlConnection conn = new SqlConnection(MyConnString);
             try
@@ -410,7 +615,7 @@ namespace HealthCalendarClasses
 
 
 
-        public void CreateSharingMessageAttachment(string folderid, string userSharing, string userSharingEntryID, string invitationMailboxID, string userSharedTo, string dataType, HealthCalendarClass c, int CalendarType)
+        public void CreateSharingMessageAttachment(string folderid,string userSharing, string userSharingEntryID, string invitationMailboxID, string userSharedTo, string dataType, HealthCalendarClass c, int CalendarType)
         {
 
             XmlDocument sharedMetadataXML = new XmlDocument();
@@ -458,7 +663,8 @@ namespace HealthCalendarClasses
             }
             catch (Exception eg)
             {
-
+                var logger = NLog.LogManager.GetCurrentClassLogger();
+                logger.Info("Exception:" + eg.Message.ToString() + "Error Try CreateSharedMessageInvitation()");    
                 MessageBox.Show("Exception:" + eg.Message.ToString(), "Error Try CreateSharedMessageInvitation()");
 
             }
@@ -485,13 +691,13 @@ namespace HealthCalendarClasses
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-        public String GetIntiatorEntryID(HealthCalendarClass c)
+        public String GetIntiatorEntryID(HealthCalendarClass c, int CalendarType)
         {
             String result = String.Empty;
 
             // Bind to EWS
-            c.NHSNetCalendarService.ImpersonatedUserId =
-            new ImpersonatedUserId(ConnectingIdType.SmtpAddress, c.NHSNetOrgMasterAccount);
+            //c.NHSNetCalendarService.ImpersonatedUserId =
+            //new ImpersonatedUserId(ConnectingIdType.SmtpAddress, c.NHSNetOrgMasterAccount);
 
             // Get LegacyDN Using the function above this one 
             //string sharedByLegacyDN = GetMailboxDN();
@@ -504,6 +710,14 @@ namespace HealthCalendarClasses
             addBookEntryId.Append("DCA740C8C042101AB4B908002B2FE182"); /* ProviderUID */
             addBookEntryId.Append("01000000"); /* Version */
             addBookEntryId.Append("00000000"); /* Type - 00 00 00 00  = Local Mail User */
+            if (CalendarType == 1)
+            {
+                addBookEntryId.Append(ConvertStringToHex(c.ExchangeDisplayName)); /* Returns the userDN of the user */
+            }
+            if (CalendarType == 2)
+            {
+                addBookEntryId.Append(ConvertStringToHex(c.NHSNetDisplayName)); /* Returns the userDN of the user */
+            }
             //addBookEntryId.Append(legacyDNinHex); /* Returns the userDN of the impersonated user */
             addBookEntryId.Append("00"); /* terminator bit */
             
@@ -511,7 +725,6 @@ namespace HealthCalendarClasses
             //logger.Info(addBookEntryId.ToString());
 
             result = addBookEntryId.ToString();
-            c.NHSNetCalendarService.ImpersonatedUserId = null;
             return result;
         }
 
@@ -522,14 +735,14 @@ namespace HealthCalendarClasses
         /// <returns></returns>
         public String GetInvitationMailboxId(HealthCalendarClass c, int CalendarType)
         {
-            if (CalendarType == 1)
-            {
-                c.ExchangeCalendarService.ImpersonatedUserId = new ImpersonatedUserId(ConnectingIdType.SmtpAddress, c.ExchangeEmail);
-            }
-            if (CalendarType == 2)
-            {
-                c.NHSNetCalendarService.ImpersonatedUserId = new ImpersonatedUserId(ConnectingIdType.SmtpAddress, c.NHSNetEmail);
-            }
+            //if (CalendarType == 1)
+            //{
+            //    c.ExchangeCalendarService.ImpersonatedUserId = new ImpersonatedUserId(ConnectingIdType.SmtpAddress, c.ExchangeEmail);
+            //}
+            //if (CalendarType == 2)
+            //{
+            //    c.NHSNetCalendarService.ImpersonatedUserId = new ImpersonatedUserId(ConnectingIdType.SmtpAddress, c.NHSNetEmail);
+            //}
             
             // Generate The Store Entry Id for the impersonated user
             StringBuilder MailboxIDPointer = new StringBuilder();
@@ -543,23 +756,31 @@ namespace HealthCalendarClasses
             MailboxIDPointer.Append("00000000"); /* Wrapped Flags */
             MailboxIDPointer.Append("1B55FA20AA6611CD9BC800AA002FC45A"); /* WrappedProvider UID (Mailbox Store Object) */
             MailboxIDPointer.Append("0C000000"); /* Wrapped Type (Mailbox Store) */
+            if (CalendarType == 1)
+            {
+                MailboxIDPointer.Append(ConvertStringToHex(c.ExchangeFQDN)); /* ServerShortname (FQDN) */
+            }
+            if (CalendarType == 2)
+            {
+                MailboxIDPointer.Append(ConvertStringToHex(c.NHSNetFQDN)); /* ServerShortname (FQDN) */
+            }
             //MailboxIDPointer.Append(ConvertStringToHex(GetMailboxServer()).ToString()); /* ServerShortname (FQDN) */
             MailboxIDPointer.Append("00"); /* termination bit */
-            MailboxIDPointer.Append(ConvertStringToHex(GetMailboxDN()).ToString()); /* Returns the userDN of the impersonated user */
+
+            if (CalendarType == 1)
+            {
+                MailboxIDPointer.Append(ConvertStringToHex(c.ExchangeDisplayName)); /* Returns the userDN of the user */
+            }
+            if (CalendarType == 2)
+            {
+                MailboxIDPointer.Append(ConvertStringToHex(c.NHSNetDisplayName)); /* Returns the userDN of the user */
+            }
+            //MailboxIDPointer.Append(ConvertStringToHex(GetMailboxDN()).ToString()); /* Returns the userDN of the impersonated user */
+
             MailboxIDPointer.Append("00"); /* terminator bit */
 
             //var logger = NLog.LogManager.GetCurrentClassLogger();
             //logger.Info(MailboxIDPointer.ToString());
-
-            if (CalendarType == 1)
-            {
-
-            }
-            if (CalendarType == 2)
-            {
-                c.NHSNetCalendarService.ImpersonatedUserId = null;
-            }
-
             
             return MailboxIDPointer.ToString();
 
@@ -1398,7 +1619,7 @@ namespace HealthCalendarClasses
             {
                 using (SqlConnection conn = new SqlConnection(MyConnString))
                 {
-                    string sql = "SELECT [OrganisationName],[OrganisationCode],[OrgLocation],[GoogleMasterAccount],[NHSNetExchangeServer],[NHSNetCredentials],[NHSNetMasterAccount],[NHSNetDisplayName],[NHSNetFQDN],[NHSNetUserDN],[ExchangeExchangeServer],[ExchangeCredentials],[ExchangeMasterAccount] " +
+                    string sql = "SELECT [OrganisationName],[OrganisationCode],[OrgLocation],[GoogleEnabled],[GoogleMasterAccount],[OutlookEnabled],[ExchangeEnabled],[ExchangeExchangeServer],[ExchangeCredentials],[ExchangeMasterAccount],[ExchangeDisplayName],[ExchangeFQDN],[ExchangeUserDN],[NHSNetEnabled],[NHSNetExchangeServer],[NHSNetCredentials],[NHSNetMasterAccount],[NHSNetDisplayName],[NHSNetFQDN],[NHSNetUserDN] " +
                         "FROM[HealthCalendar].[dbo].[Settings] " +
                         "WHERE[HealthCalendar].[dbo].[Settings].[OrganisationCode]='RTX'";
                     using (SqlCommand cmd = new SqlCommand(sql, conn))
@@ -1410,16 +1631,29 @@ namespace HealthCalendarClasses
                             c.HealthOrgName = readerClientID.GetString(0);
                             c.HealthOrgCode = readerClientID.GetString(1);
                             c.HealthOrgLocation = readerClientID.GetString(2);
-                            c.GoogleOrgMasterAccount = readerClientID.GetString(3);
-                            c.NHSNetExchangeServer = readerClientID.GetString(4);
-                            c.NHSNetOrgMasterCredentials = readerClientID.GetString(5);
-                            c.NHSNetOrgMasterAccount = readerClientID.GetString(6);
-                            c.NHSNetDisplayName = readerClientID.GetString(7);
-                            c.NHSNetFQDN = readerClientID.GetString(8);
-                            c.NHSNetUserDN = readerClientID.GetString(9);
-                            c.ExchangeExchangeServer = readerClientID.GetString(10);
-                            c.ExchangeOrgMasterCredentials = readerClientID.GetString(11);
-                            c.ExchangeOrgMasterAccount = readerClientID.GetString(12);
+
+                            c.bGoogleEnabled = readerClientID.GetBoolean(3);
+                                
+                            c.GoogleOrgMasterAccount = readerClientID.GetString(4);
+
+                            c.bOutlookEnabled = readerClientID.GetBoolean(5);
+
+                            c.bExchangeEnabled = readerClientID.GetBoolean(6);
+                            c.ExchangeExchangeServer = readerClientID.GetString(7);
+                            c.ExchangeOrgMasterCredentials = readerClientID.GetString(8);
+                            c.ExchangeOrgMasterAccount = readerClientID.GetString(9);
+                            c.ExchangeDisplayName = readerClientID.GetString(10);
+                            c.ExchangeFQDN = readerClientID.GetString(11);
+                            c.ExchangeUserDN = readerClientID.GetString(12);
+
+                            c.bNHSNetEnabled = readerClientID.GetBoolean(13);
+                            c.NHSNetExchangeServer = readerClientID.GetString(14);
+                            c.NHSNetOrgMasterCredentials = readerClientID.GetString(15);
+                            c.NHSNetOrgMasterAccount = readerClientID.GetString(16);
+                            c.NHSNetDisplayName = readerClientID.GetString(17);
+                            c.NHSNetFQDN = readerClientID.GetString(18);
+                            c.NHSNetUserDN = readerClientID.GetString(19);
+
 
                             isSuccess = true;
                         }
@@ -1597,7 +1831,6 @@ namespace HealthCalendarClasses
                         string[] arrResult = usersetting.Value.ToString().Split('.');
                         c.NHSNetUserDN = arrResult[0].ToString();
                     }
-                    MessageBox.Show("Unable to connect to NHS Net Server. Please contact your IT Department.");
                 }
             }
             catch
@@ -1655,7 +1888,6 @@ namespace HealthCalendarClasses
                         string[] arrResult = usersetting.Value.ToString().Split('.');
                         c.ExchangeUserDN = arrResult[0].ToString();
                     }
-                    MessageBox.Show("Unable to connect to NHS Net Server. Please contact your IT Department.");
                 }
             }
             catch

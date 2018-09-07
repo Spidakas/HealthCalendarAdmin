@@ -43,23 +43,52 @@ namespace HealthCalendarAdmin
         private void HealthCalendarAdmin_Load(object sender, EventArgs e)
         {
             int rc;
-            bool successA = c.GetTrustSettings(c);
-            if (successA == false)
+            // Trust Settings
+            if (!c.GetTrustSettings(c))
             {
-                MessageBox.Show("Cannot connect to Health Calender database.");
+                var logger = NLog.LogManager.GetCurrentClassLogger();
+                logger.Info("Cannot connect or read data from the Health Calender database.");  
+                MessageBox.Show("Cannot connect or read data from the Health Calender database.");
+                this.Close();
             }
 
-            //bool successB = c.GetGoogleClientSecret(c);
-            //bool successC = c.GetGoogleAuthorization(c);
-            bool successD = c.GetNHSNetAuthorization(c);
-            if (successD == false)
+            // Google Calendar Settings
+            if (c.bGoogleEnabled)
             {
-                MessageBox.Show("Unable to connect to NHS Net Server. Please contact your IT Department.");
+                if (!c.GetGoogleClientSecret(c)){
+                    var logger = NLog.LogManager.GetCurrentClassLogger();
+                    logger.Info("Unable to obtain Google Client Secret. Please contact your IT Department.");
+                    MessageBox.Show("Unable to obtain Google Client Secret. Please contact your IT Department.");
+                }
+            
+                if (!c.GetGoogleAuthorization(c))
+                {
+                    var logger = NLog.LogManager.GetCurrentClassLogger();
+                    logger.Info("Unable to obtain Google Authorization. Please contact your IT Department.");
+                    MessageBox.Show("Unable to obtain Google Authorization. Please contact your IT Department.");
+                }
             }
-            bool successE = c.GetExchangeAuthorization(c);
-            if (successE == false)
+
+            // NHSNet Calendar Settings
+            if (c.bNHSNetEnabled)
             {
-                MessageBox.Show("Unable to connect to Exchange Server. Please contact your IT Department.");
+                if (!c.GetNHSNetAuthorization(c))
+                {
+                    var logger = NLog.LogManager.GetCurrentClassLogger();
+                    logger.Info("Unable to connect to NHS Net Server. Please contact your IT Department.");
+                    MessageBox.Show("Unable to connect to NHS Net Server. Please contact your IT Department.");
+                }
+            }
+
+            // Trust Exchange Calendar Settings
+            if (c.GetExchangeAuthorization(c))
+            {
+                if (!c.GetExchangeAuthorization(c))
+                {
+                    var logger = NLog.LogManager.GetCurrentClassLogger();
+                    logger.Info("Unable to connect to Exchange Server. Please contact your IT Department.");
+                    MessageBox.Show("Unable to connect to Exchange Server. Please contact your IT Department.");
+                }
             }
 
 
