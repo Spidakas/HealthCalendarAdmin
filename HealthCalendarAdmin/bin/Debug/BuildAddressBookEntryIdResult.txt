@@ -2,3 +2,4 @@
 2018-08-31 12:12:25.8975|INFO|HealthCalendarAdmin.HealthCalendarAdmin|00000000DCA740C8C042101AB4B908002B2FE182010000000000000000
 2018-09-07 13:11:36.9211|INFO|HealthCalendarAdmin.HealthCalendarAdmin|Unable to connect to Exchange Server. Please contact your IT Department.
 2018-09-07 21:18:53.5849|INFO|HealthCalendarClasses.HealthCalendarClass|Exception:Could not find a part of the path 'C:\Users\Michael\Documents\Visual Studio 2017\Projects\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\temp\sharing_metadata.xml'.Error Try CreateSharedMessageInvitation()
+2018-09-08 01:37:26.2681|INFO|HealthCalendarAdmin.HealthCalendarAdmin|Cannot connect or read data from the Health Calender database.

@@ -47,8 +47,8 @@ namespace HealthCalendarAdmin
             if (!c.GetTrustSettings(c))
             {
                 var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Cannot connect or read data from the Health Calender database.");  
-                MessageBox.Show("Cannot connect or read data from the Health Calender database.");
+                logger.Info("Cannot connect or read data from the Health Calendar database.");  
+                MessageBox.Show("Cannot connect or read data from the Health Calendar database.");
                 this.Close();
             }
 
