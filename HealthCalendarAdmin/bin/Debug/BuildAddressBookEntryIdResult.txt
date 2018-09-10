@@ -5,3 +5,8 @@
 2018-09-08 01:37:26.2681|INFO|HealthCalendarAdmin.HealthCalendarAdmin|Cannot connect or read data from the Health Calender database.
 2018-09-08 01:51:59.9569|INFO|HealthCalendarClasses.HealthCalendarClass|Exception:Could not find a part of the path 'C:\Source\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\temp\sharing_metadata.xml'.Error Try CreateSharedMessageInvitation()
 2018-09-09 14:58:48.9759|INFO|HealthCalendarClasses.HealthCalendarClass|Email: michael.georgiades@mhs.net does not exist within NHS Mail
+2018-09-10 10:17:23.8625|INFO|HealthCalendarAdmin.HealthCalendarAdmin|Cannot connect or read data from the Health Calendar database.
+2018-09-10 10:47:07.5953|INFO|HealthCalendarAdmin.HealthCalendarAdmin|Cannot connect or read data from the Health Calendar database.
+2018-09-10 16:42:26.5025|INFO|HealthCalendarClasses.HealthCalendarClass|Email: michael.georgiades@nhs.net does not exist in the local Email Exchange
+2018-09-10 17:34:33.2707|INFO|HealthCalendarClasses.HealthCalendarClass|Email: michael.georgiades@mbht.nhs.net does not exist in the local Email Exchange
+2018-09-10 17:34:52.2647|INFO|HealthCalendarClasses.HealthCalendarClass|Email: michael.georgiades@mbht.nhs.net does not exist in the local Email Exchange

@@ -371,9 +371,9 @@ namespace HealthCalendarClasses
 
             // Create a new message
             EmailMessage invitationRequest = new EmailMessage(c.ExchangeCalendarService);
-            invitationRequest.Subject = "I'd like to share my calendar with you";
-            invitationRequest.Body = "Sent by Exchange Administrator on behalf of user";
-            invitationRequest.From = c.strOwnerSMTPAddress;
+            invitationRequest.Subject = "This is your Lorenzo activity which is being shared with you";
+            invitationRequest.Body = "Health Calendar by Loch Roag Limited has automatically sent you this calendar sharing massage";
+            invitationRequest.From = c.ExchangeOrgMasterAccount;
             invitationRequest.Culture = "en-GB";
             invitationRequest.Sensitivity = Sensitivity.Normal;
             invitationRequest.Sender = c.ExchangeOrgMasterAccount;
@@ -687,7 +687,6 @@ namespace HealthCalendarClasses
                 metadataString.Append("</EntryId>");
                 metadataString.Append("</Initiator>");
                 metadataString.Append("<Invitation>");
-                metadataString.Append("<Providers>");
                 if (CalendarType == 1)
                 {
                     metadataString.Append("<Title>" + c.ExchangeCalendarName + "</Title>");
@@ -696,6 +695,8 @@ namespace HealthCalendarClasses
                 {
                     metadataString.Append("<Title>" + c.NHSNetCalendarName + "</Title>");
                 }
+                metadataString.Append("<Providers>");
+
                 metadataString.Append("<Provider Type=\"ms-exchange-internal\" TargetRecipients=\"" + userSharedTo + "\">");
                 metadataString.Append("<FolderId xmlns=\"http://schemas.microsoft.com/exchange/sharing/2008\">");
                 metadataString.Append(c.strSharingFolderIdHex);
@@ -1670,6 +1671,7 @@ test body
             {
                 return isSuccess;
             }
+            
 
             isSuccess = true;
             return isSuccess;
