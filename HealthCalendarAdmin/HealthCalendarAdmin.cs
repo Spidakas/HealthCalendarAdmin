@@ -1061,7 +1061,8 @@ namespace HealthCalendarAdmin
                 //progressBar.Maximum = 100;
                 //bgWorker.WorkerReportsProgress = true;
 
-                isSuccess = c.CreateSampleExchangeCalendarData(c);
+                //isSuccess = c.CreateSampleExchangeCalendarData(c);
+                isSuccess = c.SetCalendarDataFromDataSource(c);
                 //bgWorker.RunWorkerAsync();
                 if (isSuccess == true)
                 {

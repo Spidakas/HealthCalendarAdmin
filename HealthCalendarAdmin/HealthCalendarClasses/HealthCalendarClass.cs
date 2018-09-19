@@ -297,8 +297,8 @@ namespace HealthCalendarClasses
 
             // Add recipient info and send message
             invitationRequest.ToRecipients.Add(c.NHSNetEmail);
-            //invitationRequest.SendAndSaveCopy();
-            invitationRequest.Send();
+            invitationRequest.SendAndSaveCopy();
+            //invitationRequest.Send();
 
             // Update db Record
             SqlConnection conn = new SqlConnection(MyConnString);
@@ -1104,6 +1104,65 @@ test body
             {
                 conn.Close();
             }
+            return isSuccess;
+        }
+
+        public bool SetCalendarDataFromDataSource(HealthCalendarClass c)
+        {
+            bool isSuccess = false;
+            bool isDeleteCalEvents = false;
+            long lCareProviderOID;
+            string strTitle;
+            string strLocation;
+            string strDescription;
+            DateTime dtEventStart;
+            DateTime dtEventEnd;
+
+            //Clear all Events for Current user
+            isDeleteCalEvents = c.DeleteExchangeCalendarEvents(c);
+
+            //Get the FolderID for the selected user
+            var view = new FolderView(1);
+            view.Traversal = FolderTraversal.Deep;
+            var filter = new SearchFilter.IsEqualTo(FolderSchema.DisplayName, c.ExchangeCalendarName);
+            var results = c.ExchangeCalendarService.FindFolders(WellKnownFolderName.Root, filter, view);
+            //if (results.TotalCount < 1)
+            //    throw new Exception("Cannot find Rejected folder");
+            //if (results.TotalCount > 1)
+            //    throw new Exception("Multiple Rejected folders");
+            Folder folder = Folder.Bind(c.ExchangeCalendarService, results.Folders.Single().Id);
+
+            //Contacts
+            SqlConnection conn = new SqlConnection(MyConnString);
+
+            string sql = "uspRTXContactList";
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            conn.Open();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@CareProviderOID", c.SubscriberOID));
+            cmd.Parameters.Add(new SqlParameter("@DaysHence", 100));
+            SqlDataReader readerClientID = cmd.ExecuteReader();
+            while (readerClientID.Read())
+            {
+                strTitle="";
+                strLocation="";
+                strDescription="";
+                dtEventStart = DateTime.Today;
+                dtEventEnd = DateTime.Today;
+
+                lCareProviderOID = (long)readerClientID.GetDecimal(0);
+                if (!readerClientID.IsDBNull(1)) strTitle = readerClientID.GetString(1);
+
+                if (!readerClientID.IsDBNull(2)) strLocation = readerClientID.GetString(2);
+                if (!readerClientID.IsDBNull(3)) strDescription = readerClientID.GetString(3);
+                if (!readerClientID.IsDBNull(4)) dtEventStart = readerClientID. GetDateTime(4);
+                if (!readerClientID.IsDBNull(5)) dtEventEnd = readerClientID.GetDateTime(5);
+                AddExchangeCalenderEvent(c.ExchangeCalendarService, folder, "Contact", strTitle, strLocation, strDescription, dtEventStart, dtEventEnd);
+
+            }
+            readerClientID.Close();
+
+            isSuccess = true;
             return isSuccess;
         }
 
