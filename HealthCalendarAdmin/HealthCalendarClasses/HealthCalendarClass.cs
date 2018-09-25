@@ -988,6 +988,56 @@ test body
             return isSuccess;
         }
 
+
+        public bool BulkDeleteExchangeCalendarEvents(HealthCalendarClass c)
+        {
+            bool isSuccess = false;
+
+            var view = new FolderView(1);
+            view.Traversal = FolderTraversal.Deep;
+            var filter = new SearchFilter.IsEqualTo(FolderSchema.DisplayName, c.ExchangeCalendarName);
+            var results = c.ExchangeCalendarService.FindFolders(WellKnownFolderName.Root, filter, view);
+            if (results.TotalCount == 1)
+            {
+                CalendarFolder calendar = results.Where(f => f.DisplayName == c.ExchangeCalendarName).Cast<CalendarFolder>().FirstOrDefault();
+                CalendarView cView = new CalendarView(DateTime.Now.AddYears(-1), DateTime.Now.AddYears(1));
+                cView.PropertySet = new PropertySet(AppointmentSchema.Subject, AppointmentSchema.Start, AppointmentSchema.End, AppointmentSchema.Id);
+                //FindItemsResults<Appointment> appointments = calendar.FindAppointments(cView);
+
+                //if (appointments.Items != null && appointments.Items.Count > 0)
+                //{
+                //    foreach (var eventItem in appointments.Items)
+                //    {
+                //        eventItem.Delete(DeleteMode.HardDelete);
+                //    }
+                //}
+
+                //FindItemsResults<Appointment> appointments = calendar.FindAppointments(cView);
+                //do
+                //{
+                //    FindItemsResults<Appointment> appointments = calendar.FindAppointments(cView);
+                //    List<ItemId> idItemIds = new List<ItemId>();
+                //   foreach (Item itItem in fiResults.Items)
+                //    {
+                //        if (itItem is Appointment)
+                //        {
+                //            idItemIds.Add(itItem.Id);
+                //        }
+                //    }
+                //    service.DeleteItems(idItemIds, DeleteMode.SoftDelete, SendCancellationsMode.SendToNone, AffectedTaskOccurrence.AllOccurrences);
+                //    iv.Offset += fiResults.Items.Count;
+                //} while (fiResults.MoreAvailable == true);
+
+
+            }
+            else
+            {
+                return isSuccess;
+            }
+            isSuccess = true;
+            return isSuccess;
+        }
+
         public DataTable Select()
         {
             SqlConnection conn = new SqlConnection(MyConnString);
@@ -1112,6 +1162,7 @@ test body
             bool isSuccess = false;
             bool isDeleteCalEvents = false;
             long lCareProviderOID;
+            string strEventType;
             string strTitle;
             string strLocation;
             string strDescription;
@@ -1135,29 +1186,33 @@ test body
             //Contacts
             SqlConnection conn = new SqlConnection(MyConnString);
 
-            string sql = "uspRTXContactList";
+            string sql = "uspRTXEvents";
             SqlCommand cmd = new SqlCommand(sql, conn);
             conn.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add(new SqlParameter("@CareProviderOID", c.SubscriberOID));
             cmd.Parameters.Add(new SqlParameter("@DaysHence", 100));
+            cmd.CommandTimeout = 600;
             SqlDataReader readerClientID = cmd.ExecuteReader();
+
             while (readerClientID.Read())
             {
-                strTitle="";
+                strEventType = "";
+                strTitle ="";
                 strLocation="";
                 strDescription="";
                 dtEventStart = DateTime.Today;
                 dtEventEnd = DateTime.Today;
 
                 lCareProviderOID = (long)readerClientID.GetDecimal(0);
-                if (!readerClientID.IsDBNull(1)) strTitle = readerClientID.GetString(1);
+                if (!readerClientID.IsDBNull(1)) strEventType = readerClientID.GetString(1);
+                if (!readerClientID.IsDBNull(2)) strTitle = readerClientID.GetString(2);
 
-                if (!readerClientID.IsDBNull(2)) strLocation = readerClientID.GetString(2);
-                if (!readerClientID.IsDBNull(3)) strDescription = readerClientID.GetString(3);
-                if (!readerClientID.IsDBNull(4)) dtEventStart = readerClientID. GetDateTime(4);
-                if (!readerClientID.IsDBNull(5)) dtEventEnd = readerClientID.GetDateTime(5);
-                AddExchangeCalenderEvent(c.ExchangeCalendarService, folder, "Contact", strTitle, strLocation, strDescription, dtEventStart, dtEventEnd);
+                if (!readerClientID.IsDBNull(3)) strLocation = readerClientID.GetString(3);
+                if (!readerClientID.IsDBNull(4)) strDescription = readerClientID.GetString(4);
+                if (!readerClientID.IsDBNull(5)) dtEventStart = readerClientID. GetDateTime(5);
+                if (!readerClientID.IsDBNull(6)) dtEventEnd = readerClientID.GetDateTime(6);
+                AddExchangeCalenderEvent(c.ExchangeCalendarService, folder, strEventType, strTitle, strLocation, strDescription, dtEventStart, dtEventEnd);
 
             }
             readerClientID.Close();
