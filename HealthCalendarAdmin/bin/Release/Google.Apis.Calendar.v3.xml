@@ -44,8 +44,17 @@
         <member name="F:Google.Apis.Calendar.v3.CalendarService.Scope.Calendar">
             <summary>Manage your calendars</summary>
         </member>
+        <member name="F:Google.Apis.Calendar.v3.CalendarService.Scope.CalendarEvents">
+            <summary>View and edit events on all your calendars</summary>
+        </member>
+        <member name="F:Google.Apis.Calendar.v3.CalendarService.Scope.CalendarEventsReadonly">
+            <summary>View events on all your calendars</summary>
+        </member>
         <member name="F:Google.Apis.Calendar.v3.CalendarService.Scope.CalendarReadonly">
             <summary>View your calendars</summary>
+        </member>
+        <member name="F:Google.Apis.Calendar.v3.CalendarService.Scope.CalendarSettingsReadonly">
+            <summary>View your Calendar settings</summary>
         </member>
         <member name="P:Google.Apis.Calendar.v3.CalendarService.Acl">
             <summary>Gets the Acl resource.</summary>
@@ -2233,6 +2242,10 @@
             match the terminology that the conference provider uses. Only the populated fields should be displayed.
             Optional.</summary>
         </member>
+        <member name="P:Google.Apis.Calendar.v3.Data.EntryPoint.EntryPointFeatures">
+            <summary>Features of the entry point, such as being toll or toll-free. One entry point can have multiple
+            features. However, toll and toll-free cannot be both set on the same entry point.</summary>
+        </member>
         <member name="P:Google.Apis.Calendar.v3.Data.EntryPoint.EntryPointType">
             <summary>The type of the conference entry point. Possible values are: - "video" - joining a conference over
             HTTP. A conference can have zero or one video entry point. - "phone" - joining a conference by dialing a
@@ -2269,6 +2282,10 @@
             conference data, populate only the subset of {meetingCode, accessCode, passcode, password, pin} fields that
             match the terminology that the conference provider uses. Only the populated fields should be displayed.
             Optional.</summary>
+        </member>
+        <member name="P:Google.Apis.Calendar.v3.Data.EntryPoint.RegionCode">
+            <summary>The CLDR/ISO 3166 region code for the country associated with this phone access. Example: "SE" for
+            Sweden. Calendar backend will populate this field only for EntryPointType.PHONE.</summary>
         </member>
         <member name="P:Google.Apis.Calendar.v3.Data.EntryPoint.Uri">
             <summary>The URI of the entry point. The maximum length is 1300 characters. Format: - for video, http: or

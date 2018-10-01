@@ -1063,6 +1063,7 @@ namespace HealthCalendarAdmin
 
                 //isSuccess = c.CreateSampleExchangeCalendarData(c);
                 isSuccess = c.SetCalendarDataFromDataSource(c);
+
                 //bgWorker.RunWorkerAsync();
                 if (isSuccess == true)
                 {
@@ -1085,7 +1086,8 @@ namespace HealthCalendarAdmin
             {
 
 
-                isSuccess = c.DeleteExchangeCalendarEvents(c);
+                //isSuccess = c.DeleteExchangeCalendarEvents(c);
+                isSuccess = c.BulkDeleteExchangeCalendarEvents(c);
                 if (isSuccess == true)
                 {
                     MessageBox.Show("The Exchange Calendar has been successfuly cleared.");
