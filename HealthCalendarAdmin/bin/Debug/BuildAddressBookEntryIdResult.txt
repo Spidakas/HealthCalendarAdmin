@@ -10,3 +10,18 @@
 2018-09-10 16:42:26.5025|INFO|HealthCalendarClasses.HealthCalendarClass|Email: michael.georgiades@nhs.net does not exist in the local Email Exchange
 2018-09-10 17:34:33.2707|INFO|HealthCalendarClasses.HealthCalendarClass|Email: michael.georgiades@mbht.nhs.net does not exist in the local Email Exchange
 2018-09-10 17:34:52.2647|INFO|HealthCalendarClasses.HealthCalendarClass|Email: michael.georgiades@mbht.nhs.net does not exist in the local Email Exchange
+2018-10-02 18:18:25.7022|INFO|HealthCalendarClasses.HealthCalendarClass|Error when deleting Exchange calendar items: B J R Moate Ref: 500000107287Error Message: System.ArgumentException: The value must be greater than 0.
+   at Microsoft.Exchange.WebServices.Data.PagedView.set_PageSize(Int32 value)
+   at Microsoft.Exchange.WebServices.Data.ItemView..ctor(Int32 pageSize)
+   at HealthCalendarClasses.HealthCalendarClass.BulkDeleteExchangeCalendarEvents(HealthCalendarClass c) in C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\HealthCalendarClasses\HealthCalendarClass.cs:line 1014
+2018-10-02 18:21:21.0692|INFO|HealthCalendarClasses.HealthCalendarClass|Error when deleting Exchange calendar items: B J R Moate Ref: 500000107287Error Message: Microsoft.Exchange.WebServices.Data.ServiceResponseException: The specified view range exceeds the maximum range of two years.
+   at Microsoft.Exchange.WebServices.Data.ServiceResponse.InternalThrowIfNecessary()
+   at Microsoft.Exchange.WebServices.Data.MultiResponseServiceRequest`1.Execute()
+   at Microsoft.Exchange.WebServices.Data.ExchangeService.FindItems[TItem](IEnumerable`1 parentFolderIds, SearchFilter searchFilter, String queryString, ViewBase view, Grouping groupBy, ServiceErrorHandling errorHandlingMode)
+   at Microsoft.Exchange.WebServices.Data.Folder.InternalFindItems[TItem](SearchFilter searchFilter, ViewBase view, Grouping groupBy)
+   at Microsoft.Exchange.WebServices.Data.CalendarFolder.FindAppointments(CalendarView view)
+   at HealthCalendarClasses.HealthCalendarClass.BulkDeleteExchangeCalendarEvents(HealthCalendarClass c) in C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\HealthCalendarClasses\HealthCalendarClass.cs:line 1013
+2018-10-02 18:26:00.2332|INFO|HealthCalendarClasses.HealthCalendarClass|Error when deleting Exchange calendar items: B J R Moate Ref: 500000107287Error Message: System.ArgumentException: The value must be greater than 0.
+   at Microsoft.Exchange.WebServices.Data.PagedView.set_PageSize(Int32 value)
+   at Microsoft.Exchange.WebServices.Data.ItemView..ctor(Int32 pageSize)
+   at HealthCalendarClasses.HealthCalendarClass.BulkDeleteExchangeCalendarEvents(HealthCalendarClass c) in C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\HealthCalendarClasses\HealthCalendarClass.cs:line 1014

@@ -1062,7 +1062,7 @@ namespace HealthCalendarAdmin
                 //bgWorker.WorkerReportsProgress = true;
 
                 //isSuccess = c.CreateSampleExchangeCalendarData(c);
-                isSuccess = c.SetCalendarDataFromDataSource(c);
+                isSuccess = c.SetExchangeCalendarDataFromDataSource(c);
 
                 //bgWorker.RunWorkerAsync();
                 if (isSuccess == true)
@@ -1084,9 +1084,6 @@ namespace HealthCalendarAdmin
             c.ExchangeEmail = txtboxExchangeEmail.Text;
             if (c.ExchangeCalendarID != null)
             {
-
-
-                //isSuccess = c.DeleteExchangeCalendarEvents(c);
                 isSuccess = c.BulkDeleteExchangeCalendarEvents(c);
                 if (isSuccess == true)
                 {
