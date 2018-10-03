@@ -168,7 +168,16 @@ namespace HealthCalendarClasses
                     Value = c.GoogleEmail
                 }
             };
-            AclRule createdrule = c.GoogleCalenderService.Acl.Insert(rule, c.GoogleCalendarID).Execute();
+            try
+            {
+                AclRule createdrule = c.GoogleCalenderService.Acl.Insert(rule, c.GoogleCalendarID).Execute();
+            }
+            catch (Exception ex)
+            {
+                var logger = NLog.LogManager.GetCurrentClassLogger();
+                logger.Info("Error when creating a Google calendar " + c.GoogleCalendarID + ". Error Message: " + ex.ToString());
+                return isSuccess;
+            }
 
             //Send the user an email instructing on how to sync diary
             //MailMessage mail = new MailMessage();
@@ -209,7 +218,9 @@ namespace HealthCalendarClasses
             }
             catch (Exception ex)
             {
-
+                var logger = NLog.LogManager.GetCurrentClassLogger();
+                logger.Info("Error when updating db record when creating a Google calendar " + c.GoogleCalendarID + ". Error Message: " + ex.ToString());
+                return isSuccess;
             }
             finally
             {
@@ -236,7 +247,17 @@ namespace HealthCalendarClasses
             folder.DisplayName = "Trust" + c.HealthOrgCode + c.Title + " " + c.FirstName + " " + c.LastName + " " + c.SubscriberID;
             c.NHSNetCalendarName = folder.DisplayName;
             folder.Permissions.Add(new FolderPermission(c.NHSNetEmail,FolderPermissionLevel.Reviewer));
-            folder.Save(WellKnownFolderName.Calendar);
+            try
+            {
+                folder.Save(WellKnownFolderName.Calendar);
+            }
+            catch (Exception ex)
+            {
+                var logger = NLog.LogManager.GetCurrentClassLogger();
+                logger.Info("Error when creating NHSNet Calendar " + c.NHSNetCalendarName + ". Error Message: " + ex.ToString());
+                return isSuccess;
+            }
+
             c.NHSNetCalendarID = folder.Id.ToString();
             // Bind to the folder ????Is this the root folder or the calendar folder??
             //Folder folderStoreInfo;
@@ -298,7 +319,18 @@ namespace HealthCalendarClasses
 
             // Add recipient info and send message
             invitationRequest.ToRecipients.Add(c.NHSNetEmail);
-            invitationRequest.SendAndSaveCopy();
+
+            try
+            {
+                invitationRequest.SendAndSaveCopy();
+            }
+            catch (Exception ex)
+            {
+                var logger = NLog.LogManager.GetCurrentClassLogger();
+                logger.Info("Error when sending NHSNet Calendar sharing invite " + c.NHSNetCalendarName + ". Error Message: " + ex.ToString());
+                return isSuccess;
+            }
+
             //invitationRequest.Send();
 
             // Update db Record
@@ -323,7 +355,9 @@ namespace HealthCalendarClasses
             }
             catch (Exception ex)
             {
-            
+                var logger = NLog.LogManager.GetCurrentClassLogger();
+                logger.Info("Error when updating db record when creating an NHSNet calendar " + c.NHSNetCalendarName + ". Error Message: " + ex.ToString());
+                return isSuccess;
             }
             finally
             {
@@ -351,7 +385,17 @@ namespace HealthCalendarClasses
             folder.DisplayName = "Trust" + c.HealthOrgCode + c.Title + " " + c.FirstName + " " + c.LastName + " " + c.SubscriberID;
             c.ExchangeCalendarName = folder.DisplayName;
             folder.Permissions.Add(new FolderPermission(c.ExchangeEmail, FolderPermissionLevel.Reviewer));
-            folder.Save(WellKnownFolderName.Calendar);
+            try
+            {
+                folder.Save(WellKnownFolderName.Calendar);
+            }
+            catch (Exception ex)
+            {
+                var logger = NLog.LogManager.GetCurrentClassLogger();
+                logger.Info("Error when creating Exchange Calendar " + c.ExchangeCalendarName + ". Error Message: " + ex.ToString());
+                return isSuccess;
+            }
+
             c.ExchangeCalendarID = folder.Id.ToString();
 
             string EwsID2 = folder.Id.UniqueId;
@@ -404,7 +448,16 @@ namespace HealthCalendarClasses
 
             // Add recipient info and send message
             invitationRequest.ToRecipients.Add(c.ExchangeEmail);
-            invitationRequest.SendAndSaveCopy();
+            try
+            {
+                invitationRequest.SendAndSaveCopy();
+            }
+            catch (Exception ex)
+            {
+                var logger = NLog.LogManager.GetCurrentClassLogger();
+                logger.Info("Error when sending Exchange Calendar sharing invite " + c.ExchangeCalendarName + ". Error Message: " + ex.ToString());
+                return isSuccess;
+            }
 
             // Update db Record
             SqlConnection conn = new SqlConnection(MyConnString);
@@ -428,7 +481,9 @@ namespace HealthCalendarClasses
             }
             catch (Exception ex)
             {
-
+                var logger = NLog.LogManager.GetCurrentClassLogger();
+                logger.Info("Error when updating db record when creating an Exchange calendar " + c.ExchangeCalendarName + ". Error Message: " + ex.ToString());
+                return isSuccess;
             }
             finally
             {
@@ -571,15 +626,6 @@ namespace HealthCalendarClasses
         {
             String result = String.Empty;
 
-            // Bind to EWS
-            //c.NHSNetCalendarService.ImpersonatedUserId =
-            //new ImpersonatedUserId(ConnectingIdType.SmtpAddress, c.NHSNetOrgMasterAccount);
-
-            // Get LegacyDN Using the function above this one 
-            //string sharedByLegacyDN = GetMailboxDN();
-            // A conversion function from earlier
-            //string legacyDNinHex = ConvertStringToHex(sharedByLegacyDN);            
-
             StringBuilder addBookEntryId = new StringBuilder();
 
             addBookEntryId.Append("00000000"); /* Flags */
@@ -594,12 +640,9 @@ namespace HealthCalendarClasses
             {
                 addBookEntryId.Append(ConvertStringToHex(c.NHSNetUserDN)); /* Returns the userDN of the user */
             }
-            //addBookEntryId.Append(legacyDNinHex); /* Returns the userDN of the impersonated user */
             addBookEntryId.Append("00"); /* terminator bit */
-
             //var logger = NLog.LogManager.GetCurrentClassLogger();
             //logger.Info(addBookEntryId.ToString());
-
             result = addBookEntryId.ToString();
             return result;
         }
@@ -611,15 +654,6 @@ namespace HealthCalendarClasses
         /// <returns></returns>
         public String GetInvitationMailboxId(HealthCalendarClass c, int CalendarType)
         {
-            //if (CalendarType == 1)
-            //{
-            //    c.ExchangeCalendarService.ImpersonatedUserId = new ImpersonatedUserId(ConnectingIdType.SmtpAddress, c.ExchangeEmail);
-            //}
-            //if (CalendarType == 2)
-            //{
-            //    c.NHSNetCalendarService.ImpersonatedUserId = new ImpersonatedUserId(ConnectingIdType.SmtpAddress, c.NHSNetEmail);
-            //}
-
             // Generate The Store Entry Id for the impersonated user
             StringBuilder MailboxIDPointer = new StringBuilder();       
 
@@ -651,10 +685,8 @@ namespace HealthCalendarClasses
             }
 
             MailboxIDPointer.Append("00"); /* terminator bit */
-
             //var logger = NLog.LogManager.GetCurrentClassLogger();
             //logger.Info(MailboxIDPointer.ToString());
-
             return MailboxIDPointer.ToString();
         }
 
@@ -710,18 +742,15 @@ namespace HealthCalendarClasses
                 metadataString.Append("</Invitation>");
                 metadataString.Append("</SharingMessage>");
                 sharedMetadataXML.LoadXml(metadataString.ToString());
-
                 //var logger = NLog.LogManager.GetCurrentClassLogger();
                 //logger.Info(metadataString.ToString());                
-
                 string tmpPath = Application.StartupPath + "\\temp\\";
                 sharedMetadataXML.Save(tmpPath + "sharing_metadata.xml");
             }
-            catch (Exception eg)
+            catch (Exception ex)
             {
                 var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Exception:" + eg.Message.ToString() + "Error Try CreateSharedMessageInvitation()");    
-                MessageBox.Show("Exception:" + eg.Message.ToString(), "Error Try CreateSharedMessageInvitation()");
+                logger.Info("Exception:" + ex.Message.ToString() + "Error Try CreateSharedMessageInvitation()");    
             }
         }
 
@@ -782,7 +811,9 @@ test body
             }
             catch (Exception ex)
             {
-
+                var logger = NLog.LogManager.GetCurrentClassLogger();
+                logger.Info("Error updating db record when deleting Google calendar  " + c.GoogleCalendarID + ". Error Message: " + ex.ToString());
+                return isSuccess;
             }
             finally
             {
@@ -837,7 +868,9 @@ test body
             }
             catch (Exception ex)
             {
-
+                var logger = NLog.LogManager.GetCurrentClassLogger();
+                logger.Info("Error updating db record when deleting NHSNet calendar  " + c.NHSNetCalendarName + ". Error Message: " + ex.ToString());
+                return isSuccess;
             }
             finally
             {
@@ -853,7 +886,7 @@ test body
             {
                 return isSuccess;
             }
-            //Delete NHSNet
+            //Delete Exchange
             //If successful update selected db record with empty GoogleCalenderID
             var view = new FolderView(1);
             view.Traversal = FolderTraversal.Deep;
@@ -892,7 +925,9 @@ test body
             }
             catch (Exception ex)
             {
-
+                var logger = NLog.LogManager.GetCurrentClassLogger();
+                logger.Info("Error updating db record when deleting Exchange calendar  " + c.ExchangeCalendarName + ". Error Message: " + ex.ToString());
+                return isSuccess;
             }
             finally
             {
@@ -938,7 +973,7 @@ test body
             if (results.TotalCount == 1)
             {            
                 CalendarFolder calendar = results.Where(f => f.DisplayName == c.NHSNetCalendarName).Cast<CalendarFolder>().FirstOrDefault();
-                CalendarView cView = new CalendarView(DateTime.Now.AddYears(-1), DateTime.Now.AddYears(1));
+                CalendarView cView = new CalendarView(DateTime.Now.AddMonths(-6), DateTime.Now.AddMonths(12));
                 cView.PropertySet = new PropertySet(AppointmentSchema.Subject, AppointmentSchema.Start, AppointmentSchema.End, AppointmentSchema.Id);
                 FindItemsResults<Appointment> appointments = calendar.FindAppointments(cView);
 
@@ -958,6 +993,42 @@ test body
             return isSuccess;
         }
 
+        public bool BulkDeleteNHSNetCalendarEvents(HealthCalendarClass c)
+        {
+            bool isSuccess = false;
+            FolderView view;
+            SearchFilter filter;
+            FindFoldersResults results;
+            FindItemsResults<Appointment> DelAppointments;
+
+            view = new FolderView(1);
+            view.Traversal = FolderTraversal.Deep;
+            filter = new SearchFilter.IsEqualTo(FolderSchema.DisplayName, c.NHSNetCalendarName);
+            results = c.NHSNetCalendarService.FindFolders(WellKnownFolderName.Root, filter, view);
+            if (results.TotalCount == 1)
+            {
+                CalendarFolder calendar = results.Where(f => f.DisplayName == c.NHSNetCalendarName).Cast<CalendarFolder>().FirstOrDefault();
+                CalendarView cView = new CalendarView(DateTime.Now.AddMonths(-6), DateTime.Now.AddMonths(12));
+                cView.PropertySet = new PropertySet(AppointmentSchema.Subject, AppointmentSchema.Start, AppointmentSchema.End, AppointmentSchema.Id);
+
+                DelAppointments = calendar.FindAppointments(cView);
+                ItemView iv = new ItemView(DelAppointments.TotalCount);
+                List<ItemId> idItemIds = new List<ItemId>();
+                if (DelAppointments.Items != null && DelAppointments.Items.Count > 0)
+                {
+                    foreach (var eventItem in DelAppointments.Items)
+                    {
+                        idItemIds.Add(eventItem.Id);
+                    }
+                    c.NHSNetCalendarService.DeleteItems(idItemIds, DeleteMode.HardDelete, SendCancellationsMode.SendToNone, AffectedTaskOccurrence.AllOccurrences);
+                }
+            }
+
+            isSuccess = true;
+            return isSuccess;
+        }
+
+
         public bool DeleteExchangeCalendarEvents(HealthCalendarClass c)
         {
             bool isSuccess = false;
@@ -969,7 +1040,7 @@ test body
             if (results.TotalCount == 1)
             {
                 CalendarFolder calendar = results.Where(f => f.DisplayName == c.ExchangeCalendarName).Cast<CalendarFolder>().FirstOrDefault();
-                CalendarView cView = new CalendarView(DateTime.Now.AddYears(-1), DateTime.Now.AddYears(1));
+                CalendarView cView = new CalendarView(DateTime.Now.AddMonths(-6), DateTime.Now.AddMonths(12));
                 cView.PropertySet = new PropertySet(AppointmentSchema.Subject, AppointmentSchema.Start, AppointmentSchema.End, AppointmentSchema.Id);
                 FindItemsResults<Appointment> appointments = calendar.FindAppointments(cView);
 
@@ -998,19 +1069,19 @@ test body
             FindFoldersResults results;
             FindItemsResults<Appointment> DelAppointments;
 
-            try
+            view = new FolderView(1);
+            view.Traversal = FolderTraversal.Deep;
+            filter = new SearchFilter.IsEqualTo(FolderSchema.DisplayName, c.ExchangeCalendarName);
+            results = c.ExchangeCalendarService.FindFolders(WellKnownFolderName.Root, filter, view);
+            if (results.TotalCount == 1)
             {
-                view = new FolderView(1);
-                view.Traversal = FolderTraversal.Deep;
-                filter = new SearchFilter.IsEqualTo(FolderSchema.DisplayName, c.ExchangeCalendarName);
-                results = c.ExchangeCalendarService.FindFolders(WellKnownFolderName.Root, filter, view);
-                if (results.TotalCount == 1)
-                {
-                    CalendarFolder calendar = results.Where(f => f.DisplayName == c.ExchangeCalendarName).Cast<CalendarFolder>().FirstOrDefault();
-                    CalendarView cView = new CalendarView(DateTime.Now.AddMonths(-6), DateTime.Now.AddMonths(12));
-                    cView.PropertySet = new PropertySet(AppointmentSchema.Subject, AppointmentSchema.Start, AppointmentSchema.End, AppointmentSchema.Id);
+                CalendarFolder calendar = results.Where(f => f.DisplayName == c.ExchangeCalendarName).Cast<CalendarFolder>().FirstOrDefault();
+                CalendarView cView = new CalendarView(DateTime.Now.AddMonths(-6), DateTime.Now.AddMonths(12));
+                cView.PropertySet = new PropertySet(AppointmentSchema.Subject, AppointmentSchema.Start, AppointmentSchema.End, AppointmentSchema.Id);
 
-                    DelAppointments = calendar.FindAppointments(cView);
+                DelAppointments = calendar.FindAppointments(cView);
+                if (DelAppointments.TotalCount > 0)
+                {
                     ItemView iv = new ItemView(DelAppointments.TotalCount);
                     List<ItemId> idItemIds = new List<ItemId>();
                     if (DelAppointments.Items != null && DelAppointments.Items.Count > 0)
@@ -1022,16 +1093,7 @@ test body
                         c.ExchangeCalendarService.DeleteItems(idItemIds, DeleteMode.HardDelete, SendCancellationsMode.SendToNone, AffectedTaskOccurrence.AllOccurrences);
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-
-                //if (ex.HResult == -2147024809) { continue; }
-                               
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when deleting Exchange calendar items: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
-                return isSuccess;
-            }
+             }
 
             isSuccess = true;
             return isSuccess;
@@ -1161,11 +1223,152 @@ test body
                 conn.Close();
             }
             return isSuccess;
-        }        
+        }
+
+
+        public bool SetNHSNetCalendarDataFromDataSource(HealthCalendarClass c)
+        {
+            bool isSuccess = false;
+            long lCareProviderOID;
+            string strEventType;
+            string strTitle;
+            string strLocation;
+            string strDescription;
+            DateTime dtEventStart;
+            DateTime dtEventEnd;
+            SqlDataReader readerSQLClientID;
+            FolderView view;
+            SearchFilter filter;
+            FindFoldersResults results;
+            FindItemsResults<Appointment> DelAppointments;
+            Folder folder;
+            Collection<Appointment> appointments;
+
+            ExtendedPropertyDefinition AppointmentColorProperty = new ExtendedPropertyDefinition(DefaultExtendedPropertySet.Appointment, 0x8214, MapiPropertyType.Integer);
+
+            //Read Care Provider events using uspRTXEvents stored procedure.            
+            try
+            {
+                SqlConnection conn = new SqlConnection(MyConnString);
+                string sql = "uspRTXEvents";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new SqlParameter("@CareProviderOID", c.SubscriberOID));
+                cmd.Parameters.Add(new SqlParameter("@DaysHence", 100));
+                cmd.CommandTimeout = 600;
+                conn.Open();
+
+                readerSQLClientID = cmd.ExecuteReader();
+                if (!readerSQLClientID.HasRows)
+                {
+                    isSuccess = false;
+                    var logger = NLog.LogManager.GetCurrentClassLogger();
+                    logger.Info("No activity found for NHSNet: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID);
+                    return isSuccess;
+                }
+            }
+            catch (Exception ex)
+            {
+                var logger = NLog.LogManager.GetCurrentClassLogger();
+                logger.Info("Error when reading data for NHSNet: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
+                return isSuccess;
+            }
+
+            //Clear all Events for Current user
+            view = new FolderView(1);
+            view.Traversal = FolderTraversal.Deep;
+            filter = new SearchFilter.IsEqualTo(FolderSchema.DisplayName, c.NHSNetCalendarName);
+            results = c.NHSNetCalendarService.FindFolders(WellKnownFolderName.Root, filter, view);
+            if (results.TotalCount == 1)
+            {
+                CalendarFolder calendar = results.Where(f => f.DisplayName == c.NHSNetCalendarName).Cast<CalendarFolder>().FirstOrDefault();
+                CalendarView cView = new CalendarView(DateTime.Now.AddMonths(-6), DateTime.Now.AddMonths(12));
+                cView.PropertySet = new PropertySet(AppointmentSchema.Subject, AppointmentSchema.Start, AppointmentSchema.End, AppointmentSchema.Id);
+
+                DelAppointments = calendar.FindAppointments(cView);
+                ItemView iv = new ItemView(DelAppointments.TotalCount);
+                if (DelAppointments.TotalCount > 0)
+                {
+                    List<ItemId> idItemIds = new List<ItemId>();
+                    if (DelAppointments.Items != null && DelAppointments.Items.Count > 0)
+                    {
+                        foreach (var eventItem in DelAppointments.Items)
+                        {
+                            idItemIds.Add(eventItem.Id);
+                        }
+                        c.NHSNetCalendarService.DeleteItems(idItemIds, DeleteMode.HardDelete, SendCancellationsMode.SendToNone, AffectedTaskOccurrence.AllOccurrences);
+                    }
+                }
+            }
+
+            // Build Appointment collection 
+            try
+            {
+                folder = Folder.Bind(c.NHSNetCalendarService, results.Folders.Single().Id);
+                appointments = new Collection<Appointment>();
+                TimeZoneInfo GMTTZ = TimeZoneInfo.FindSystemTimeZoneById("GMT Standard Time");
+
+                while (readerSQLClientID.Read())
+                {
+                    strEventType = "";
+                    strTitle = "";
+                    strLocation = "";
+                    strDescription = "";
+                    dtEventStart = DateTime.Today;
+                    dtEventEnd = DateTime.Today;
+
+                    lCareProviderOID = (long)readerSQLClientID.GetDecimal(0);
+                    if (!readerSQLClientID.IsDBNull(1)) strEventType = readerSQLClientID.GetString(1);
+                    if (!readerSQLClientID.IsDBNull(2)) strTitle = readerSQLClientID.GetString(2);
+
+                    if (!readerSQLClientID.IsDBNull(3)) strLocation = readerSQLClientID.GetString(3);
+                    if (!readerSQLClientID.IsDBNull(4)) strDescription = readerSQLClientID.GetString(4);
+                    if (!readerSQLClientID.IsDBNull(5)) dtEventStart = readerSQLClientID.GetDateTime(5);
+                    if (!readerSQLClientID.IsDBNull(6)) dtEventEnd = readerSQLClientID.GetDateTime(6);
+
+                    Appointment appointment = new Appointment(c.NHSNetCalendarService);
+                    // Set the properties on the appointment object to create the appointment.
+                    appointment.Subject = strTitle;
+                    appointment.Location = strLocation;
+                    appointment.Body = strDescription;
+                    appointment.Start = dtEventStart;
+                    appointment.End = dtEventEnd;
+                    appointment.StartTimeZone = GMTTZ;
+                    appointment.EndTimeZone = GMTTZ;
+                    appointment.IsReminderSet = false;
+                    appointment.SetExtendedProperty(AppointmentColorProperty, MSCalendarColour(strEventType));
+                    appointments.Add(appointment);
+                }
+                readerSQLClientID.Close();
+            }
+            catch (Exception ex)
+            {
+                var logger = NLog.LogManager.GetCurrentClassLogger();
+                logger.Info("Error when creating list of NHSNet calendar items: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
+                return isSuccess;
+            }
+
+
+            //Bulk Write appointment collection to appropriate calendar
+            try
+            {
+                var saveResult = c.NHSNetCalendarService.CreateItems(appointments, folder.Id, MessageDisposition.SaveOnly, SendInvitationsMode.SendToNone);
+            }
+            catch (Exception ex)
+            {
+                var logger = NLog.LogManager.GetCurrentClassLogger();
+                logger.Info("Error when creating NHSNetcalendar items: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
+                return isSuccess;
+            }
+
+            isSuccess = true;
+            return isSuccess;
+        }
+
+
 
         public bool SetExchangeCalendarDataFromDataSource(HealthCalendarClass c)
         {
-            String strColour;
             bool isSuccess = false;
             long lCareProviderOID;
             string strEventType;
@@ -1213,37 +1416,31 @@ test body
             }
 
             //Clear all Events for Current user
-            try
+            view = new FolderView(1);
+            view.Traversal = FolderTraversal.Deep;
+            filter = new SearchFilter.IsEqualTo(FolderSchema.DisplayName, c.ExchangeCalendarName);
+            results = c.ExchangeCalendarService.FindFolders(WellKnownFolderName.Root, filter, view);
+            if (results.TotalCount == 1)
             {
-                view = new FolderView(1);
-                view.Traversal = FolderTraversal.Deep;
-                filter = new SearchFilter.IsEqualTo(FolderSchema.DisplayName, c.ExchangeCalendarName);
-                results = c.ExchangeCalendarService.FindFolders(WellKnownFolderName.Root, filter, view);
-                if (results.TotalCount == 1)
-                {
-                    CalendarFolder calendar = results.Where(f => f.DisplayName == c.ExchangeCalendarName).Cast<CalendarFolder>().FirstOrDefault();
-                    CalendarView cView = new CalendarView(DateTime.Now.AddYears(-1), DateTime.Now.AddYears(1));
-                   cView.PropertySet = new PropertySet(AppointmentSchema.Subject, AppointmentSchema.Start, AppointmentSchema.End, AppointmentSchema.Id);
+                CalendarFolder calendar = results.Where(f => f.DisplayName == c.ExchangeCalendarName).Cast<CalendarFolder>().FirstOrDefault();
+                CalendarView cView = new CalendarView(DateTime.Now.AddMonths(-6), DateTime.Now.AddMonths(12));
+                cView.PropertySet = new PropertySet(AppointmentSchema.Subject, AppointmentSchema.Start, AppointmentSchema.End, AppointmentSchema.Id);
 
-                   DelAppointments = calendar.FindAppointments(cView);
-                   ItemView iv = new ItemView(DelAppointments.TotalCount);
-                   List<ItemId> idItemIds = new List<ItemId>();
-                   if (DelAppointments.Items != null && DelAppointments.Items.Count > 0)
-                   {
-                       foreach (var eventItem in DelAppointments.Items)
-                       {
-                           idItemIds.Add(eventItem.Id);
-                       }
-                       c.ExchangeCalendarService.DeleteItems(idItemIds, DeleteMode.HardDelete, SendCancellationsMode.SendToNone, AffectedTaskOccurrence.AllOccurrences);
-                   }
-               }
-            }
-            catch (Exception ex)
-            {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when deleting Exchange calendar items: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
-                return isSuccess;
-            }
+                DelAppointments = calendar.FindAppointments(cView);
+                if (DelAppointments.TotalCount > 0)
+                {
+                    ItemView iv = new ItemView(DelAppointments.TotalCount);
+                    List<ItemId> idItemIds = new List<ItemId>();
+                    if (DelAppointments.Items != null && DelAppointments.Items.Count > 0)
+                    {
+                        foreach (var eventItem in DelAppointments.Items)
+                        {
+                            idItemIds.Add(eventItem.Id);
+                        }
+                        c.ExchangeCalendarService.DeleteItems(idItemIds, DeleteMode.HardDelete, SendCancellationsMode.SendToNone, AffectedTaskOccurrence.AllOccurrences);
+                    }
+                }
+            }            
 
             // Build Appointment collection 
             try
@@ -1280,39 +1477,7 @@ test body
                     appointment.StartTimeZone = GMTTZ;
                     appointment.EndTimeZone = GMTTZ;
                     appointment.IsReminderSet = false;
-                    //1-Red, 2-Dark Blue, 3-Green, 4-Grey, 5-Orange, 6-Blue, 7-Olive, 8-Purple, 9-Teal, 10-Yellow
-                    switch (strEventType)
-                    {
-                        case "Contact":
-                            strColour = "5";
-                            break;
-                        case "Review":
-                            strColour = "10";
-                            break;
-                        case "Vacation":
-                            strColour = "7";
-                            break;
-                        case "StudyLeave":
-                            strColour = "9";
-                            break;
-                        case "TCI":
-                            strColour = "4";
-                            break;
-                        case "Theatre":
-                            strColour = "1";
-                            break;
-                        case "Clinic":
-                            strColour = "10";
-                            break;
-                        case "PreClinic":
-                            strColour = "6";
-                            break;
-                        default:
-                            strColour = "8";
-                            break;
-                    }
-
-                    appointment.SetExtendedProperty(AppointmentColorProperty, strColour);
+                    appointment.SetExtendedProperty(AppointmentColorProperty, MSCalendarColour(strEventType));
                     appointments.Add(appointment);
                 }
                 readerSQLClientID.Close();
@@ -1324,7 +1489,6 @@ test body
                 return isSuccess;
             }
 
-
             //Bulk Write appointment collection to appropriate calendar
             try
             {
@@ -1333,7 +1497,7 @@ test body
             catch (Exception ex)
             {
                 var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when creating calendar items: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
+                logger.Info("Error when creating Exchange calendar items: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
                 return isSuccess;
             }
 
@@ -1422,38 +1586,6 @@ test body
 
         public static void AddGoogleCalenderEvent(CalendarService service, String strGoogleCalendarID, String strActivityType, String strEventSummary, String strEventLocation, String strEventDescription, DateTime dtEventStart, DateTime dtEventEnd)
         {
-            String strColour;
-
-            switch (strActivityType)
-            {
-                case "Contact":
-                    strColour = "2";
-                    break;
-                case "Review":
-                    strColour = "10";
-                    break;
-                case "Vacation":
-                    strColour = "7";
-                    break;
-                case "StudyLeave":
-                    strColour = "9";
-                    break;
-                case "TCI":
-                    strColour = "4";
-                    break;
-                case "Theatre":
-                    strColour = "11";
-                    break;
-                case "Clinic":
-                    strColour = "5";
-                    break;
-                case "PreClinic":
-                    strColour = "6";
-                    break;
-                default:
-                    strColour = "8";
-                    break;
-            }
             try
             {
                 Event Event = new Event
@@ -1462,7 +1594,7 @@ test body
                     Location = strEventLocation,
                     Description = strEventDescription,
 
-                    ColorId = strColour,
+                    ColorId = GoogleCalendarColour(strActivityType),
                     Start = new EventDateTime()
                     {
                         DateTime = new DateTime(dtEventStart.Year, dtEventStart.Month, dtEventStart.Day, dtEventStart.Hour, dtEventStart.Minute, dtEventStart.Second),
@@ -1576,41 +1708,7 @@ test body
         
         public static void AddNHSNetCalenderEvent(ExchangeService service, Folder folder, String strActivityType, String strEventSummary, String strEventLocation, String strEventDescription, DateTime dtEventStart, DateTime dtEventEnd)
         {
-            String strColour;
-
-            ExtendedPropertyDefinition AppointmentColorProperty = new ExtendedPropertyDefinition(DefaultExtendedPropertySet.Appointment, 0x8214, MapiPropertyType.Integer);
-
-            //1-Red, 2-Dark Blue, 3-Green, 4-Grey, 5-Orange, 6-Blue, 7-Olive, 8-Purple, 9-Teal, 10-Yellow
-            switch (strActivityType)
-            {
-                case "Contact":
-                    strColour = "5";
-                    break;
-                case "Review":
-                    strColour = "10";
-                    break;
-                case "Vacation":
-                    strColour = "7";
-                    break;
-                case "StudyLeave":
-                    strColour = "9";
-                    break;
-                case "TCI":
-                    strColour = "4";
-                    break;
-                case "Theatre":
-                    strColour = "1";
-                    break;
-                case "Clinic":
-                    strColour = "10";
-                    break;
-                case "PreClinic":
-                    strColour = "6";
-                    break;
-                default:
-                    strColour = "8";
-                    break;
-            }
+            ExtendedPropertyDefinition AppointmentColorProperty = new ExtendedPropertyDefinition(DefaultExtendedPropertySet.Appointment, 0x8214, MapiPropertyType.Integer);          
             try
             {
                 Appointment appointment = new Appointment(service);
@@ -1626,7 +1724,7 @@ test body
                 appointment.StartTimeZone = GMTTZ;
                 appointment.EndTimeZone = GMTTZ;
                 appointment.IsReminderSet = false;
-                appointment.SetExtendedProperty(AppointmentColorProperty, strColour);
+                appointment.SetExtendedProperty(AppointmentColorProperty, MSCalendarColour(strActivityType));
 
                 appointment.Save(folder.Id, SendInvitationsMode.SendToNone);
                 // Verify that the appointment was created by using the appointment's item ID.
@@ -1727,40 +1825,7 @@ test body
 
         public static void AddExchangeCalenderEvent(ExchangeService service, Folder folder, String strActivityType, String strEventSummary, String strEventLocation, String strEventDescription, DateTime dtEventStart, DateTime dtEventEnd)
         {
-            String strColour;
             ExtendedPropertyDefinition AppointmentColorProperty = new ExtendedPropertyDefinition(DefaultExtendedPropertySet.Appointment, 0x8214, MapiPropertyType.Integer);
-
-            //1-Red, 2-Dark Blue, 3-Green, 4-Grey, 5-Orange, 6-Blue, 7-Olive, 8-Purple, 9-Teal, 10-Yellow
-            switch (strActivityType)
-            {
-                case "Contact":
-                    strColour = "5";
-                    break;
-                case "Review":
-                    strColour = "10";
-                    break;
-                case "Vacation":
-                    strColour = "7";
-                    break;
-                case "StudyLeave":
-                    strColour = "9";
-                    break;
-                case "TCI":
-                    strColour = "4";
-                    break;
-                case "Theatre":
-                    strColour = "1";
-                    break;
-                case "Clinic":
-                    strColour = "10";
-                    break;
-                case "PreClinic":
-                    strColour = "6";
-                    break;
-                default:
-                    strColour = "8";
-                    break;
-            }
 
             try
             {
@@ -1777,7 +1842,7 @@ test body
                 appointment.StartTimeZone = GMTTZ;
                 appointment.EndTimeZone = GMTTZ;
                 appointment.IsReminderSet = false;
-                appointment.SetExtendedProperty(AppointmentColorProperty, strColour);
+                appointment.SetExtendedProperty(AppointmentColorProperty, MSCalendarColour(strActivityType));
 
                 appointment.Save(folder.Id, SendInvitationsMode.SendToNone);
                 // Verify that the appointment was created by using the appointment's item ID.
@@ -2178,6 +2243,86 @@ test body
         {
             return new EmailAddressAttribute().IsValid(source);
         }
+
+        private static string MSCalendarColour(string input)
+        {
+            string strColour;
+
+            //1-Red, 2-Dark Blue, 3-Green, 4-Grey, 5-Orange, 6-Blue, 7-Olive, 8-Purple, 9-Teal, 10-Yellow
+            switch (input)
+            {
+                case "Contact":
+                    strColour = "5";
+                    break;
+                case "Review":
+                    strColour = "10";
+                    break;
+                case "Vacation":
+                    strColour = "7";
+                    break;
+                case "StudyLeave":
+                    strColour = "9";
+                    break;
+                case "TCI":
+                    strColour = "4";
+                    break;
+                case "Theatre":
+                    strColour = "1";
+                    break;
+                case "Clinic":
+                    strColour = "10";
+                    break;
+                case "PreClinic":
+                    strColour = "6";
+                    break;
+                default:
+                    strColour = "8";
+                    break;
+            }
+
+            return strColour;
+        }
+
+        private static string GoogleCalendarColour(string input)
+        {
+            string strColour;
+
+            switch (input)
+            {
+                case "Contact":
+                    strColour = "2";
+                    break;
+                case "Review":
+                    strColour = "10";
+                    break;
+                case "Vacation":
+                    strColour = "7";
+                    break;
+                case "StudyLeave":
+                    strColour = "9";
+                    break;
+                case "TCI":
+                    strColour = "4";
+                    break;
+                case "Theatre":
+                    strColour = "11";
+                    break;
+                case "Clinic":
+                    strColour = "5";
+                    break;
+                case "PreClinic":
+                    strColour = "6";
+                    break;
+                default:
+                    strColour = "8";
+                    break;
+            }
+
+            return strColour;
+        }
+
+
+
 
         public string ConvertStringToHex(string input)
         {

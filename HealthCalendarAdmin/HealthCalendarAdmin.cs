@@ -15,6 +15,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -32,11 +33,9 @@ namespace HealthCalendarAdmin
             config.AddRule(LogLevel.Debug, LogLevel.Fatal, logfile);
             NLog.LogManager.Configuration = config;
 
-            bgWorker.DoWork += BgWorker_DoWork;
-            bgWorker.ProgressChanged += BgWorker_ProgressChanged;
-            //bgWorker.RunWorkerCompleted += BgWorker_RunWorkerCompleted;
         }
-
+        bool ThreadSuccess;
+        ProgressForm myWait;
         HealthCalendarClasses.HealthCalendarClass c = new HealthCalendarClass();
         static string myconnstr = ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString;
 
@@ -413,8 +412,8 @@ namespace HealthCalendarAdmin
                 progressBar.Maximum = 100;
                 //lblStatus.ForeColor = Color.Red;
                 //lblStatus.Text = "Counting...";
-                bgWorker.WorkerReportsProgress = true;
-                bgWorker.RunWorkerAsync();
+                //bg_DoWork.WorkerReportsProgress = true;
+                //bg_DoWork.RunWorkerAsync();
                 isSuccess = c.CreateShareGoogleDiary(c);
                 if (isSuccess == true)
                 {
@@ -438,8 +437,8 @@ namespace HealthCalendarAdmin
                 progressBar.Maximum = 100;
                 //lblStatus.ForeColor = Color.Red;
                 //lblStatus.Text = "Counting...";
-                bgWorker.WorkerReportsProgress = true;
-                bgWorker.RunWorkerAsync();
+                //bg_DoWork.WorkerReportsProgress = true;
+                //bg_DoWork.RunWorkerAsync();
                 isSuccess = c.CreateShareNHSNetDiary(c);
                 if (isSuccess == true)
                 {
@@ -500,15 +499,15 @@ namespace HealthCalendarAdmin
             searchSubscribersAndSelectRow(txtboxSearchFirstname.Text, txtboxSearchLastname.Text, comboBoxSex.Text, comboBoxTitle.Text, comboBoxOccupation.Text, txtboxSearchMainIdentifier.Text);
         }
 
-        private void BgWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
+        //private void BgWorker_DoWork(object sender, DoWorkEventArgs e)
+        //{
 
-            for (var Counter = 1; Counter <= progressBar.Maximum; Counter++)
-            {
-                bgWorker.ReportProgress(Counter);
-                System.Threading.Thread.Sleep(50);
-            }
-        }
+            //for (var Counter = 1; Counter <= progressBar.Maximum; Counter++)
+            //{
+            //    bg_DoWork.ReportProgress(Counter);
+            //    System.Threading.Thread.Sleep(50);
+            //}
+        //}
 
         private void BgWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
@@ -1036,8 +1035,8 @@ namespace HealthCalendarAdmin
                 progressBar.Maximum = 100;
                 //lblStatus.ForeColor = Color.Red;
                 //lblStatus.Text = "Counting...";
-                bgWorker.WorkerReportsProgress = true;
-                bgWorker.RunWorkerAsync();
+                //bg_DoWork.WorkerReportsProgress = true;
+                //bg_DoWork.RunWorkerAsync();
                 isSuccess = c.CreateShareExchangeDiary(c);
                 if (isSuccess == true)
                 {
@@ -1052,30 +1051,59 @@ namespace HealthCalendarAdmin
             Clear();
         }
 
+       
+
         private void btnSampleExchangeData_Click(object sender, EventArgs e)
         {
-            bool isSuccess = false;
+            Thread myProcess;
+            ThreadSuccess = false;
             c.ExchangeEmail = txtboxExchangeEmail.Text;
             if (c.ExchangeCalendarID != null)
             {
-                //progressBar.Maximum = 100;
-                //bgWorker.WorkerReportsProgress = true;
-
-                //isSuccess = c.CreateSampleExchangeCalendarData(c);
-                isSuccess = c.SetExchangeCalendarDataFromDataSource(c);
-
-                //bgWorker.RunWorkerAsync();
-                if (isSuccess == true)
+                myWait = new ProgressForm();//YourProgressForm is a WinForm Object
+                myProcess = new Thread(SetExchangeCalendarDataFromDataSourceOnThread);
+                myProcess.Start();
+                myWait.ShowDialog(this);
+               
+                if (ThreadSuccess == true)
                 {
                     MessageBox.Show("The Sample Exchange Calendar Data has been successfuly created.");
                 }
                 else
                 {
-                    MessageBox.Show("Failed to create Sample Exchange Calendar Data. Try Again .");
+                    MessageBox.Show("Failed to create Sample Exchange Calendar Data. Try Again.");
                 }
             }
-            searchSubscribersAndSelectRow(txtboxSearchFirstname.Text, txtboxSearchLastname.Text, comboBoxSex.Text, comboBoxTitle.Text, comboBoxOccupation.Text, txtboxSearchMainIdentifier.Text);
+           searchSubscribersAndSelectRow(txtboxSearchFirstname.Text, txtboxSearchLastname.Text, comboBoxSex.Text, comboBoxTitle.Text, comboBoxOccupation.Text, txtboxSearchMainIdentifier.Text);
         }
+
+        private void SetExchangeCalendarDataFromDataSourceOnThread()
+        {                        
+            try
+            {
+                //isSuccess = c.CreateSampleExchangeCalendarData(c);
+                ThreadSuccess = c.SetExchangeCalendarDataFromDataSource(c);
+                if (myWait.InvokeRequired)
+                {
+                    myWait.BeginInvoke((MethodInvoker)delegate () { closeWaitForm(); });
+                }
+                else
+                {
+                    myWait.Close();//Fault tolerance this code should never be executed
+                }
+            }
+            catch (Exception ex)
+            {
+                string exc = ex.Message;//Fault tolerance this code should never be executed
+            }
+        }
+
+        private void closeWaitForm()
+        {
+            myWait.Close();
+            //MessageBox.Show("Process Is Complete");
+        }
+
 
         private void btnClearExchangeCalendar_Click(object sender, EventArgs e)
         {
