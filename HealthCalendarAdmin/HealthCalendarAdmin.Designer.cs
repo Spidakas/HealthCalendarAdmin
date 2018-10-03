@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HealthCalendarAdmin));
             this.txtboxSearchFirstname = new System.Windows.Forms.TextBox();
             this.lblSearchFirstname = new System.Windows.Forms.Label();
@@ -39,8 +39,6 @@
             this.lblGoogleEmail = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pnlFooter = new System.Windows.Forms.Panel();
-            this.lblPercent = new System.Windows.Forms.Label();
-            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.btnGoogleCreateShare = new System.Windows.Forms.Button();
@@ -124,15 +122,15 @@
             this.dgvSubscribers.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvSubscribers.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.dgvSubscribers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvSubscribers.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvSubscribers.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvSubscribers.Location = new System.Drawing.Point(9, 74);
             this.dgvSubscribers.Margin = new System.Windows.Forms.Padding(1);
             this.dgvSubscribers.MultiSelect = false;
@@ -224,35 +222,14 @@
             // 
             this.pnlFooter.BackColor = System.Drawing.Color.LightGray;
             this.pnlFooter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlFooter.Controls.Add(this.lblPercent);
-            this.pnlFooter.Controls.Add(this.progressBar);
             this.pnlFooter.Controls.Add(this.textBox2);
             this.pnlFooter.Controls.Add(this.textBox1);
             this.pnlFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlFooter.Location = new System.Drawing.Point(0, 454);
+            this.pnlFooter.Location = new System.Drawing.Point(0, 459);
             this.pnlFooter.Margin = new System.Windows.Forms.Padding(2);
             this.pnlFooter.Name = "pnlFooter";
             this.pnlFooter.Size = new System.Drawing.Size(789, 24);
             this.pnlFooter.TabIndex = 0;
-            // 
-            // lblPercent
-            // 
-            this.lblPercent.AutoSize = true;
-            this.lblPercent.Location = new System.Drawing.Point(560, 5);
-            this.lblPercent.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblPercent.Name = "lblPercent";
-            this.lblPercent.Size = new System.Drawing.Size(0, 13);
-            this.lblPercent.TabIndex = 0;
-            // 
-            // progressBar
-            // 
-            this.progressBar.ForeColor = System.Drawing.Color.OrangeRed;
-            this.progressBar.Location = new System.Drawing.Point(186, 0);
-            this.progressBar.Margin = new System.Windows.Forms.Padding(2);
-            this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(371, 22);
-            this.progressBar.TabIndex = 0;
-            this.progressBar.Visible = false;
             // 
             // textBox2
             // 
@@ -932,14 +909,14 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.LightGray;
-            this.ClientSize = new System.Drawing.Size(789, 478);
+            this.ClientSize = new System.Drawing.Size(789, 483);
             this.Controls.Add(this.groupBoxExchange);
             this.Controls.Add(this.groupBoxNHSNet);
             this.Controls.Add(this.groupBoxSearch);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.dgvSubscribers);
-            this.Controls.Add(this.pnlFooter);
             this.Controls.Add(this.groupBoxGoogle);
+            this.Controls.Add(this.pnlFooter);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(1);
@@ -982,9 +959,7 @@
         private System.Windows.Forms.Button btnGoogleCreateShare;
         private System.Windows.Forms.Button btnSampleGoogleData;
         private System.Windows.Forms.Button btnClearGoogleCalendar;
-        private System.Windows.Forms.ProgressBar progressBar;
         private System.ComponentModel.BackgroundWorker bg_DoWork;
-        private System.Windows.Forms.Label lblPercent;
         private System.Windows.Forms.Button btnDeleteGoogleCalendar;
         private System.Windows.Forms.TextBox txtboxSearchLastname;
         private System.Windows.Forms.GroupBox groupBoxSearch;

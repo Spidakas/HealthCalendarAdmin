@@ -58,7 +58,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Progress";
+            this.Text = "Health Calendar Progress";
             this.ResumeLayout(false);
             this.PerformLayout();
 

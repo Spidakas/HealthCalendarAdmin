@@ -409,11 +409,6 @@ namespace HealthCalendarAdmin
             c.GoogleEmail = txtboxGoogleEmail.Text;
             if (c.GoogleCalendarID != null)
             {
-                progressBar.Maximum = 100;
-                //lblStatus.ForeColor = Color.Red;
-                //lblStatus.Text = "Counting...";
-                //bg_DoWork.WorkerReportsProgress = true;
-                //bg_DoWork.RunWorkerAsync();
                 isSuccess = c.CreateShareGoogleDiary(c);
                 if (isSuccess == true)
                 {
@@ -434,11 +429,6 @@ namespace HealthCalendarAdmin
             c.NHSNetEmail = txtboxNHSNetEmail.Text;
             if (c.NHSNetCalendarID != null)
             {
-                progressBar.Maximum = 100;
-                //lblStatus.ForeColor = Color.Red;
-                //lblStatus.Text = "Counting...";
-                //bg_DoWork.WorkerReportsProgress = true;
-                //bg_DoWork.RunWorkerAsync();
                 isSuccess = c.CreateShareNHSNetDiary(c);
                 if (isSuccess == true)
                 {
@@ -511,8 +501,8 @@ namespace HealthCalendarAdmin
 
         private void BgWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            lblPercent.Text = e.ProgressPercentage.ToString();
-            progressBar.Value = e.ProgressPercentage;
+            //lblPercent.Text = e.ProgressPercentage.ToString();
+            //progressBar.Value = e.ProgressPercentage;
         }
 
         private void BgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -1032,11 +1022,6 @@ namespace HealthCalendarAdmin
             c.ExchangeEmail = txtboxExchangeEmail.Text;
             if (c.ExchangeCalendarID != null)
             {
-                progressBar.Maximum = 100;
-                //lblStatus.ForeColor = Color.Red;
-                //lblStatus.Text = "Counting...";
-                //bg_DoWork.WorkerReportsProgress = true;
-                //bg_DoWork.RunWorkerAsync();
                 isSuccess = c.CreateShareExchangeDiary(c);
                 if (isSuccess == true)
                 {
@@ -1062,6 +1047,7 @@ namespace HealthCalendarAdmin
             {
                 myWait = new ProgressForm();//YourProgressForm is a WinForm Object
                 myProcess = new Thread(SetExchangeCalendarDataFromDataSourceOnThread);
+                myProcess.Priority = ThreadPriority.Highest;
                 myProcess.Start();
                 myWait.ShowDialog(this);
                
