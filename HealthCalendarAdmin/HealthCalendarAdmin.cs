@@ -118,9 +118,14 @@ namespace HealthCalendarAdmin
             toolTip1.SetToolTip(btnExchangeEmailUpdate, "Update/Set a valid Exchange Email for the selected user");
             toolTip1.SetToolTip(btnExchangeEmailClear, "Remove the Exchange Email for the selected user");
             toolTip1.SetToolTip(btnExchangeCreateShare, "Create and share an Exchange calendar");
+
+            toolTip1.SetToolTip(btnTransferExchangeData, "Set Exchange calendar data");
             toolTip1.SetToolTip(btnSampleExchangeData, "Set Exchange trial calendar data");
             toolTip1.SetToolTip(btnClearExchangeCalendar, "Clear Exchange calendar");
             toolTip1.SetToolTip(btnDeleteExchangeCalendar, "Delete Exchange calendar");
+
+            textBox1.TabStop = false;
+            textBox2.TabStop = false;
 
             dgvSubscribers.AutoGenerateColumns = false;
             dgvSubscribers.ColumnCount = 28;
@@ -796,6 +801,8 @@ namespace HealthCalendarAdmin
                     btnExchangeCreateShare.Visible = true;
                     btnExchangeCreateShare.Enabled = true;
 
+                    btnTransferExchangeData.Visible = false;
+                    btnTransferExchangeData.Enabled = false;
                     btnSampleExchangeData.Visible = false;
                     btnSampleExchangeData.Enabled = false;
                     btnClearExchangeCalendar.Visible = false;
@@ -816,6 +823,8 @@ namespace HealthCalendarAdmin
                     btnExchangeCreateShare.Visible = false;
                     btnExchangeCreateShare.Enabled = false;
 
+                    btnTransferExchangeData.Visible = true;
+                    btnTransferExchangeData.Enabled = true;
                     btnSampleExchangeData.Visible = true;
                     btnSampleExchangeData.Enabled = true;
                     btnClearExchangeCalendar.Visible = true;
@@ -839,6 +848,8 @@ namespace HealthCalendarAdmin
                 btnExchangeCreateShare.Visible = false;
                 btnExchangeCreateShare.Enabled = false;
 
+                btnTransferExchangeData.Visible = false;
+                btnTransferExchangeData.Enabled = false;
                 btnSampleExchangeData.Visible = false;
                 btnSampleExchangeData.Enabled = false;
                 btnClearExchangeCalendar.Visible = false;
@@ -1035,10 +1046,8 @@ namespace HealthCalendarAdmin
             searchSubscribersAndSelectRow(txtboxSearchFirstname.Text, txtboxSearchLastname.Text, comboBoxSex.Text, comboBoxTitle.Text, comboBoxOccupation.Text, txtboxSearchMainIdentifier.Text);
             Clear();
         }
-
-       
-
-        private void btnSampleExchangeData_Click(object sender, EventArgs e)
+      
+        private void btnTransferExchangeData_Click(object sender, EventArgs e)
         {
             Thread myProcess;
             ThreadSuccess = false;
@@ -1050,7 +1059,7 @@ namespace HealthCalendarAdmin
                 myProcess.Priority = ThreadPriority.Highest;
                 myProcess.Start();
                 myWait.ShowDialog(this);
-               
+
                 if (ThreadSuccess == true)
                 {
                     MessageBox.Show("The Sample Exchange Calendar Data has been successfuly created.");
@@ -1060,14 +1069,14 @@ namespace HealthCalendarAdmin
                     MessageBox.Show("Failed to create Sample Exchange Calendar Data. Try Again.");
                 }
             }
-           searchSubscribersAndSelectRow(txtboxSearchFirstname.Text, txtboxSearchLastname.Text, comboBoxSex.Text, comboBoxTitle.Text, comboBoxOccupation.Text, txtboxSearchMainIdentifier.Text);
+            searchSubscribersAndSelectRow(txtboxSearchFirstname.Text, txtboxSearchLastname.Text, comboBoxSex.Text, comboBoxTitle.Text, comboBoxOccupation.Text, txtboxSearchMainIdentifier.Text);
+
         }
 
         private void SetExchangeCalendarDataFromDataSourceOnThread()
         {                        
             try
             {
-                //isSuccess = c.CreateSampleExchangeCalendarData(c);
                 ThreadSuccess = c.SetExchangeCalendarDataFromDataSource(c);
                 if (myWait.InvokeRequired)
                 {
@@ -1084,22 +1093,67 @@ namespace HealthCalendarAdmin
             }
         }
 
-        private void closeWaitForm()
+        private void btnSampleExchangeData_Click(object sender, EventArgs e)
         {
-            myWait.Close();
-            //MessageBox.Show("Process Is Complete");
+            Thread myProcess;
+            ThreadSuccess = false;
+            c.ExchangeEmail = txtboxExchangeEmail.Text;
+            if (c.ExchangeCalendarID != null)
+            {
+                myWait = new ProgressForm();//YourProgressForm is a WinForm Object
+                myProcess = new Thread(SetExchangeTestCalendarOnThread);
+                myProcess.Priority = ThreadPriority.Highest;
+                myProcess.Start();
+                myWait.ShowDialog(this);
+
+                if (ThreadSuccess == true)
+                {
+                    MessageBox.Show("The Sample Exchange Calendar Data has been successfuly created.");
+                }
+                else
+                {
+                    MessageBox.Show("Failed to create Sample Exchange Calendar Data. Try Again.");
+                }
+            }
+            searchSubscribersAndSelectRow(txtboxSearchFirstname.Text, txtboxSearchLastname.Text, comboBoxSex.Text, comboBoxTitle.Text, comboBoxOccupation.Text, txtboxSearchMainIdentifier.Text);
         }
 
+        private void SetExchangeTestCalendarOnThread()
+        {
+            try
+            {
+                ThreadSuccess = c.CreateSampleExchangeCalendarData(c);
+                if (myWait.InvokeRequired)
+                {
+                    myWait.BeginInvoke((MethodInvoker)delegate () { closeWaitForm(); });
+                }
+                else
+                {
+                    myWait.Close();//Fault tolerance this code should never be executed
+                }
+            }
+            catch (Exception ex)
+            {
+                string exc = ex.Message;//Fault tolerance this code should never be executed
+            }
+        }
 
         private void btnClearExchangeCalendar_Click(object sender, EventArgs e)
         {
-            bool isSuccess = false;
+            Thread myProcess;
+            ThreadSuccess = false;
 
             c.ExchangeEmail = txtboxExchangeEmail.Text;
             if (c.ExchangeCalendarID != null)
             {
-                isSuccess = c.BulkDeleteExchangeCalendarEvents(c);
-                if (isSuccess == true)
+                myWait = new ProgressForm();//YourProgressForm is a WinForm Object
+                myProcess = new Thread(BulkDeleteExchangeCalendarEventsOnThread);
+                myProcess.Priority = ThreadPriority.Highest;
+                myProcess.Start();
+                myWait.ShowDialog(this);
+
+                //isSuccess = c.BulkDeleteExchangeCalendarEvents(c);
+                if (ThreadSuccess == true)
                 {
                     MessageBox.Show("The Exchange Calendar has been successfuly cleared.");
                 }
@@ -1110,6 +1164,53 @@ namespace HealthCalendarAdmin
             }
             searchSubscribersAndSelectRow(txtboxSearchFirstname.Text, txtboxSearchLastname.Text, comboBoxSex.Text, comboBoxTitle.Text, comboBoxOccupation.Text, txtboxSearchMainIdentifier.Text);
         }
+
+
+        private void BulkDeleteExchangeCalendarEventsOnThread()
+        {
+            try
+            {
+                ThreadSuccess = c.BulkDeleteExchangeCalendarEvents(c);
+                if (myWait.InvokeRequired)
+                {
+                    myWait.BeginInvoke((MethodInvoker)delegate () { closeWaitForm(); });
+                }
+                else
+                {
+                    myWait.Close();//Fault tolerance this code should never be executed
+                }
+            }
+            catch (Exception ex)
+            {
+                string exc = ex.Message;//Fault tolerance this code should never be executed
+            }
+        }
+
+
+
+        //private void btnClearExchangeCalendar_Click(object sender, EventArgs e)
+        //{
+        //    bool isSuccess = false;
+        //
+        //   c.ExchangeEmail = txtboxExchangeEmail.Text;
+        //    if (c.ExchangeCalendarID != null)
+        //    {
+        //       isSuccess = c.BulkDeleteExchangeCalendarEvents(c);
+        //        if (isSuccess == true)
+        //        {
+        //            MessageBox.Show("The Exchange Calendar has been successfuly cleared.");
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("Failed to clear Exchange Calendar. Try Again .");
+        //        }
+        //    }
+        //    searchSubscribersAndSelectRow(txtboxSearchFirstname.Text, txtboxSearchLastname.Text, comboBoxSex.Text, comboBoxTitle.Text, comboBoxOccupation.Text, txtboxSearchMainIdentifier.Text);
+        //}
+
+
+
+
 
         private void btnDeleteExchangeCalendar_Click(object sender, EventArgs e)
         {
@@ -1131,6 +1232,12 @@ namespace HealthCalendarAdmin
             }
             searchSubscribersAndSelectRow(txtboxSearchFirstname.Text, txtboxSearchLastname.Text, comboBoxSex.Text, comboBoxTitle.Text, comboBoxOccupation.Text, txtboxSearchMainIdentifier.Text);
         }
+
+        private void closeWaitForm()
+        {
+            myWait.Close();
+        }
+
     }
 
     

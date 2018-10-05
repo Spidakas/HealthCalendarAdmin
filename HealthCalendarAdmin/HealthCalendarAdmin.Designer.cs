@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HealthCalendarAdmin));
             this.txtboxSearchFirstname = new System.Windows.Forms.TextBox();
             this.lblSearchFirstname = new System.Windows.Forms.Label();
@@ -68,6 +68,7 @@
             this.btnSampleNHSNetData = new System.Windows.Forms.Button();
             this.btnNHSNetCreateShare = new System.Windows.Forms.Button();
             this.groupBoxExchange = new System.Windows.Forms.GroupBox();
+            this.btnTransferExchangeData = new System.Windows.Forms.Button();
             this.lblExchangeEmail = new System.Windows.Forms.Label();
             this.txtboxExchangeEmail = new System.Windows.Forms.TextBox();
             this.btnDeleteExchangeCalendar = new System.Windows.Forms.Button();
@@ -96,7 +97,7 @@
             this.txtboxSearchFirstname.Name = "txtboxSearchFirstname";
             this.txtboxSearchFirstname.ShortcutsEnabled = false;
             this.txtboxSearchFirstname.Size = new System.Drawing.Size(130, 19);
-            this.txtboxSearchFirstname.TabIndex = 1;
+            this.txtboxSearchFirstname.TabIndex = 2;
             this.txtboxSearchFirstname.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // lblSearchFirstname
@@ -108,7 +109,7 @@
             this.lblSearchFirstname.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.lblSearchFirstname.Name = "lblSearchFirstname";
             this.lblSearchFirstname.Size = new System.Drawing.Size(57, 13);
-            this.lblSearchFirstname.TabIndex = 40;
+            this.lblSearchFirstname.TabIndex = 1;
             this.lblSearchFirstname.Text = "First Name";
             // 
             // dgvSubscribers
@@ -122,15 +123,15 @@
             this.dgvSubscribers.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvSubscribers.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.dgvSubscribers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvSubscribers.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvSubscribers.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvSubscribers.Location = new System.Drawing.Point(9, 74);
             this.dgvSubscribers.Margin = new System.Windows.Forms.Padding(1);
             this.dgvSubscribers.MultiSelect = false;
@@ -139,7 +140,7 @@
             this.dgvSubscribers.RowTemplate.Height = 25;
             this.dgvSubscribers.ShowCellToolTips = false;
             this.dgvSubscribers.Size = new System.Drawing.Size(742, 258);
-            this.dgvSubscribers.TabIndex = 8;
+            this.dgvSubscribers.TabIndex = 1;
             this.dgvSubscribers.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSubscribers_CellContentClick);
             this.dgvSubscribers.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSubscribers_RowEnter);
             this.dgvSubscribers.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvSubscribers_RowHeaderMouseClick);
@@ -156,7 +157,7 @@
             this.btnGoogleEmailClear.Margin = new System.Windows.Forms.Padding(1);
             this.btnGoogleEmailClear.Name = "btnGoogleEmailClear";
             this.btnGoogleEmailClear.Size = new System.Drawing.Size(29, 27);
-            this.btnGoogleEmailClear.TabIndex = 25;
+            this.btnGoogleEmailClear.TabIndex = 3;
             this.btnGoogleEmailClear.UseVisualStyleBackColor = false;
             this.btnGoogleEmailClear.Visible = false;
             this.btnGoogleEmailClear.Click += new System.EventHandler(this.btnClear_Click);
@@ -174,7 +175,7 @@
             this.btnGoogleEmailUpdate.Margin = new System.Windows.Forms.Padding(1);
             this.btnGoogleEmailUpdate.Name = "btnGoogleEmailUpdate";
             this.btnGoogleEmailUpdate.Size = new System.Drawing.Size(29, 27);
-            this.btnGoogleEmailUpdate.TabIndex = 24;
+            this.btnGoogleEmailUpdate.TabIndex = 2;
             this.btnGoogleEmailUpdate.UseVisualStyleBackColor = false;
             this.btnGoogleEmailUpdate.Visible = false;
             this.btnGoogleEmailUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
@@ -187,7 +188,7 @@
             this.txtboxGoogleEmail.Margin = new System.Windows.Forms.Padding(1);
             this.txtboxGoogleEmail.Name = "txtboxGoogleEmail";
             this.txtboxGoogleEmail.Size = new System.Drawing.Size(144, 20);
-            this.txtboxGoogleEmail.TabIndex = 23;
+            this.txtboxGoogleEmail.TabIndex = 1;
             this.txtboxGoogleEmail.Visible = false;
             this.txtboxGoogleEmail.TextChanged += new System.EventHandler(this.txtboxGoogleEmail_TextChanged);
             // 
@@ -256,7 +257,7 @@
             this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(109, 18);
-            this.textBox1.TabIndex = 0;
+            this.textBox1.TabIndex = 1;
             this.textBox1.Text = "Health Calendar";
             // 
             // btnGoogleCreateShare
@@ -272,7 +273,7 @@
             this.btnGoogleCreateShare.Margin = new System.Windows.Forms.Padding(1);
             this.btnGoogleCreateShare.Name = "btnGoogleCreateShare";
             this.btnGoogleCreateShare.Size = new System.Drawing.Size(29, 27);
-            this.btnGoogleCreateShare.TabIndex = 26;
+            this.btnGoogleCreateShare.TabIndex = 4;
             this.btnGoogleCreateShare.UseVisualStyleBackColor = false;
             this.btnGoogleCreateShare.Visible = false;
             this.btnGoogleCreateShare.Click += new System.EventHandler(this.btnGoogleCreateShare_Click);
@@ -289,7 +290,7 @@
             this.btnSampleGoogleData.Margin = new System.Windows.Forms.Padding(1);
             this.btnSampleGoogleData.Name = "btnSampleGoogleData";
             this.btnSampleGoogleData.Size = new System.Drawing.Size(29, 27);
-            this.btnSampleGoogleData.TabIndex = 27;
+            this.btnSampleGoogleData.TabIndex = 5;
             this.btnSampleGoogleData.UseVisualStyleBackColor = false;
             this.btnSampleGoogleData.Visible = false;
             this.btnSampleGoogleData.Click += new System.EventHandler(this.btnSampleGoogleData_Click);
@@ -307,7 +308,7 @@
             this.btnClearGoogleCalendar.Margin = new System.Windows.Forms.Padding(1);
             this.btnClearGoogleCalendar.Name = "btnClearGoogleCalendar";
             this.btnClearGoogleCalendar.Size = new System.Drawing.Size(29, 27);
-            this.btnClearGoogleCalendar.TabIndex = 28;
+            this.btnClearGoogleCalendar.TabIndex = 6;
             this.btnClearGoogleCalendar.UseVisualStyleBackColor = false;
             this.btnClearGoogleCalendar.Visible = false;
             this.btnClearGoogleCalendar.Click += new System.EventHandler(this.btnClearGoogleCalendar_Click);
@@ -325,7 +326,7 @@
             this.btnDeleteGoogleCalendar.Margin = new System.Windows.Forms.Padding(1);
             this.btnDeleteGoogleCalendar.Name = "btnDeleteGoogleCalendar";
             this.btnDeleteGoogleCalendar.Size = new System.Drawing.Size(29, 27);
-            this.btnDeleteGoogleCalendar.TabIndex = 29;
+            this.btnDeleteGoogleCalendar.TabIndex = 7;
             this.btnDeleteGoogleCalendar.UseVisualStyleBackColor = false;
             this.btnDeleteGoogleCalendar.Visible = false;
             this.btnDeleteGoogleCalendar.Click += new System.EventHandler(this.btnDeleteGoogleCalendar_Click);
@@ -342,7 +343,7 @@
             this.txtboxSearchLastname.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.txtboxSearchLastname.ShortcutsEnabled = false;
             this.txtboxSearchLastname.Size = new System.Drawing.Size(130, 19);
-            this.txtboxSearchLastname.TabIndex = 2;
+            this.txtboxSearchLastname.TabIndex = 4;
             this.txtboxSearchLastname.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // groupBoxSearch
@@ -366,7 +367,7 @@
             this.groupBoxSearch.Location = new System.Drawing.Point(9, 4);
             this.groupBoxSearch.Name = "groupBoxSearch";
             this.groupBoxSearch.Size = new System.Drawing.Size(741, 64);
-            this.groupBoxSearch.TabIndex = 44;
+            this.groupBoxSearch.TabIndex = 0;
             this.groupBoxSearch.TabStop = false;
             this.groupBoxSearch.Text = "Search";
             // 
@@ -379,7 +380,7 @@
             this.lblSearchMainIdentifier.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.lblSearchMainIdentifier.Name = "lblSearchMainIdentifier";
             this.lblSearchMainIdentifier.Size = new System.Drawing.Size(73, 13);
-            this.lblSearchMainIdentifier.TabIndex = 54;
+            this.lblSearchMainIdentifier.TabIndex = 11;
             this.lblSearchMainIdentifier.Text = "Main Identifier";
             // 
             // txtboxSearchMainIdentifier
@@ -394,7 +395,7 @@
             this.txtboxSearchMainIdentifier.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.txtboxSearchMainIdentifier.ShortcutsEnabled = false;
             this.txtboxSearchMainIdentifier.Size = new System.Drawing.Size(158, 19);
-            this.txtboxSearchMainIdentifier.TabIndex = 6;
+            this.txtboxSearchMainIdentifier.TabIndex = 12;
             this.txtboxSearchMainIdentifier.TextChanged += new System.EventHandler(this.txtboxSearchMainIdentifier_TextChanged);
             // 
             // lblSearchOccupation
@@ -406,7 +407,7 @@
             this.lblSearchOccupation.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.lblSearchOccupation.Name = "lblSearchOccupation";
             this.lblSearchOccupation.Size = new System.Drawing.Size(62, 13);
-            this.lblSearchOccupation.TabIndex = 52;
+            this.lblSearchOccupation.TabIndex = 9;
             this.lblSearchOccupation.Text = "Occupation";
             // 
             // comboBoxOccupation
@@ -484,7 +485,7 @@
             this.comboBoxOccupation.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxOccupation.Name = "comboBoxOccupation";
             this.comboBoxOccupation.Size = new System.Drawing.Size(158, 21);
-            this.comboBoxOccupation.TabIndex = 5;
+            this.comboBoxOccupation.TabIndex = 10;
             this.comboBoxOccupation.SelectedIndexChanged += new System.EventHandler(this.comboBoxOccupation_SelectedIndexChanged);
             // 
             // lblSearchTitle
@@ -496,7 +497,7 @@
             this.lblSearchTitle.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.lblSearchTitle.Name = "lblSearchTitle";
             this.lblSearchTitle.Size = new System.Drawing.Size(27, 13);
-            this.lblSearchTitle.TabIndex = 50;
+            this.lblSearchTitle.TabIndex = 7;
             this.lblSearchTitle.Text = "Title";
             // 
             // comboBoxTitle
@@ -525,7 +526,7 @@
             this.comboBoxTitle.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxTitle.Name = "comboBoxTitle";
             this.comboBoxTitle.Size = new System.Drawing.Size(75, 21);
-            this.comboBoxTitle.TabIndex = 4;
+            this.comboBoxTitle.TabIndex = 8;
             this.comboBoxTitle.SelectedIndexChanged += new System.EventHandler(this.comboBoxTitle_SelectedIndexChanged);
             // 
             // lblSearchSex
@@ -537,7 +538,7 @@
             this.lblSearchSex.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.lblSearchSex.Name = "lblSearchSex";
             this.lblSearchSex.Size = new System.Drawing.Size(25, 13);
-            this.lblSearchSex.TabIndex = 48;
+            this.lblSearchSex.TabIndex = 5;
             this.lblSearchSex.Text = "Sex";
             // 
             // lblSearchLastname
@@ -549,7 +550,7 @@
             this.lblSearchLastname.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.lblSearchLastname.Name = "lblSearchLastname";
             this.lblSearchLastname.Size = new System.Drawing.Size(58, 13);
-            this.lblSearchLastname.TabIndex = 47;
+            this.lblSearchLastname.TabIndex = 3;
             this.lblSearchLastname.Text = "Last Name";
             // 
             // comboBoxSex
@@ -568,7 +569,7 @@
             this.comboBoxSex.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxSex.Name = "comboBoxSex";
             this.comboBoxSex.Size = new System.Drawing.Size(75, 21);
-            this.comboBoxSex.TabIndex = 3;
+            this.comboBoxSex.TabIndex = 6;
             this.comboBoxSex.SelectedIndexChanged += new System.EventHandler(this.comboBoxSex_SelectedIndexChanged);
             // 
             // btnClearSearch
@@ -580,7 +581,7 @@
             this.btnClearSearch.Margin = new System.Windows.Forms.Padding(1);
             this.btnClearSearch.Name = "btnClearSearch";
             this.btnClearSearch.Size = new System.Drawing.Size(64, 30);
-            this.btnClearSearch.TabIndex = 7;
+            this.btnClearSearch.TabIndex = 12;
             this.btnClearSearch.Text = "Clear";
             this.btnClearSearch.UseVisualStyleBackColor = false;
             this.btnClearSearch.Click += new System.EventHandler(this.btnClearSearch_Click);
@@ -595,12 +596,12 @@
             this.groupBoxGoogle.Controls.Add(this.btnClearGoogleCalendar);
             this.groupBoxGoogle.Controls.Add(this.btnSampleGoogleData);
             this.groupBoxGoogle.Controls.Add(this.btnGoogleCreateShare);
-            this.groupBoxGoogle.Location = new System.Drawing.Point(437, 344);
+            this.groupBoxGoogle.Location = new System.Drawing.Point(449, 344);
             this.groupBoxGoogle.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxGoogle.Name = "groupBoxGoogle";
             this.groupBoxGoogle.Padding = new System.Windows.Forms.Padding(2);
             this.groupBoxGoogle.Size = new System.Drawing.Size(199, 76);
-            this.groupBoxGoogle.TabIndex = 45;
+            this.groupBoxGoogle.TabIndex = 4;
             this.groupBoxGoogle.TabStop = false;
             this.groupBoxGoogle.Text = "Google Calendar";
             // 
@@ -614,12 +615,12 @@
             this.groupBoxNHSNet.Controls.Add(this.btnClearNHSNetCalendar);
             this.groupBoxNHSNet.Controls.Add(this.btnSampleNHSNetData);
             this.groupBoxNHSNet.Controls.Add(this.btnNHSNetCreateShare);
-            this.groupBoxNHSNet.Location = new System.Drawing.Point(223, 344);
+            this.groupBoxNHSNet.Location = new System.Drawing.Point(235, 344);
             this.groupBoxNHSNet.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxNHSNet.Name = "groupBoxNHSNet";
             this.groupBoxNHSNet.Padding = new System.Windows.Forms.Padding(2);
             this.groupBoxNHSNet.Size = new System.Drawing.Size(211, 76);
-            this.groupBoxNHSNet.TabIndex = 46;
+            this.groupBoxNHSNet.TabIndex = 3;
             this.groupBoxNHSNet.TabStop = false;
             this.groupBoxNHSNet.Text = "NHS Net Calendar";
             // 
@@ -645,7 +646,7 @@
             this.txtboxNHSNetEmail.Margin = new System.Windows.Forms.Padding(1);
             this.txtboxNHSNetEmail.Name = "txtboxNHSNetEmail";
             this.txtboxNHSNetEmail.Size = new System.Drawing.Size(144, 20);
-            this.txtboxNHSNetEmail.TabIndex = 16;
+            this.txtboxNHSNetEmail.TabIndex = 1;
             this.txtboxNHSNetEmail.Visible = false;
             // 
             // btnDeleteNHSNetCalendar
@@ -661,7 +662,7 @@
             this.btnDeleteNHSNetCalendar.Margin = new System.Windows.Forms.Padding(1);
             this.btnDeleteNHSNetCalendar.Name = "btnDeleteNHSNetCalendar";
             this.btnDeleteNHSNetCalendar.Size = new System.Drawing.Size(29, 27);
-            this.btnDeleteNHSNetCalendar.TabIndex = 22;
+            this.btnDeleteNHSNetCalendar.TabIndex = 7;
             this.btnDeleteNHSNetCalendar.UseVisualStyleBackColor = false;
             this.btnDeleteNHSNetCalendar.Visible = false;
             this.btnDeleteNHSNetCalendar.Click += new System.EventHandler(this.btnDeleteNHSNetCalendar_Click);
@@ -678,7 +679,7 @@
             this.btnNHSNetEmailClear.Margin = new System.Windows.Forms.Padding(1);
             this.btnNHSNetEmailClear.Name = "btnNHSNetEmailClear";
             this.btnNHSNetEmailClear.Size = new System.Drawing.Size(29, 27);
-            this.btnNHSNetEmailClear.TabIndex = 18;
+            this.btnNHSNetEmailClear.TabIndex = 3;
             this.btnNHSNetEmailClear.UseVisualStyleBackColor = false;
             this.btnNHSNetEmailClear.Visible = false;
             this.btnNHSNetEmailClear.Click += new System.EventHandler(this.btnNHSNetEmailClear_Click);
@@ -696,7 +697,7 @@
             this.btnNHSNetEmailUpdate.Margin = new System.Windows.Forms.Padding(1);
             this.btnNHSNetEmailUpdate.Name = "btnNHSNetEmailUpdate";
             this.btnNHSNetEmailUpdate.Size = new System.Drawing.Size(29, 27);
-            this.btnNHSNetEmailUpdate.TabIndex = 17;
+            this.btnNHSNetEmailUpdate.TabIndex = 2;
             this.btnNHSNetEmailUpdate.UseVisualStyleBackColor = false;
             this.btnNHSNetEmailUpdate.Visible = false;
             this.btnNHSNetEmailUpdate.Click += new System.EventHandler(this.btnNHSNetEmailUpdate_Click);
@@ -714,7 +715,7 @@
             this.btnClearNHSNetCalendar.Margin = new System.Windows.Forms.Padding(1);
             this.btnClearNHSNetCalendar.Name = "btnClearNHSNetCalendar";
             this.btnClearNHSNetCalendar.Size = new System.Drawing.Size(29, 27);
-            this.btnClearNHSNetCalendar.TabIndex = 21;
+            this.btnClearNHSNetCalendar.TabIndex = 6;
             this.btnClearNHSNetCalendar.UseVisualStyleBackColor = false;
             this.btnClearNHSNetCalendar.Visible = false;
             this.btnClearNHSNetCalendar.Click += new System.EventHandler(this.btnClearNHSNetCalendar_Click);
@@ -731,7 +732,7 @@
             this.btnSampleNHSNetData.Margin = new System.Windows.Forms.Padding(1);
             this.btnSampleNHSNetData.Name = "btnSampleNHSNetData";
             this.btnSampleNHSNetData.Size = new System.Drawing.Size(29, 27);
-            this.btnSampleNHSNetData.TabIndex = 20;
+            this.btnSampleNHSNetData.TabIndex = 5;
             this.btnSampleNHSNetData.UseVisualStyleBackColor = false;
             this.btnSampleNHSNetData.Visible = false;
             this.btnSampleNHSNetData.Click += new System.EventHandler(this.btnSampleNHSNetData_Click);
@@ -749,13 +750,14 @@
             this.btnNHSNetCreateShare.Margin = new System.Windows.Forms.Padding(1);
             this.btnNHSNetCreateShare.Name = "btnNHSNetCreateShare";
             this.btnNHSNetCreateShare.Size = new System.Drawing.Size(39, 27);
-            this.btnNHSNetCreateShare.TabIndex = 19;
+            this.btnNHSNetCreateShare.TabIndex = 4;
             this.btnNHSNetCreateShare.UseVisualStyleBackColor = false;
             this.btnNHSNetCreateShare.Visible = false;
             this.btnNHSNetCreateShare.Click += new System.EventHandler(this.btnNHSNetCreateShare_Click);
             // 
             // groupBoxExchange
             // 
+            this.groupBoxExchange.Controls.Add(this.btnTransferExchangeData);
             this.groupBoxExchange.Controls.Add(this.lblExchangeEmail);
             this.groupBoxExchange.Controls.Add(this.txtboxExchangeEmail);
             this.groupBoxExchange.Controls.Add(this.btnDeleteExchangeCalendar);
@@ -768,10 +770,27 @@
             this.groupBoxExchange.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxExchange.Name = "groupBoxExchange";
             this.groupBoxExchange.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBoxExchange.Size = new System.Drawing.Size(211, 76);
-            this.groupBoxExchange.TabIndex = 47;
+            this.groupBoxExchange.Size = new System.Drawing.Size(222, 76);
+            this.groupBoxExchange.TabIndex = 2;
             this.groupBoxExchange.TabStop = false;
             this.groupBoxExchange.Text = "Exchange Calendar";
+            // 
+            // btnTransferExchangeData
+            // 
+            this.btnTransferExchangeData.BackColor = System.Drawing.Color.LightGray;
+            this.btnTransferExchangeData.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnTransferExchangeData.BackgroundImage")));
+            this.btnTransferExchangeData.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnTransferExchangeData.Enabled = false;
+            this.btnTransferExchangeData.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTransferExchangeData.ForeColor = System.Drawing.Color.White;
+            this.btnTransferExchangeData.Location = new System.Drawing.Point(97, 17);
+            this.btnTransferExchangeData.Margin = new System.Windows.Forms.Padding(1);
+            this.btnTransferExchangeData.Name = "btnTransferExchangeData";
+            this.btnTransferExchangeData.Size = new System.Drawing.Size(29, 27);
+            this.btnTransferExchangeData.TabIndex = 5;
+            this.btnTransferExchangeData.UseVisualStyleBackColor = false;
+            this.btnTransferExchangeData.Visible = false;
+            this.btnTransferExchangeData.Click += new System.EventHandler(this.btnTransferExchangeData_Click);
             // 
             // lblExchangeEmail
             // 
@@ -795,7 +814,7 @@
             this.txtboxExchangeEmail.Margin = new System.Windows.Forms.Padding(1);
             this.txtboxExchangeEmail.Name = "txtboxExchangeEmail";
             this.txtboxExchangeEmail.Size = new System.Drawing.Size(130, 20);
-            this.txtboxExchangeEmail.TabIndex = 9;
+            this.txtboxExchangeEmail.TabIndex = 1;
             this.txtboxExchangeEmail.Visible = false;
             // 
             // btnDeleteExchangeCalendar
@@ -807,11 +826,11 @@
             this.btnDeleteExchangeCalendar.FlatAppearance.BorderSize = 0;
             this.btnDeleteExchangeCalendar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDeleteExchangeCalendar.ForeColor = System.Drawing.Color.White;
-            this.btnDeleteExchangeCalendar.Location = new System.Drawing.Point(162, 17);
+            this.btnDeleteExchangeCalendar.Location = new System.Drawing.Point(187, 17);
             this.btnDeleteExchangeCalendar.Margin = new System.Windows.Forms.Padding(1);
             this.btnDeleteExchangeCalendar.Name = "btnDeleteExchangeCalendar";
             this.btnDeleteExchangeCalendar.Size = new System.Drawing.Size(29, 27);
-            this.btnDeleteExchangeCalendar.TabIndex = 15;
+            this.btnDeleteExchangeCalendar.TabIndex = 8;
             this.btnDeleteExchangeCalendar.UseVisualStyleBackColor = false;
             this.btnDeleteExchangeCalendar.Visible = false;
             this.btnDeleteExchangeCalendar.Click += new System.EventHandler(this.btnDeleteExchangeCalendar_Click);
@@ -828,7 +847,7 @@
             this.btnExchangeEmailClear.Margin = new System.Windows.Forms.Padding(1);
             this.btnExchangeEmailClear.Name = "btnExchangeEmailClear";
             this.btnExchangeEmailClear.Size = new System.Drawing.Size(29, 27);
-            this.btnExchangeEmailClear.TabIndex = 11;
+            this.btnExchangeEmailClear.TabIndex = 3;
             this.btnExchangeEmailClear.UseVisualStyleBackColor = false;
             this.btnExchangeEmailClear.Visible = false;
             this.btnExchangeEmailClear.Click += new System.EventHandler(this.btnExchangeEmailClear_Click);
@@ -846,7 +865,7 @@
             this.btnExchangeEmailUpdate.Margin = new System.Windows.Forms.Padding(1);
             this.btnExchangeEmailUpdate.Name = "btnExchangeEmailUpdate";
             this.btnExchangeEmailUpdate.Size = new System.Drawing.Size(29, 27);
-            this.btnExchangeEmailUpdate.TabIndex = 10;
+            this.btnExchangeEmailUpdate.TabIndex = 2;
             this.btnExchangeEmailUpdate.UseVisualStyleBackColor = false;
             this.btnExchangeEmailUpdate.Visible = false;
             this.btnExchangeEmailUpdate.Click += new System.EventHandler(this.btnExchangeEmailUpdate_Click);
@@ -860,11 +879,11 @@
             this.btnClearExchangeCalendar.FlatAppearance.BorderSize = 0;
             this.btnClearExchangeCalendar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClearExchangeCalendar.ForeColor = System.Drawing.Color.White;
-            this.btnClearExchangeCalendar.Location = new System.Drawing.Point(131, 17);
+            this.btnClearExchangeCalendar.Location = new System.Drawing.Point(156, 17);
             this.btnClearExchangeCalendar.Margin = new System.Windows.Forms.Padding(1);
             this.btnClearExchangeCalendar.Name = "btnClearExchangeCalendar";
             this.btnClearExchangeCalendar.Size = new System.Drawing.Size(29, 27);
-            this.btnClearExchangeCalendar.TabIndex = 14;
+            this.btnClearExchangeCalendar.TabIndex = 7;
             this.btnClearExchangeCalendar.UseVisualStyleBackColor = false;
             this.btnClearExchangeCalendar.Visible = false;
             this.btnClearExchangeCalendar.Click += new System.EventHandler(this.btnClearExchangeCalendar_Click);
@@ -877,11 +896,11 @@
             this.btnSampleExchangeData.Enabled = false;
             this.btnSampleExchangeData.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSampleExchangeData.ForeColor = System.Drawing.Color.White;
-            this.btnSampleExchangeData.Location = new System.Drawing.Point(100, 17);
+            this.btnSampleExchangeData.Location = new System.Drawing.Point(126, 17);
             this.btnSampleExchangeData.Margin = new System.Windows.Forms.Padding(1);
             this.btnSampleExchangeData.Name = "btnSampleExchangeData";
             this.btnSampleExchangeData.Size = new System.Drawing.Size(29, 27);
-            this.btnSampleExchangeData.TabIndex = 13;
+            this.btnSampleExchangeData.TabIndex = 6;
             this.btnSampleExchangeData.UseVisualStyleBackColor = false;
             this.btnSampleExchangeData.Visible = false;
             this.btnSampleExchangeData.Click += new System.EventHandler(this.btnSampleExchangeData_Click);
@@ -899,7 +918,7 @@
             this.btnExchangeCreateShare.Margin = new System.Windows.Forms.Padding(1);
             this.btnExchangeCreateShare.Name = "btnExchangeCreateShare";
             this.btnExchangeCreateShare.Size = new System.Drawing.Size(29, 27);
-            this.btnExchangeCreateShare.TabIndex = 12;
+            this.btnExchangeCreateShare.TabIndex = 4;
             this.btnExchangeCreateShare.UseVisualStyleBackColor = false;
             this.btnExchangeCreateShare.Visible = false;
             this.btnExchangeCreateShare.Click += new System.EventHandler(this.btnExchangeCreateShare_Click);
@@ -992,6 +1011,7 @@
         private System.Windows.Forms.Button btnClearExchangeCalendar;
         private System.Windows.Forms.Button btnSampleExchangeData;
         private System.Windows.Forms.Button btnExchangeCreateShare;
+        private System.Windows.Forms.Button btnTransferExchangeData;
     }
 }
 
