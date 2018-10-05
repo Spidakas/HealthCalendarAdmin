@@ -2254,8 +2254,8 @@ test body
                 case "Contact":
                     strColour = "5";
                     break;
-                case "Review":
-                    strColour = "10";
+                case "TCI":
+                    strColour = "9";
                     break;
                 case "Vacation":
                     strColour = "7";
@@ -2263,8 +2263,8 @@ test body
                 case "StudyLeave":
                     strColour = "9";
                     break;
-                case "TCI":
-                    strColour = "4";
+                case "Day Case":
+                    strColour = "2";
                     break;
                 case "Theatre":
                     strColour = "1";

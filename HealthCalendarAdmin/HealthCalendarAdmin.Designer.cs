@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HealthCalendarAdmin));
             this.txtboxSearchFirstname = new System.Windows.Forms.TextBox();
             this.lblSearchFirstname = new System.Windows.Forms.Label();
@@ -123,15 +123,15 @@
             this.dgvSubscribers.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvSubscribers.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.dgvSubscribers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvSubscribers.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvSubscribers.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvSubscribers.Location = new System.Drawing.Point(9, 74);
             this.dgvSubscribers.Margin = new System.Windows.Forms.Padding(1);
             this.dgvSubscribers.MultiSelect = false;
@@ -269,7 +269,7 @@
             this.btnGoogleCreateShare.FlatAppearance.BorderSize = 0;
             this.btnGoogleCreateShare.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGoogleCreateShare.ForeColor = System.Drawing.Color.White;
-            this.btnGoogleCreateShare.Location = new System.Drawing.Point(68, 17);
+            this.btnGoogleCreateShare.Location = new System.Drawing.Point(67, 15);
             this.btnGoogleCreateShare.Margin = new System.Windows.Forms.Padding(1);
             this.btnGoogleCreateShare.Name = "btnGoogleCreateShare";
             this.btnGoogleCreateShare.Size = new System.Drawing.Size(29, 27);
@@ -286,7 +286,7 @@
             this.btnSampleGoogleData.Enabled = false;
             this.btnSampleGoogleData.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSampleGoogleData.ForeColor = System.Drawing.Color.White;
-            this.btnSampleGoogleData.Location = new System.Drawing.Point(99, 17);
+            this.btnSampleGoogleData.Location = new System.Drawing.Point(98, 15);
             this.btnSampleGoogleData.Margin = new System.Windows.Forms.Padding(1);
             this.btnSampleGoogleData.Name = "btnSampleGoogleData";
             this.btnSampleGoogleData.Size = new System.Drawing.Size(29, 27);
@@ -304,7 +304,7 @@
             this.btnClearGoogleCalendar.FlatAppearance.BorderSize = 0;
             this.btnClearGoogleCalendar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClearGoogleCalendar.ForeColor = System.Drawing.Color.White;
-            this.btnClearGoogleCalendar.Location = new System.Drawing.Point(130, 16);
+            this.btnClearGoogleCalendar.Location = new System.Drawing.Point(129, 15);
             this.btnClearGoogleCalendar.Margin = new System.Windows.Forms.Padding(1);
             this.btnClearGoogleCalendar.Name = "btnClearGoogleCalendar";
             this.btnClearGoogleCalendar.Size = new System.Drawing.Size(29, 27);
@@ -322,7 +322,7 @@
             this.btnDeleteGoogleCalendar.FlatAppearance.BorderSize = 0;
             this.btnDeleteGoogleCalendar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDeleteGoogleCalendar.ForeColor = System.Drawing.Color.White;
-            this.btnDeleteGoogleCalendar.Location = new System.Drawing.Point(162, 17);
+            this.btnDeleteGoogleCalendar.Location = new System.Drawing.Point(161, 15);
             this.btnDeleteGoogleCalendar.Margin = new System.Windows.Forms.Padding(1);
             this.btnDeleteGoogleCalendar.Name = "btnDeleteGoogleCalendar";
             this.btnDeleteGoogleCalendar.Size = new System.Drawing.Size(29, 27);
@@ -658,7 +658,7 @@
             this.btnDeleteNHSNetCalendar.FlatAppearance.BorderSize = 0;
             this.btnDeleteNHSNetCalendar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDeleteNHSNetCalendar.ForeColor = System.Drawing.Color.White;
-            this.btnDeleteNHSNetCalendar.Location = new System.Drawing.Point(172, 17);
+            this.btnDeleteNHSNetCalendar.Location = new System.Drawing.Point(172, 15);
             this.btnDeleteNHSNetCalendar.Margin = new System.Windows.Forms.Padding(1);
             this.btnDeleteNHSNetCalendar.Name = "btnDeleteNHSNetCalendar";
             this.btnDeleteNHSNetCalendar.Size = new System.Drawing.Size(29, 27);
@@ -711,7 +711,7 @@
             this.btnClearNHSNetCalendar.FlatAppearance.BorderSize = 0;
             this.btnClearNHSNetCalendar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClearNHSNetCalendar.ForeColor = System.Drawing.Color.White;
-            this.btnClearNHSNetCalendar.Location = new System.Drawing.Point(140, 16);
+            this.btnClearNHSNetCalendar.Location = new System.Drawing.Point(140, 15);
             this.btnClearNHSNetCalendar.Margin = new System.Windows.Forms.Padding(1);
             this.btnClearNHSNetCalendar.Name = "btnClearNHSNetCalendar";
             this.btnClearNHSNetCalendar.Size = new System.Drawing.Size(29, 27);
@@ -728,7 +728,7 @@
             this.btnSampleNHSNetData.Enabled = false;
             this.btnSampleNHSNetData.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSampleNHSNetData.ForeColor = System.Drawing.Color.White;
-            this.btnSampleNHSNetData.Location = new System.Drawing.Point(109, 17);
+            this.btnSampleNHSNetData.Location = new System.Drawing.Point(108, 15);
             this.btnSampleNHSNetData.Margin = new System.Windows.Forms.Padding(1);
             this.btnSampleNHSNetData.Name = "btnSampleNHSNetData";
             this.btnSampleNHSNetData.Size = new System.Drawing.Size(29, 27);
@@ -746,7 +746,7 @@
             this.btnNHSNetCreateShare.FlatAppearance.BorderSize = 0;
             this.btnNHSNetCreateShare.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNHSNetCreateShare.ForeColor = System.Drawing.Color.White;
-            this.btnNHSNetCreateShare.Location = new System.Drawing.Point(68, 17);
+            this.btnNHSNetCreateShare.Location = new System.Drawing.Point(66, 15);
             this.btnNHSNetCreateShare.Margin = new System.Windows.Forms.Padding(1);
             this.btnNHSNetCreateShare.Name = "btnNHSNetCreateShare";
             this.btnNHSNetCreateShare.Size = new System.Drawing.Size(39, 27);
@@ -783,7 +783,7 @@
             this.btnTransferExchangeData.Enabled = false;
             this.btnTransferExchangeData.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTransferExchangeData.ForeColor = System.Drawing.Color.White;
-            this.btnTransferExchangeData.Location = new System.Drawing.Point(97, 17);
+            this.btnTransferExchangeData.Location = new System.Drawing.Point(97, 15);
             this.btnTransferExchangeData.Margin = new System.Windows.Forms.Padding(1);
             this.btnTransferExchangeData.Name = "btnTransferExchangeData";
             this.btnTransferExchangeData.Size = new System.Drawing.Size(29, 27);
@@ -826,7 +826,7 @@
             this.btnDeleteExchangeCalendar.FlatAppearance.BorderSize = 0;
             this.btnDeleteExchangeCalendar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDeleteExchangeCalendar.ForeColor = System.Drawing.Color.White;
-            this.btnDeleteExchangeCalendar.Location = new System.Drawing.Point(187, 17);
+            this.btnDeleteExchangeCalendar.Location = new System.Drawing.Point(187, 15);
             this.btnDeleteExchangeCalendar.Margin = new System.Windows.Forms.Padding(1);
             this.btnDeleteExchangeCalendar.Name = "btnDeleteExchangeCalendar";
             this.btnDeleteExchangeCalendar.Size = new System.Drawing.Size(29, 27);
@@ -879,7 +879,7 @@
             this.btnClearExchangeCalendar.FlatAppearance.BorderSize = 0;
             this.btnClearExchangeCalendar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClearExchangeCalendar.ForeColor = System.Drawing.Color.White;
-            this.btnClearExchangeCalendar.Location = new System.Drawing.Point(156, 17);
+            this.btnClearExchangeCalendar.Location = new System.Drawing.Point(156, 15);
             this.btnClearExchangeCalendar.Margin = new System.Windows.Forms.Padding(1);
             this.btnClearExchangeCalendar.Name = "btnClearExchangeCalendar";
             this.btnClearExchangeCalendar.Size = new System.Drawing.Size(29, 27);
@@ -896,7 +896,7 @@
             this.btnSampleExchangeData.Enabled = false;
             this.btnSampleExchangeData.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSampleExchangeData.ForeColor = System.Drawing.Color.White;
-            this.btnSampleExchangeData.Location = new System.Drawing.Point(126, 17);
+            this.btnSampleExchangeData.Location = new System.Drawing.Point(126, 15);
             this.btnSampleExchangeData.Margin = new System.Windows.Forms.Padding(1);
             this.btnSampleExchangeData.Name = "btnSampleExchangeData";
             this.btnSampleExchangeData.Size = new System.Drawing.Size(29, 27);
@@ -914,7 +914,7 @@
             this.btnExchangeCreateShare.FlatAppearance.BorderSize = 0;
             this.btnExchangeCreateShare.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExchangeCreateShare.ForeColor = System.Drawing.Color.White;
-            this.btnExchangeCreateShare.Location = new System.Drawing.Point(68, 17);
+            this.btnExchangeCreateShare.Location = new System.Drawing.Point(67, 15);
             this.btnExchangeCreateShare.Margin = new System.Windows.Forms.Padding(1);
             this.btnExchangeCreateShare.Name = "btnExchangeCreateShare";
             this.btnExchangeCreateShare.Size = new System.Drawing.Size(29, 27);
