@@ -2255,7 +2255,7 @@ test body
                     strColour = "5";
                     break;
                 case "TCI":
-                    strColour = "9";
+                    strColour = "3";
                     break;
                 case "Vacation":
                     strColour = "7";
