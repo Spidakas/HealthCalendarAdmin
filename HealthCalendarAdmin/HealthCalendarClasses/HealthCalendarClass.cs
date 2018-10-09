@@ -258,71 +258,93 @@ namespace HealthCalendarClasses
                 return isSuccess;
             }
 
-            c.NHSNetCalendarID = folder.Id.ToString();
+            //c.NHSNetCalendarID = folder.Id.ToString();
             // Bind to the folder ????Is this the root folder or the calendar folder??
             //Folder folderStoreInfo;
             //folderStoreInfo = Folder.Bind(c.NHSNetCalendarService, WellKnownFolderName.Calendar);
 
-            string EwsID2 = folder.Id.UniqueId;
+            //string EwsID2 = folder.Id.UniqueId;
 
             // The value of folderidHex will be what we need to use for the FolderId in the xml file
             //string folderidHex = GetConvertedEWSIDinHex(c.NHSNetCalendarService, EwsID2, c.NHSNetOrgMasterAccount);
 
 
-            string tmpPath = Application.StartupPath + "\\temp\\";
-            //string folderid = GetSharedFolderId("Calendar");
-            c.strSharingFolderIdHex = GetConvertedEWSIDinHex(c.NHSNetCalendarService, EwsID2, c.NHSNetOrgMasterAccount);
-            c.strInitiatorEntryID = GetIntiatorEntryID(c,2);
-            c.strInvitationMailboxID = GetInvitationMailboxId(c,2);
-            c.strOwnerSMTPAddress = c.NHSNetOrgMasterAccount;
-            c.strOwnerDisplayName = c.NHSNetDisplayName;
+            //string tmpPath = Application.StartupPath + "\\temp\\";
+            //System.IO.Directory.CreateDirectory(tmpPath); // Will create folder if it does not exist otherwise this does nothing
+                                                          //c.strSharingFolderIdHex = GetConvertedEWSIDinHex(c.NHSNetCalendarService, EwsID2, c.NHSNetOrgMasterAccount);
+                                                          //c.strInitiatorEntryID = GetIntiatorEntryID(c,2);
+                                                          //c.strInvitationMailboxID = GetInvitationMailboxId(c,2);
+                                                          //c.strOwnerSMTPAddress = c.NHSNetOrgMasterAccount;
+                                                          //c.strOwnerDisplayName = c.NHSNetDisplayName;
 
-            c.CreateSharingMessageAttachment(c.NHSNetOrgMasterAccount, c.NHSNetEmail,"calendar",c,2);
+            //c.CreateSharingMessageAttachment(c.NHSNetOrgMasterAccount, c.NHSNetEmail,"calendar",c,2);
 
             // This is where I need the binary value of that initiator ID we talked about
-            c.binInitiatorEntryId = HexStringToByteArray(c.strInitiatorEntryID);
+            //c.binInitiatorEntryId = HexStringToByteArray(c.strInitiatorEntryID);
 
-            SetupExtendedPropertyDefinition(c);
-            SetCalendarSharingMessageBody(c);
+            //SetupExtendedPropertyDefinition(c);
+            //SetCalendarSharingMessageBody(c);
+
+            // Create a new message
+            //EmailMessage invitationRequest = new EmailMessage(c.NHSNetCalendarService);
+            //invitationRequest.Subject = "This is your Lorenzo activity which is being shared with you";
+            //invitationRequest.Body = "Health Calendar by Loch Roag Limited has automatically sent you this calendar sharing massage";
+            //invitationRequest.From = c.NHSNetOrgMasterAccount;
+            //invitationRequest.Culture = "en-GB";
+            //invitationRequest.Sensitivity = Sensitivity.Normal;
+            //invitationRequest.Sender = c.NHSNetOrgMasterAccount;
+
+            // Set a sharing specific property on the message
+            //invitationRequest.ItemClass = "IPM.Sharing"; /* Constant Required Value [MS-ProtocolSpec] */
+
+            //c.SetExtendedProperties(c, invitationRequest, 2);
+
+
+            // Add a file attachment by using a stream
+            // We need to do the following in order to prevent 3 extra bytes from being prepended to the attachment
+            //string sharMetadata = File.ReadAllText(tmpPath + "sharing_metadata.xml", Encoding.ASCII);
+            //byte[] fileContents;
+            //UTF8Encoding encoding = new System.Text.UTF8Encoding();
+            //fileContents = encoding.GetBytes(sharMetadata);
+
+            // fileContents is a Stream object that represents the content of the file to attach.
+            //invitationRequest.Attachments.AddFileAttachment("sharing_metadata.xml", fileContents);
+
+            // This is where we set those "special" headers and other pertinent
+            // information I noted in Part 1 of this series...
+            //Attachment thisAttachment = invitationRequest.Attachments[0];
+            //thisAttachment.ContentType = "application/x-sharing-metadata-xml";
+            //thisAttachment.Name = "sharing_metadata.xml";
+            //thisAttachment.IsInline = false;
+
+            // Add recipient info and send message
+            //invitationRequest.ToRecipients.Add(c.NHSNetEmail);
+
+            //try
+            //{
+            //    invitationRequest.SendAndSaveCopy();
+            //}
+            //catch (Exception ex)
+            //{
+            //    var logger = NLog.LogManager.GetCurrentClassLogger();
+            //    logger.Info("Error when sending NHSNet Calendar sharing invite " + c.NHSNetCalendarName + ". Error Message: " + ex.ToString());
+            //    return isSuccess;
+            //}
+            //invitationRequest.Send();
+
 
             // Create a new message
             EmailMessage invitationRequest = new EmailMessage(c.NHSNetCalendarService);
-            invitationRequest.Subject = "This is your Lorenzo activity which is being shared with you";
-            invitationRequest.Body = "Health Calendar by Loch Roag Limited has automatically sent you this calendar sharing massage";
+            invitationRequest.Subject = "Your activity calendar is now available for you.";
+            invitationRequest.Body = "Health Calendar by Loch Roag Limited has automatically given you permission to your activity calendar";
             invitationRequest.From = c.NHSNetOrgMasterAccount;
             invitationRequest.Culture = "en-GB";
             invitationRequest.Sensitivity = Sensitivity.Normal;
             invitationRequest.Sender = c.NHSNetOrgMasterAccount;
-
-            // Set a sharing specific property on the message
-            invitationRequest.ItemClass = "IPM.Sharing"; /* Constant Required Value [MS-ProtocolSpec] */
-
-            c.SetExtendedProperties(c, invitationRequest, 2);
-
-            
-            // Add a file attachment by using a stream
-            // We need to do the following in order to prevent 3 extra bytes from being prepended to the attachment
-            string sharMetadata = File.ReadAllText(tmpPath + "sharing_metadata.xml", Encoding.ASCII);
-            byte[] fileContents;
-            UTF8Encoding encoding = new System.Text.UTF8Encoding();
-            fileContents = encoding.GetBytes(sharMetadata);
-
-            // fileContents is a Stream object that represents the content of the file to attach.
-            invitationRequest.Attachments.AddFileAttachment("sharing_metadata.xml", fileContents);
-
-            // This is where we set those "special" headers and other pertinent
-            // information I noted in Part 1 of this series...
-            Attachment thisAttachment = invitationRequest.Attachments[0];
-            thisAttachment.ContentType = "application/x-sharing-metadata-xml";
-            thisAttachment.Name = "sharing_metadata.xml";
-            thisAttachment.IsInline = false;
-
-            // Add recipient info and send message
             invitationRequest.ToRecipients.Add(c.NHSNetEmail);
-
             try
             {
-                invitationRequest.SendAndSaveCopy();
+                invitationRequest.Send();
             }
             catch (Exception ex)
             {
@@ -331,7 +353,10 @@ namespace HealthCalendarClasses
                 return isSuccess;
             }
 
+
+
             //invitationRequest.Send();
+
 
             // Update db Record
             SqlConnection conn = new SqlConnection(MyConnString);
@@ -400,6 +425,10 @@ namespace HealthCalendarClasses
 
             string EwsID2 = folder.Id.UniqueId;
             string tmpPath = Application.StartupPath + "\\temp\\";
+
+            System.IO.Directory.CreateDirectory(tmpPath); // Will create folder if it does not exist otherwise this does nothing
+
+
             c.strSharingFolderIdHex = GetConvertedEWSIDinHex(c.ExchangeCalendarService, EwsID2, c.ExchangeOrgMasterAccount);
             c.strInitiatorEntryID = GetIntiatorEntryID(c, 1);
             c.strInvitationMailboxID = GetInvitationMailboxId(c, 1);
@@ -887,7 +916,7 @@ test body
                 return isSuccess;
             }
             //Delete Exchange
-            //If successful update selected db record with empty GoogleCalenderID
+            //If successful update selected db record with empty ExchangeCalenderID
             var view = new FolderView(1);
             view.Traversal = FolderTraversal.Deep;
             var filter = new SearchFilter.IsEqualTo(FolderSchema.DisplayName, c.ExchangeCalendarName);
@@ -1005,7 +1034,7 @@ test body
             view.Traversal = FolderTraversal.Deep;
             filter = new SearchFilter.IsEqualTo(FolderSchema.DisplayName, c.NHSNetCalendarName);
             results = c.NHSNetCalendarService.FindFolders(WellKnownFolderName.Root, filter, view);
-            if (results.TotalCount == 1)
+            if (results.TotalCount >= 1)
             {
                 CalendarFolder calendar = results.Where(f => f.DisplayName == c.NHSNetCalendarName).Cast<CalendarFolder>().FirstOrDefault();
                 CalendarView cView = new CalendarView(DateTime.Now.AddMonths(-6), DateTime.Now.AddMonths(12));
@@ -1279,16 +1308,16 @@ test body
             view.Traversal = FolderTraversal.Deep;
             filter = new SearchFilter.IsEqualTo(FolderSchema.DisplayName, c.NHSNetCalendarName);
             results = c.NHSNetCalendarService.FindFolders(WellKnownFolderName.Root, filter, view);
-            if (results.TotalCount == 1)
+            if (results.TotalCount >= 1)
             {
                 CalendarFolder calendar = results.Where(f => f.DisplayName == c.NHSNetCalendarName).Cast<CalendarFolder>().FirstOrDefault();
                 CalendarView cView = new CalendarView(DateTime.Now.AddMonths(-6), DateTime.Now.AddMonths(12));
                 cView.PropertySet = new PropertySet(AppointmentSchema.Subject, AppointmentSchema.Start, AppointmentSchema.End, AppointmentSchema.Id);
 
-                DelAppointments = calendar.FindAppointments(cView);
-                ItemView iv = new ItemView(DelAppointments.TotalCount);
+                DelAppointments = calendar.FindAppointments(cView);                
                 if (DelAppointments.TotalCount > 0)
                 {
+                    ItemView iv = new ItemView(DelAppointments.TotalCount);
                     List<ItemId> idItemIds = new List<ItemId>();
                     if (DelAppointments.Items != null && DelAppointments.Items.Count > 0)
                     {
@@ -1616,12 +1645,28 @@ test body
 
         }
 
+
         public bool CreateSampleNHSNetCalendarData(HealthCalendarClass c)
         {
             bool isSuccess = false;
             DateTime today, nextMonday;
             int daysUntilMonday;
-            DateTime dtEventStart, dtEventEnd;
+            DateTime dtEventStart;
+            DateTime dtEventEnd;
+            FolderView view;
+            SearchFilter filter;
+            FindFoldersResults results;
+            Folder folder;
+            Collection<Appointment> appointments;
+
+            appointments = new Collection<Appointment>();
+
+            //Get the FolderID for the selected user
+            view = new FolderView(1);
+            view.Traversal = FolderTraversal.Deep;
+            filter = new SearchFilter.IsEqualTo(FolderSchema.DisplayName, c.NHSNetCalendarName);
+            results = c.NHSNetCalendarService.FindFolders(WellKnownFolderName.Root, filter, view);
+            folder = Folder.Bind(c.NHSNetCalendarService, results.Folders.Single().Id);
 
             try
             {
@@ -1631,110 +1676,133 @@ test body
                 daysUntilMonday = ((int)DayOfWeek.Monday - (int)today.DayOfWeek + 7) % 7;
                 nextMonday = today.AddDays(daysUntilMonday);
 
-                //Get the FolderID for the selected user
-                var view = new FolderView(1);
-                view.Traversal = FolderTraversal.Deep;
-                var filter = new SearchFilter.IsEqualTo(FolderSchema.DisplayName, c.NHSNetCalendarName);
-                var results = c.NHSNetCalendarService.FindFolders(WellKnownFolderName.Root, filter, view);
-                //if (results.TotalCount < 1)
-                //    throw new Exception("Cannot find Rejected folder");
-                //if (results.TotalCount > 1)
-                //    throw new Exception("Multiple Rejected folders");
-                Folder folder = Folder.Bind(c.NHSNetCalendarService, results.Folders.Single().Id);
-
                 //Add Events to Calendar from next Monday
+
                 //Monday
+                Appointment appointment01 = new Appointment(c.ExchangeCalendarService);
                 dtEventStart = nextMonday.AddMinutes(540);
                 dtEventEnd = nextMonday.AddMinutes(750);
-                AddNHSNetCalenderEvent(c.NHSNetCalendarService, folder, "Clinic", "Tue AM - Ortho Clinic - Slots 20, Booked 18, Avail 2", "Lancaster Royal Infirmary, Ashton Rd, Lancaster LA1 4RP", "Total Slots 20, Booked Slots 18, Available Slots 2", dtEventStart, dtEventEnd);
+                SetNHSNetCalendarEvent(appointment01, "Clinic", "Tue AM - Ortho Clinic - Slots 20, Booked 18, Avail 2", "Lancaster Royal Infirmary, Ashton Rd, Lancaster LA1 4RP", "Total Slots 20, Booked Slots 18, Available Slots 2", dtEventStart, dtEventEnd);
+                appointments.Add(appointment01);
+
+                Appointment appointment02 = new Appointment(c.ExchangeCalendarService);
                 dtEventStart = nextMonday.AddMinutes(780);
                 dtEventEnd = nextMonday.AddMinutes(960);
-                AddNHSNetCalenderEvent(c.NHSNetCalendarService, folder, "Theatre", "Theatre	Theatre 04 List - 1 x Knee Replacement, 2 x Knee Arthroscopy", "Lancaster Royal Infirmary, Ashton Rd, Lancaster LA1 4RP", "1 x Knee Replacement, 2 x Knee Arthroscopy", dtEventStart, dtEventEnd);
+                SetNHSNetCalendarEvent(appointment02, "Theatre", "Theatre	Theatre 04 List - 1 x Knee Replacement, 2 x Knee Arthroscopy", "Lancaster Royal Infirmary, Ashton Rd, Lancaster LA1 4RP", "1 x Knee Replacement, 2 x Knee Arthroscopy", dtEventStart, dtEventEnd);
+                appointments.Add(appointment02);
+
                 //Tuesday
+                Appointment appointment03 = new Appointment(c.ExchangeCalendarService);
                 dtEventStart = nextMonday.AddMinutes(1440 + 570);
                 dtEventEnd = nextMonday.AddMinutes(1440 + 630);
-                AddNHSNetCalenderEvent(c.NHSNetCalendarService, folder, "Contact", "Contact Community - M 19", "Galgate Health Centre, Highland Brow, Galgate, Lancaster, Lancashire, LA2 0NB", "Meet at GP Surgery", dtEventStart, dtEventEnd);
+                SetNHSNetCalendarEvent(appointment03, "Contact", "Contact Community - M 19", "Galgate Health Centre, Highland Brow, Galgate, Lancaster, Lancashire, LA2 0NB", "Meet at GP Surgery", dtEventStart, dtEventEnd);
+                appointments.Add(appointment03);
+                Appointment appointment04 = new Appointment(c.ExchangeCalendarService);
                 dtEventStart = nextMonday.AddMinutes(1440 + 660);
                 dtEventEnd = nextMonday.AddMinutes(1440 + 720);
-                AddNHSNetCalenderEvent(c.NHSNetCalendarService, folder, "Contact", "Contact Community - M 68", "Garstang Medical Centre, Kepple Lane, Preston, Lancashire, PR3 1PB", "Meet at GP Surgery", dtEventStart, dtEventEnd);
+                SetNHSNetCalendarEvent(appointment04, "Contact", "Contact Community - M 76", "Galgate Health Centre, Highland Brow, Galgate, Lancaster, Lancashire, LA2 0NB", "Meet at GP Surgery", dtEventStart, dtEventEnd);
+                appointments.Add(appointment04);
+                Appointment appointment05 = new Appointment(c.ExchangeCalendarService);
                 dtEventStart = nextMonday.AddMinutes(1440 + 780);
                 dtEventEnd = nextMonday.AddMinutes(1440 + 840);
-                AddNHSNetCalenderEvent(c.NHSNetCalendarService, folder, "Contact", "Contact Community - F 77", "Brookfield Surgery, Main Road, Bolton-Le-Sands, Carnforth, Lancashire, LA5 8DH", "Meet at GP Surgery", dtEventStart, dtEventEnd);
+                SetNHSNetCalendarEvent(appointment05, "Contact", "Contact Community - F 77", "Brookfield Surgery, Main Road, Bolton-Le-Sands, Carnforth, Lancashire, LA5 8DH", "Meet at GP Surgery", dtEventStart, dtEventEnd);
+                appointments.Add(appointment05);
+                Appointment appointment06 = new Appointment(c.ExchangeCalendarService);
                 dtEventStart = nextMonday.AddMinutes(1440 + 870);
                 dtEventEnd = nextMonday.AddMinutes(1440 + 930);
-                AddNHSNetCalenderEvent(c.NHSNetCalendarService, folder, "Contact", "Contact Community - F 88", "Owen Road Surgery, 67 Owen Road, Skerton, Lancaster, Lancashire, LA1 2LG", "Meet at GP Surgery", dtEventStart, dtEventEnd);
+                SetNHSNetCalendarEvent(appointment06, "Contact", "Contact Community - F 88", "Owen Road Surgery, 67 Owen Road, Skerton, Lancaster, Lancashire, LA1 2LG", "Meet at GP Surgery", dtEventStart, dtEventEnd);
+                appointments.Add(appointment06);
+                Appointment appointment07 = new Appointment(c.ExchangeCalendarService);
                 dtEventStart = nextMonday.AddMinutes(1440 + 960);
                 dtEventEnd = nextMonday.AddMinutes(1440 + 990);
-                AddNHSNetCalenderEvent(c.NHSNetCalendarService, folder, "Review", "Review - F 88", "Lancaster Royal Infirmary, Ashton Rd, Lancaster LA1 4RP", "Meet at Trust", dtEventStart, dtEventEnd);
+                SetNHSNetCalendarEvent(appointment07, "Review", "Review - F 88", "Lancaster Royal Infirmary, Ashton Rd, Lancaster LA1 4RP", "Meet at Trust", dtEventStart, dtEventEnd);
+                appointments.Add(appointment07);
 
                 //Wednesday
+                Appointment appointment08 = new Appointment(c.ExchangeCalendarService);
                 dtEventStart = nextMonday.AddMinutes(2880 + 720);
                 dtEventEnd = nextMonday.AddMinutes(2880 + 1230);
-                AddNHSNetCalenderEvent(c.NHSNetCalendarService, folder, "Theatre", "Theatre 02 List - A&E Theatre", "Lancaster Royal Infirmary, Ashton Rd, Lancaster LA1 4RP", "Meet at Trust", dtEventStart, dtEventEnd);
+                SetNHSNetCalendarEvent(appointment08, "Theatre", "Theatre 02 List - A&E Theatre", "Lancaster Royal Infirmary, Ashton Rd, Lancaster LA1 4RP", "Meet at Trust", dtEventStart, dtEventEnd);
+                appointments.Add(appointment08);
 
                 //Thursday
+                Appointment appointment09 = new Appointment(c.ExchangeCalendarService);
                 dtEventStart = nextMonday.AddMinutes(4320 + 540);
                 dtEventEnd = nextMonday.AddMinutes(4320 + 720);
-                AddNHSNetCalenderEvent(c.NHSNetCalendarService, folder, "StudyLeave", "Diary - Study Leave", "", "Prep for Exam", dtEventStart, dtEventEnd);
+                SetNHSNetCalendarEvent(appointment09, "StudyLeave", "Diary - Study Leave", "", "Prep for Exam", dtEventStart, dtEventEnd);
+                appointments.Add(appointment09);
+                Appointment appointment10 = new Appointment(c.ExchangeCalendarService);
                 dtEventStart = nextMonday.AddMinutes(4320 + 780);
                 dtEventEnd = nextMonday.AddMinutes(4320 + 1050);
-                AddNHSNetCalenderEvent(c.NHSNetCalendarService, folder, "Vacation", "Diary - Vacation", "", "", dtEventStart, dtEventEnd);
+                SetNHSNetCalendarEvent(appointment10, "Vacation", "Diary - Vacation", "", "", dtEventStart, dtEventEnd);
+                appointments.Add(appointment10);
 
                 //Friday
+                Appointment appointment11 = new Appointment(c.ExchangeCalendarService);
                 dtEventStart = nextMonday.AddMinutes(5760 + 540);
                 dtEventEnd = nextMonday.AddMinutes(5760 + 555);
-                AddNHSNetCalenderEvent(c.NHSNetCalendarService, folder, "TCI", "TCI Ward 01 - F 55", "Furness General Hospital, Dalton Lane, Barrow-in-Furness, LA14 4LF", "", dtEventStart, dtEventEnd);
+                SetNHSNetCalendarEvent(appointment11, "TCI", "TCI Ward 01 - F 55", "Furness General Hospital, Dalton Lane, Barrow-in-Furness, LA14 4LF", "", dtEventStart, dtEventEnd);
+                appointments.Add(appointment11);
+                Appointment appointment12 = new Appointment(c.ExchangeCalendarService);
                 dtEventStart = nextMonday.AddMinutes(5760 + 555);
                 dtEventEnd = nextMonday.AddMinutes(5760 + 570);
-                AddNHSNetCalenderEvent(c.NHSNetCalendarService, folder, "TCI", "TCI Ward 01 - F 49", "Furness General Hospital, Dalton Lane, Barrow-in-Furness, LA14 4LF", "", dtEventStart, dtEventEnd);
+                SetNHSNetCalendarEvent(appointment12, "TCI", "TCI Ward 01 - F 49", "Furness General Hospital, Dalton Lane, Barrow-in-Furness, LA14 4LF", "", dtEventStart, dtEventEnd);
+                appointments.Add(appointment12);
+                Appointment appointment13 = new Appointment(c.ExchangeCalendarService);
                 dtEventStart = nextMonday.AddMinutes(5760 + 570);
                 dtEventEnd = nextMonday.AddMinutes(5760 + 585);
-                AddNHSNetCalenderEvent(c.NHSNetCalendarService, folder, "TCI", "TCI Ward 01 - F 56", "Furness General Hospital, Dalton Lane, Barrow-in-Furness, LA14 4LF", "", dtEventStart, dtEventEnd);
+                SetNHSNetCalendarEvent(appointment13, "TCI", "TCI Ward 01 - F 56", "Furness General Hospital, Dalton Lane, Barrow-in-Furness, LA14 4LF", "", dtEventStart, dtEventEnd);
+                appointments.Add(appointment13);
+                Appointment appointment14 = new Appointment(c.ExchangeCalendarService);
                 dtEventStart = nextMonday.AddMinutes(5760 + 585);
                 dtEventEnd = nextMonday.AddMinutes(5760 + 600);
-                AddNHSNetCalenderEvent(c.NHSNetCalendarService, folder, "TCI", "TCI Ward 01 - F 40", "Furness General Hospital, Dalton Lane, Barrow-in-Furness, LA14 4LF", "", dtEventStart, dtEventEnd);
+                SetNHSNetCalendarEvent(appointment14, "TCI", "TCI Ward 01 - F 40", "Furness General Hospital, Dalton Lane, Barrow-in-Furness, LA14 4LF", "", dtEventStart, dtEventEnd);
+                appointments.Add(appointment14);
+                Appointment appointment15 = new Appointment(c.ExchangeCalendarService);
                 dtEventStart = nextMonday.AddMinutes(5760 + 780);
                 dtEventEnd = nextMonday.AddMinutes(5760 + 1020);
-                AddNHSNetCalenderEvent(c.NHSNetCalendarService, folder, "PreClinic", "Fri PM - PreOp Clinic Slots 10, Booked 10, Avail 0", "Lancaster Royal Infirmary, Ashton Rd, Lancaster LA1 4RP", "Slots 10, Booked 10, Avail 0", dtEventStart, dtEventEnd);
+                SetNHSNetCalendarEvent(appointment15, "PreClinic", "Fri PM - PreOp Clinic Slots 10, Booked 10, Avail 0", "Lancaster Royal Infirmary, Ashton Rd, Lancaster LA1 4RP", "Slots 10, Booked 10, Avail 0", dtEventStart, dtEventEnd);
+                appointments.Add(appointment15);
             }
             catch (Exception ex)
             {
                 var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when creating NHSNet calendar item. " + "Error Message: " + ex.ToString());
+                logger.Info("Error when creating NHSNet Sample calendar item. " + "Error Message: " + ex.ToString());
             }
+
+            //Bulk Write appointment collection to appropriate calendar
+            try
+            {
+                var saveResult = c.NHSNetCalendarService.CreateItems(appointments, folder.Id, MessageDisposition.SaveOnly, SendInvitationsMode.SendToNone);
+            }
+            catch (Exception ex)
+            {
+                var logger = NLog.LogManager.GetCurrentClassLogger();
+                logger.Info("Error when creating NHSNet sample calendar items: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
+                return isSuccess;
+            }
+
             isSuccess = true;
             return isSuccess;
         }
-        
-        public static void AddNHSNetCalenderEvent(ExchangeService service, Folder folder, String strActivityType, String strEventSummary, String strEventLocation, String strEventDescription, DateTime dtEventStart, DateTime dtEventEnd)
+
+        public static void SetNHSNetCalendarEvent(Appointment app, String strActivityType, String strEventSummary, String strEventLocation, String strEventDescription, DateTime dtEventStart, DateTime dtEventEnd)
         {
-            ExtendedPropertyDefinition AppointmentColorProperty = new ExtendedPropertyDefinition(DefaultExtendedPropertySet.Appointment, 0x8214, MapiPropertyType.Integer);          
-            try
-            {
-                Appointment appointment = new Appointment(service);
-                // Set the properties on the appointment object to create the appointment.
-                appointment.Subject = strEventSummary;
-                appointment.Location = strEventLocation;
-                appointment.Body = strEventDescription;
+            ExtendedPropertyDefinition AppointmentColorProperty = new ExtendedPropertyDefinition(DefaultExtendedPropertySet.Appointment, 0x8214, MapiPropertyType.Integer);
 
-                appointment.Start = new DateTime(dtEventStart.Year, dtEventStart.Month, dtEventStart.Day, dtEventStart.Hour, dtEventStart.Minute, dtEventStart.Second);
-                appointment.End = new DateTime(dtEventEnd.Year, dtEventEnd.Month, dtEventEnd.Day, dtEventEnd.Hour, dtEventEnd.Minute, dtEventEnd.Second);
-                //appointment.Categories. = CategoryColor.DarkMaroon;
-                TimeZoneInfo GMTTZ = TimeZoneInfo.FindSystemTimeZoneById("GMT Standard Time");
-                appointment.StartTimeZone = GMTTZ;
-                appointment.EndTimeZone = GMTTZ;
-                appointment.IsReminderSet = false;
-                appointment.SetExtendedProperty(AppointmentColorProperty, MSCalendarColour(strActivityType));
+            // Set the properties on the appointment object to create the appointment.
+            app.Subject = strEventSummary;
+            app.Location = strEventLocation;
+            app.Body = strEventDescription;
 
-                appointment.Save(folder.Id, SendInvitationsMode.SendToNone);
-                // Verify that the appointment was created by using the appointment's item ID.
-                Item item = Item.Bind(service, appointment.Id, new PropertySet(ItemSchema.Subject));
-            }
-            catch (Exception ex)
-            {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when creating NHSNet calendar item. " + "Error Message: " + ex.ToString());
-            }
+            app.Start = new DateTime(dtEventStart.Year, dtEventStart.Month, dtEventStart.Day, dtEventStart.Hour, dtEventStart.Minute, dtEventStart.Second);
+            app.End = new DateTime(dtEventEnd.Year, dtEventEnd.Month, dtEventEnd.Day, dtEventEnd.Hour, dtEventEnd.Minute, dtEventEnd.Second);
+            //appointment.Categories. = CategoryColor.DarkMaroon;
+            TimeZoneInfo GMTTZ = TimeZoneInfo.FindSystemTimeZoneById("GMT Standard Time");
+            app.StartTimeZone = GMTTZ;
+            app.EndTimeZone = GMTTZ;
+            app.IsReminderSet = false;
+            app.SetExtendedProperty(AppointmentColorProperty, MSCalendarColour(strActivityType));
         }
 
         public bool CreateSampleExchangeCalendarData(HealthCalendarClass c)
@@ -1742,7 +1810,22 @@ test body
             bool isSuccess = false;
             DateTime today, nextMonday;
             int daysUntilMonday;
-            DateTime dtEventStart, dtEventEnd;
+            DateTime dtEventStart;
+            DateTime dtEventEnd;
+            FolderView view;
+            SearchFilter filter;
+            FindFoldersResults results;
+            Folder folder;
+            Collection<Appointment> appointments;
+
+            appointments = new Collection<Appointment>();
+
+            //Get the FolderID for the selected user
+            view = new FolderView(1);
+            view.Traversal = FolderTraversal.Deep;
+            filter = new SearchFilter.IsEqualTo(FolderSchema.DisplayName, c.ExchangeCalendarName);
+            results = c.ExchangeCalendarService.FindFolders(WellKnownFolderName.Root, filter, view);
+            folder = Folder.Bind(c.ExchangeCalendarService, results.Folders.Single().Id);
 
             try
             {
@@ -1752,108 +1835,137 @@ test body
                 daysUntilMonday = ((int)DayOfWeek.Monday - (int)today.DayOfWeek + 7) % 7;
                 nextMonday = today.AddDays(daysUntilMonday);
 
-                //Get the FolderID for the selected user
-                var view = new FolderView(1);
-                view.Traversal = FolderTraversal.Deep;
-                var filter = new SearchFilter.IsEqualTo(FolderSchema.DisplayName, c.ExchangeCalendarName);
-                var results = c.ExchangeCalendarService.FindFolders(WellKnownFolderName.Root, filter, view);
-                Folder folder = Folder.Bind(c.ExchangeCalendarService, results.Folders.Single().Id);
-
                 //Add Events to Calendar from next Monday
+
                 //Monday
+                Appointment appointment01 = new Appointment(c.ExchangeCalendarService);
                 dtEventStart = nextMonday.AddMinutes(540);
                 dtEventEnd = nextMonday.AddMinutes(750);
-                AddExchangeCalenderEvent(c.ExchangeCalendarService, folder, "Clinic", "Tue AM - Ortho Clinic - Slots 20, Booked 18, Avail 2", "Lancaster Royal Infirmary, Ashton Rd, Lancaster LA1 4RP", "Total Slots 20, Booked Slots 18, Available Slots 2", dtEventStart, dtEventEnd);
+                SetExchangeCalendarEvent (appointment01, "Clinic", "Tue AM - Ortho Clinic - Slots 20, Booked 18, Avail 2", "Lancaster Royal Infirmary, Ashton Rd, Lancaster LA1 4RP", "Total Slots 20, Booked Slots 18, Available Slots 2", dtEventStart, dtEventEnd);
+                appointments.Add(appointment01);
+
+                Appointment appointment02 = new Appointment(c.ExchangeCalendarService);
                 dtEventStart = nextMonday.AddMinutes(780);
                 dtEventEnd = nextMonday.AddMinutes(960);
-                AddExchangeCalenderEvent(c.ExchangeCalendarService, folder, "Theatre", "Theatre	Theatre 04 List - 1 x Knee Replacement, 2 x Knee Arthroscopy", "Lancaster Royal Infirmary, Ashton Rd, Lancaster LA1 4RP", "1 x Knee Replacement, 2 x Knee Arthroscopy", dtEventStart, dtEventEnd);
+                SetExchangeCalendarEvent(appointment02, "Theatre", "Theatre	Theatre 04 List - 1 x Knee Replacement, 2 x Knee Arthroscopy", "Lancaster Royal Infirmary, Ashton Rd, Lancaster LA1 4RP", "1 x Knee Replacement, 2 x Knee Arthroscopy", dtEventStart, dtEventEnd);
+                appointments.Add(appointment02);
+
                 //Tuesday
+                Appointment appointment03 = new Appointment(c.ExchangeCalendarService);
                 dtEventStart = nextMonday.AddMinutes(1440 + 570);
                 dtEventEnd = nextMonday.AddMinutes(1440 + 630);
-                AddExchangeCalenderEvent(c.ExchangeCalendarService, folder, "Contact", "Contact Community - M 19", "Galgate Health Centre, Highland Brow, Galgate, Lancaster, Lancashire, LA2 0NB", "Meet at GP Surgery", dtEventStart, dtEventEnd);
+                SetExchangeCalendarEvent(appointment03, "Contact", "Contact Community - M 19", "Galgate Health Centre, Highland Brow, Galgate, Lancaster, Lancashire, LA2 0NB", "Meet at GP Surgery", dtEventStart, dtEventEnd);
+                appointments.Add(appointment03);
+                Appointment appointment04 = new Appointment(c.ExchangeCalendarService);
                 dtEventStart = nextMonday.AddMinutes(1440 + 660);
                 dtEventEnd = nextMonday.AddMinutes(1440 + 720);
-                AddExchangeCalenderEvent(c.ExchangeCalendarService, folder, "Contact", "Contact Community - M 68", "Garstang Medical Centre, Kepple Lane, Preston, Lancashire, PR3 1PB", "Meet at GP Surgery", dtEventStart, dtEventEnd);
+                SetExchangeCalendarEvent(appointment04, "Contact", "Contact Community - M 76", "Galgate Health Centre, Highland Brow, Galgate, Lancaster, Lancashire, LA2 0NB", "Meet at GP Surgery", dtEventStart, dtEventEnd);
+                appointments.Add(appointment04);
+                Appointment appointment05 = new Appointment(c.ExchangeCalendarService);
                 dtEventStart = nextMonday.AddMinutes(1440 + 780);
                 dtEventEnd = nextMonday.AddMinutes(1440 + 840);
-                AddExchangeCalenderEvent(c.ExchangeCalendarService, folder, "Contact", "Contact Community - F 77", "Brookfield Surgery, Main Road, Bolton-Le-Sands, Carnforth, Lancashire, LA5 8DH", "Meet at GP Surgery", dtEventStart, dtEventEnd);
+                SetExchangeCalendarEvent(appointment05, "Contact", "Contact Community - F 77", "Brookfield Surgery, Main Road, Bolton-Le-Sands, Carnforth, Lancashire, LA5 8DH", "Meet at GP Surgery", dtEventStart, dtEventEnd);
+                appointments.Add(appointment05);
+                Appointment appointment06 = new Appointment(c.ExchangeCalendarService);
                 dtEventStart = nextMonday.AddMinutes(1440 + 870);
                 dtEventEnd = nextMonday.AddMinutes(1440 + 930);
-                AddExchangeCalenderEvent(c.ExchangeCalendarService, folder, "Contact", "Contact Community - F 88", "Owen Road Surgery, 67 Owen Road, Skerton, Lancaster, Lancashire, LA1 2LG", "Meet at GP Surgery", dtEventStart, dtEventEnd);
+                SetExchangeCalendarEvent(appointment06, "Contact", "Contact Community - F 88", "Owen Road Surgery, 67 Owen Road, Skerton, Lancaster, Lancashire, LA1 2LG", "Meet at GP Surgery", dtEventStart, dtEventEnd);
+                appointments.Add(appointment06);
+                Appointment appointment07 = new Appointment(c.ExchangeCalendarService);
                 dtEventStart = nextMonday.AddMinutes(1440 + 960);
                 dtEventEnd = nextMonday.AddMinutes(1440 + 990);
-                AddExchangeCalenderEvent(c.ExchangeCalendarService, folder, "Review", "Review - F 88", "Lancaster Royal Infirmary, Ashton Rd, Lancaster LA1 4RP", "Meet at Trust", dtEventStart, dtEventEnd);
+                SetExchangeCalendarEvent(appointment07, "Review", "Review - F 88", "Lancaster Royal Infirmary, Ashton Rd, Lancaster LA1 4RP", "Meet at Trust", dtEventStart, dtEventEnd);
+                appointments.Add(appointment07);
 
                 //Wednesday
+                Appointment appointment08 = new Appointment(c.ExchangeCalendarService);
                 dtEventStart = nextMonday.AddMinutes(2880 + 720);
                 dtEventEnd = nextMonday.AddMinutes(2880 + 1230);
-                AddExchangeCalenderEvent(c.ExchangeCalendarService, folder, "Theatre", "Theatre 02 List - A&E Theatre", "Lancaster Royal Infirmary, Ashton Rd, Lancaster LA1 4RP", "Meet at Trust", dtEventStart, dtEventEnd);
+                SetExchangeCalendarEvent(appointment08, "Theatre", "Theatre 02 List - A&E Theatre", "Lancaster Royal Infirmary, Ashton Rd, Lancaster LA1 4RP", "Meet at Trust", dtEventStart, dtEventEnd);
+                appointments.Add(appointment08);
 
                 //Thursday
+                Appointment appointment09 = new Appointment(c.ExchangeCalendarService);
                 dtEventStart = nextMonday.AddMinutes(4320 + 540);
                 dtEventEnd = nextMonday.AddMinutes(4320 + 720);
-                AddExchangeCalenderEvent(c.ExchangeCalendarService, folder, "StudyLeave", "Diary - Study Leave", "", "Prep for Exam", dtEventStart, dtEventEnd);
+                SetExchangeCalendarEvent(appointment09, "StudyLeave", "Diary - Study Leave", "", "Prep for Exam", dtEventStart, dtEventEnd);
+                appointments.Add(appointment09);
+                Appointment appointment10 = new Appointment(c.ExchangeCalendarService);
                 dtEventStart = nextMonday.AddMinutes(4320 + 780);
                 dtEventEnd = nextMonday.AddMinutes(4320 + 1050);
-                AddExchangeCalenderEvent(c.ExchangeCalendarService, folder, "Vacation", "Diary - Vacation", "", "", dtEventStart, dtEventEnd);
+                SetExchangeCalendarEvent(appointment10, "Vacation", "Diary - Vacation", "", "", dtEventStart, dtEventEnd);
+                appointments.Add(appointment10);
 
                 //Friday
+                Appointment appointment11 = new Appointment(c.ExchangeCalendarService);
                 dtEventStart = nextMonday.AddMinutes(5760 + 540);
                 dtEventEnd = nextMonday.AddMinutes(5760 + 555);
-                AddExchangeCalenderEvent(c.ExchangeCalendarService, folder, "TCI", "TCI Ward 01 - F 55", "Furness General Hospital, Dalton Lane, Barrow-in-Furness, LA14 4LF", "", dtEventStart, dtEventEnd);
+                SetExchangeCalendarEvent(appointment11, "TCI", "TCI Ward 01 - F 55", "Furness General Hospital, Dalton Lane, Barrow-in-Furness, LA14 4LF", "", dtEventStart, dtEventEnd);
+                appointments.Add(appointment11);
+                Appointment appointment12 = new Appointment(c.ExchangeCalendarService);
                 dtEventStart = nextMonday.AddMinutes(5760 + 555);
                 dtEventEnd = nextMonday.AddMinutes(5760 + 570);
-                AddExchangeCalenderEvent(c.ExchangeCalendarService, folder, "TCI", "TCI Ward 01 - F 49", "Furness General Hospital, Dalton Lane, Barrow-in-Furness, LA14 4LF", "", dtEventStart, dtEventEnd);
+                SetExchangeCalendarEvent(appointment12, "TCI", "TCI Ward 01 - F 49", "Furness General Hospital, Dalton Lane, Barrow-in-Furness, LA14 4LF", "", dtEventStart, dtEventEnd);
+                appointments.Add(appointment12);
+                Appointment appointment13 = new Appointment(c.ExchangeCalendarService);
                 dtEventStart = nextMonday.AddMinutes(5760 + 570);
                 dtEventEnd = nextMonday.AddMinutes(5760 + 585);
-                AddExchangeCalenderEvent(c.ExchangeCalendarService, folder, "TCI", "TCI Ward 01 - F 56", "Furness General Hospital, Dalton Lane, Barrow-in-Furness, LA14 4LF", "", dtEventStart, dtEventEnd);
+                SetExchangeCalendarEvent(appointment13, "TCI", "TCI Ward 01 - F 56", "Furness General Hospital, Dalton Lane, Barrow-in-Furness, LA14 4LF", "", dtEventStart, dtEventEnd);
+                appointments.Add(appointment13);
+                Appointment appointment14 = new Appointment(c.ExchangeCalendarService);
                 dtEventStart = nextMonday.AddMinutes(5760 + 585);
                 dtEventEnd = nextMonday.AddMinutes(5760 + 600);
-                AddExchangeCalenderEvent(c.ExchangeCalendarService, folder, "TCI", "TCI Ward 01 - F 40", "Furness General Hospital, Dalton Lane, Barrow-in-Furness, LA14 4LF", "", dtEventStart, dtEventEnd);
+                SetExchangeCalendarEvent(appointment14, "TCI", "TCI Ward 01 - F 40", "Furness General Hospital, Dalton Lane, Barrow-in-Furness, LA14 4LF", "", dtEventStart, dtEventEnd);
+                appointments.Add(appointment14);
+                Appointment appointment15 = new Appointment(c.ExchangeCalendarService);
                 dtEventStart = nextMonday.AddMinutes(5760 + 780);
                 dtEventEnd = nextMonday.AddMinutes(5760 + 1020);
-                AddExchangeCalenderEvent(c.ExchangeCalendarService, folder, "PreClinic", "Fri PM - PreOp Clinic Slots 10, Booked 10, Avail 0", "Lancaster Royal Infirmary, Ashton Rd, Lancaster LA1 4RP", "Slots 10, Booked 10, Avail 0", dtEventStart, dtEventEnd);
+                SetExchangeCalendarEvent(appointment15, "PreClinic", "Fri PM - PreOp Clinic Slots 10, Booked 10, Avail 0", "Lancaster Royal Infirmary, Ashton Rd, Lancaster LA1 4RP", "Slots 10, Booked 10, Avail 0", dtEventStart, dtEventEnd);
+                appointments.Add(appointment15);
             }
             catch (Exception ex)
             {
                 var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when creating Exchange calendar item. " + "Error Message: " + ex.ToString());
+                logger.Info("Error when creating Exchange sample calendar item. " + "Error Message: " + ex.ToString());
             }
+
+
+            //Bulk Write appointment collection to appropriate calendar
+            try
+            {
+                var saveResult = c.ExchangeCalendarService.CreateItems(appointments, folder.Id, MessageDisposition.SaveOnly, SendInvitationsMode.SendToNone);
+            }
+            catch (Exception ex)
+            {
+                var logger = NLog.LogManager.GetCurrentClassLogger();
+                logger.Info("Error when creating Exchange sample calendar items: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
+                return isSuccess;
+            }
+
+
             isSuccess = true;
             return isSuccess;
         }
 
-        public static void AddExchangeCalenderEvent(ExchangeService service, Folder folder, String strActivityType, String strEventSummary, String strEventLocation, String strEventDescription, DateTime dtEventStart, DateTime dtEventEnd)
+        public static void SetExchangeCalendarEvent(Appointment app, String strActivityType, String strEventSummary, String strEventLocation, String strEventDescription, DateTime dtEventStart, DateTime dtEventEnd)
         {
             ExtendedPropertyDefinition AppointmentColorProperty = new ExtendedPropertyDefinition(DefaultExtendedPropertySet.Appointment, 0x8214, MapiPropertyType.Integer);
 
-            try
-            {
-                Appointment appointment = new Appointment(service);
                 // Set the properties on the appointment object to create the appointment.
-                appointment.Subject = strEventSummary;
-                appointment.Location = strEventLocation;
-                appointment.Body = strEventDescription;
+                app.Subject = strEventSummary;
+                app.Location = strEventLocation;
+                app.Body = strEventDescription;
 
-                appointment.Start = new DateTime(dtEventStart.Year, dtEventStart.Month, dtEventStart.Day, dtEventStart.Hour, dtEventStart.Minute, dtEventStart.Second);
-                appointment.End = new DateTime(dtEventEnd.Year, dtEventEnd.Month, dtEventEnd.Day, dtEventEnd.Hour, dtEventEnd.Minute, dtEventEnd.Second);
+                app.Start = new DateTime(dtEventStart.Year, dtEventStart.Month, dtEventStart.Day, dtEventStart.Hour, dtEventStart.Minute, dtEventStart.Second);
+                app.End = new DateTime(dtEventEnd.Year, dtEventEnd.Month, dtEventEnd.Day, dtEventEnd.Hour, dtEventEnd.Minute, dtEventEnd.Second);
                 //appointment.Categories. = CategoryColor.DarkMaroon;
                 TimeZoneInfo GMTTZ = TimeZoneInfo.FindSystemTimeZoneById("GMT Standard Time");
-                appointment.StartTimeZone = GMTTZ;
-                appointment.EndTimeZone = GMTTZ;
-                appointment.IsReminderSet = false;
-                appointment.SetExtendedProperty(AppointmentColorProperty, MSCalendarColour(strActivityType));
-
-                appointment.Save(folder.Id, SendInvitationsMode.SendToNone);
-                // Verify that the appointment was created by using the appointment's item ID.
-                Item item = Item.Bind(service, appointment.Id, new PropertySet(ItemSchema.Subject));
-            }
-            catch (Exception ex)
-            {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when creating Exchange calendar item. " + "Error Message: " + ex.ToString());
-            }
+                app.StartTimeZone = GMTTZ;
+                app.EndTimeZone = GMTTZ;
+                app.IsReminderSet = false;
+                app.SetExtendedProperty(AppointmentColorProperty, MSCalendarColour(strActivityType));
         }
+
 
         public bool GetTrustSettings(HealthCalendarClass c)
         {
@@ -2014,6 +2126,7 @@ test body
                 c.NHSNetCalendarService.Credentials = new WebCredentials(c.NHSNetOrgMasterAccount, c.NHSNetOrgMasterCredentials);
                 c.NHSNetCalendarService.TraceEnabled = true;
                 c.NHSNetCalendarService.TraceFlags = TraceFlags.All;
+                c.NHSNetCalendarService.Timeout = 100000;
                 c.NHSNetCalendarService.Url = new Uri(c.NHSNetExchangeServer);
                 //isGetUserDetailsSuccess = GetNHSNetMasterUserDetails( c );
             }

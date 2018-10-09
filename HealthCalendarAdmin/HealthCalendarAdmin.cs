@@ -454,11 +454,7 @@ namespace HealthCalendarAdmin
             c.GoogleEmail = txtboxGoogleEmail.Text;
             if (c.GoogleCalendarID != null)
             {
-                //progressBar.Maximum = 100;
-                //bgWorker.WorkerReportsProgress = true;
-                
                 isSuccess = c.CreateSampleGoogleCalendarData(c);
-                //bgWorker.RunWorkerAsync();
                 if (isSuccess == true)
                 {
                     MessageBox.Show("The Sample Google Calendar Data has been successfuly created.");
@@ -473,16 +469,18 @@ namespace HealthCalendarAdmin
 
         private void btnSampleNHSNetData_Click(object sender, EventArgs e)
         {
-            bool isSuccess = false;
+            Thread myProcess;
+            ThreadSuccess = false;
             c.NHSNetEmail = txtboxNHSNetEmail.Text;
             if (c.NHSNetCalendarID != null)
             {
-                //progressBar.Maximum = 100;
-                //bgWorker.WorkerReportsProgress = true;
+                myWait = new ProgressForm();//YourProgressForm is a WinForm Object
+                myProcess = new Thread(SetNHSNetTestCalendarOnThread);
+                myProcess.Priority = ThreadPriority.Highest;
+                myProcess.Start();
+                myWait.ShowDialog(this);
 
-                isSuccess = c.CreateSampleNHSNetCalendarData(c);
-                //bgWorker.RunWorkerAsync();
-                if (isSuccess == true)
+                if (ThreadSuccess == true)
                 {
                     MessageBox.Show("The Sample NHSNet Calendar Data has been successfuly created.");
                 }
@@ -494,27 +492,27 @@ namespace HealthCalendarAdmin
             searchSubscribersAndSelectRow(txtboxSearchFirstname.Text, txtboxSearchLastname.Text, comboBoxSex.Text, comboBoxTitle.Text, comboBoxOccupation.Text, txtboxSearchMainIdentifier.Text);
         }
 
-        //private void BgWorker_DoWork(object sender, DoWorkEventArgs e)
-        //{
-
-            //for (var Counter = 1; Counter <= progressBar.Maximum; Counter++)
-            //{
-            //    bg_DoWork.ReportProgress(Counter);
-            //    System.Threading.Thread.Sleep(50);
-            //}
-        //}
-
-        private void BgWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        private void SetNHSNetTestCalendarOnThread()
         {
-            //lblPercent.Text = e.ProgressPercentage.ToString();
-            //progressBar.Value = e.ProgressPercentage;
+            try
+            {
+                ThreadSuccess = c.CreateSampleNHSNetCalendarData(c);
+                if (myWait.InvokeRequired)
+                {
+                    myWait.BeginInvoke((MethodInvoker)delegate () { closeWaitForm(); });
+                }
+                else
+                {
+                    myWait.Close();//Fault tolerance this code should never be executed
+                }
+            }
+            catch (Exception ex)
+            {
+                string exc = ex.Message;//Fault tolerance this code should never be executed
+            }
         }
 
-        private void BgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            //lblStatus.ForeColor = Color.Green;
-            //lblStatus.Text = "Done";
-        }
+
 
         private void btnDeleteGoogleCalendar_Click(object sender, EventArgs e)
         {
@@ -582,15 +580,20 @@ namespace HealthCalendarAdmin
 
         private void btnClearNHSNetCalendar_Click(object sender, EventArgs e)
         {
-            bool isSuccess = false;
+            Thread myProcess;
+            ThreadSuccess = false;
 
             c.NHSNetEmail = txtboxNHSNetEmail.Text;
             if (c.NHSNetCalendarID != null)
             {
+                myWait = new ProgressForm();//YourProgressForm is a WinForm Object
+                myProcess = new Thread(BulkDeleteNHSNetCalendarEventsOnThread);
+                myProcess.Priority = ThreadPriority.Highest;
+                myProcess.Start();
+                myWait.ShowDialog(this);
 
 
-                isSuccess = c.DeleteNHSNetCalendarEvents(c);
-                if (isSuccess == true)
+                if (ThreadSuccess == true)
                 {
                     MessageBox.Show("The NHSNet Calendar has been successfuly cleared.");
                 }
@@ -601,6 +604,31 @@ namespace HealthCalendarAdmin
             }            
             searchSubscribersAndSelectRow(txtboxSearchFirstname.Text, txtboxSearchLastname.Text, comboBoxSex.Text, comboBoxTitle.Text, comboBoxOccupation.Text, txtboxSearchMainIdentifier.Text);
         }
+
+
+        private void BulkDeleteNHSNetCalendarEventsOnThread()
+        {
+            try
+            {
+                ThreadSuccess = c.BulkDeleteNHSNetCalendarEvents(c);
+                if (myWait.InvokeRequired)
+                {
+                    myWait.BeginInvoke((MethodInvoker)delegate () { closeWaitForm(); });
+                }
+                else
+                {
+                    myWait.Close();//Fault tolerance this code should never be executed
+                }
+            }
+            catch (Exception ex)
+            {
+                string exc = ex.Message;//Fault tolerance this code should never be executed
+            }
+        }
+
+
+
+
 
         private void btnNHSNetEmailClear_Click(object sender, EventArgs e)
         {
@@ -719,7 +747,7 @@ namespace HealthCalendarAdmin
             //NHSNet
             if (c.IsValidEmail(c.NHSNetEmail))
             {
-                if (string.IsNullOrEmpty(c.NHSNetCalendarID))
+                if (string.IsNullOrEmpty(c.NHSNetCalendarName))
                 {
                     lblNHSNetEmail.Visible = true;
                     lblNHSNetEmail.Enabled = true;
@@ -733,6 +761,8 @@ namespace HealthCalendarAdmin
                     btnNHSNetCreateShare.Visible = true;
                     btnNHSNetCreateShare.Enabled = true;
 
+                    btnTransferNHSNetData.Visible = false;
+                    btnTransferNHSNetData.Enabled = false;
                     btnSampleNHSNetData.Visible = false;
                     btnSampleNHSNetData.Enabled = false;
                     btnClearNHSNetCalendar.Visible = false;
@@ -753,6 +783,8 @@ namespace HealthCalendarAdmin
                     btnNHSNetCreateShare.Visible = false;
                     btnNHSNetCreateShare.Enabled = false;
 
+                    btnTransferNHSNetData.Visible = true;
+                    btnTransferNHSNetData.Enabled = true;
                     btnSampleNHSNetData.Visible = true;
                     btnSampleNHSNetData.Enabled = true;
                     btnClearNHSNetCalendar.Visible = true;
@@ -776,6 +808,8 @@ namespace HealthCalendarAdmin
                 btnNHSNetCreateShare.Visible = false;
                 btnNHSNetCreateShare.Enabled = false;
 
+                btnTransferNHSNetData.Visible = false;
+                btnTransferNHSNetData.Enabled = false;
                 btnSampleNHSNetData.Visible = false;
                 btnSampleNHSNetData.Enabled = false;
                 btnClearNHSNetCalendar.Visible = false;
@@ -1093,6 +1127,52 @@ namespace HealthCalendarAdmin
             }
         }
 
+        private void btnTransferNHSNetData_Click(object sender, EventArgs e)
+        {
+            Thread myProcess;
+            ThreadSuccess = false;
+            c.NHSNetEmail = txtboxNHSNetEmail.Text;
+            if (c.NHSNetCalendarID != null)
+            {
+                myWait = new ProgressForm();//YourProgressForm is a WinForm Object
+                myProcess = new Thread(SetNHSNetCalendarDataFromDataSourceOnThread);
+                myProcess.Priority = ThreadPriority.Highest;
+                myProcess.Start();
+                myWait.ShowDialog(this);
+
+                if (ThreadSuccess == true)
+                {
+                    MessageBox.Show("The NHSNet Calendar Data has been successfuly created.");
+                }
+                else
+                {
+                    MessageBox.Show("Failed to create NHSNet Calendar Data. Try Again.");
+                }
+            }
+            searchSubscribersAndSelectRow(txtboxSearchFirstname.Text, txtboxSearchLastname.Text, comboBoxSex.Text, comboBoxTitle.Text, comboBoxOccupation.Text, txtboxSearchMainIdentifier.Text);
+
+        }
+
+        private void SetNHSNetCalendarDataFromDataSourceOnThread()
+        {
+            try
+            {
+                ThreadSuccess = c.SetNHSNetCalendarDataFromDataSource(c);
+                if (myWait.InvokeRequired)
+                {
+                    myWait.BeginInvoke((MethodInvoker)delegate () { closeWaitForm(); });
+                }
+                else
+                {
+                    myWait.Close();//Fault tolerance this code should never be executed
+                }
+            }
+            catch (Exception ex)
+            {
+                string exc = ex.Message;//Fault tolerance this code should never be executed
+            }
+        }
+
         private void btnSampleExchangeData_Click(object sender, EventArgs e)
         {
             Thread myProcess;
@@ -1237,6 +1317,7 @@ namespace HealthCalendarAdmin
         {
             myWait.Close();
         }
+
 
     }
 
