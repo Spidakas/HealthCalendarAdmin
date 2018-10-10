@@ -101,28 +101,28 @@ namespace HealthCalendarAdmin
             // Force the ToolTip text to be displayed whether or not the form is active.
             toolTip1.ShowAlways = true;
 
+            toolTip1.SetToolTip(btnExchangeEmailUpdate, "Update/Set a valid Exchange Email for the selected user");
+            toolTip1.SetToolTip(btnExchangeEmailClear, "Remove the Exchange Email for the selected user");
+            toolTip1.SetToolTip(btnExchangeCreateShare, "Create and share an Exchange calendar");
+            toolTip1.SetToolTip(btnTransferExchangeData, "Set Exchange calendar data");
+            toolTip1.SetToolTip(btnSampleExchangeData, "Set Exchange trial calendar data");
+            toolTip1.SetToolTip(btnClearExchangeCalendar, "Clear Exchange calendar");
+            toolTip1.SetToolTip(btnDeleteExchangeCalendar, "Delete Exchange calendar");
+
+            toolTip1.SetToolTip(btnNHSNetEmailUpdate, "Update/Set a valid NHSNet Email for the selected user");
+            toolTip1.SetToolTip(btnNHSNetEmailClear, "Remove the NHSNet Email for the selected user");
+            toolTip1.SetToolTip(btnNHSNetCreateShare, "Create and share a NHSNet calendar");
+            toolTip1.SetToolTip(btnTransferNHSNetData, "Set NHSNet calendar data");
+            toolTip1.SetToolTip(btnSampleNHSNetData, "Set NHSNet trial calendar data");
+            toolTip1.SetToolTip(btnClearNHSNetCalendar, "Clear NHSNet calendar");
+            toolTip1.SetToolTip(btnDeleteNHSNetCalendar, "Delete NHSNet calendar");
+
             toolTip1.SetToolTip(btnGoogleEmailUpdate, "Update/Set a valid Google Email for the selected user");
             toolTip1.SetToolTip(btnGoogleEmailClear, "Remove the Google Email for the selected user");
             toolTip1.SetToolTip(btnGoogleCreateShare, "Create and share a Google calendar"); 
             toolTip1.SetToolTip(btnSampleGoogleData, "Set Google trial calendar data");
             toolTip1.SetToolTip(btnClearGoogleCalendar, "Clear Google calendar");
             toolTip1.SetToolTip(btnDeleteGoogleCalendar, "Delete Google calendar");
-
-            toolTip1.SetToolTip(btnNHSNetEmailUpdate, "Update/Set a valid NHSNet Email for the selected user");
-            toolTip1.SetToolTip(btnNHSNetEmailClear, "Remove the NHSNet Email for the selected user");
-            toolTip1.SetToolTip(btnNHSNetCreateShare, "Create and share a NHSNet calendar");
-            toolTip1.SetToolTip(btnSampleNHSNetData, "Set NHSNet trial calendar data");
-            toolTip1.SetToolTip(btnClearNHSNetCalendar, "Clear NHSNet calendar");
-            toolTip1.SetToolTip(btnDeleteNHSNetCalendar, "Delete NHSNet calendar");
-
-            toolTip1.SetToolTip(btnExchangeEmailUpdate, "Update/Set a valid Exchange Email for the selected user");
-            toolTip1.SetToolTip(btnExchangeEmailClear, "Remove the Exchange Email for the selected user");
-            toolTip1.SetToolTip(btnExchangeCreateShare, "Create and share an Exchange calendar");
-
-            toolTip1.SetToolTip(btnTransferExchangeData, "Set Exchange calendar data");
-            toolTip1.SetToolTip(btnSampleExchangeData, "Set Exchange trial calendar data");
-            toolTip1.SetToolTip(btnClearExchangeCalendar, "Clear Exchange calendar");
-            toolTip1.SetToolTip(btnDeleteExchangeCalendar, "Delete Exchange calendar");
 
             textBox1.TabStop = false;
             textBox2.TabStop = false;
@@ -1265,32 +1265,6 @@ namespace HealthCalendarAdmin
                 string exc = ex.Message;//Fault tolerance this code should never be executed
             }
         }
-
-
-
-        //private void btnClearExchangeCalendar_Click(object sender, EventArgs e)
-        //{
-        //    bool isSuccess = false;
-        //
-        //   c.ExchangeEmail = txtboxExchangeEmail.Text;
-        //    if (c.ExchangeCalendarID != null)
-        //    {
-        //       isSuccess = c.BulkDeleteExchangeCalendarEvents(c);
-        //        if (isSuccess == true)
-        //        {
-        //            MessageBox.Show("The Exchange Calendar has been successfuly cleared.");
-        //        }
-        //        else
-        //        {
-        //            MessageBox.Show("Failed to clear Exchange Calendar. Try Again .");
-        //        }
-        //    }
-        //    searchSubscribersAndSelectRow(txtboxSearchFirstname.Text, txtboxSearchLastname.Text, comboBoxSex.Text, comboBoxTitle.Text, comboBoxOccupation.Text, txtboxSearchMainIdentifier.Text);
-        //}
-
-
-
-
 
         private void btnDeleteExchangeCalendar_Click(object sender, EventArgs e)
         {

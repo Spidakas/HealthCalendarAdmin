@@ -1,0 +1,2 @@
+C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\obj\Debug\HealthCalendar.csprojAssemblyReference.cache
+C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\obj\Debug\HealthCalendar.csproj.CoreCompileInputs.cache

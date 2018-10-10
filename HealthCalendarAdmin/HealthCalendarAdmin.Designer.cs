@@ -638,7 +638,7 @@
             this.btnTransferNHSNetData.Margin = new System.Windows.Forms.Padding(1);
             this.btnTransferNHSNetData.Name = "btnTransferNHSNetData";
             this.btnTransferNHSNetData.Size = new System.Drawing.Size(29, 27);
-            this.btnTransferNHSNetData.TabIndex = 8;
+            this.btnTransferNHSNetData.TabIndex = 5;
             this.btnTransferNHSNetData.UseVisualStyleBackColor = false;
             this.btnTransferNHSNetData.Visible = false;
             this.btnTransferNHSNetData.Click += new System.EventHandler(this.btnTransferNHSNetData_Click);
@@ -681,7 +681,7 @@
             this.btnDeleteNHSNetCalendar.Margin = new System.Windows.Forms.Padding(1);
             this.btnDeleteNHSNetCalendar.Name = "btnDeleteNHSNetCalendar";
             this.btnDeleteNHSNetCalendar.Size = new System.Drawing.Size(29, 27);
-            this.btnDeleteNHSNetCalendar.TabIndex = 7;
+            this.btnDeleteNHSNetCalendar.TabIndex = 8;
             this.btnDeleteNHSNetCalendar.UseVisualStyleBackColor = false;
             this.btnDeleteNHSNetCalendar.Visible = false;
             this.btnDeleteNHSNetCalendar.Click += new System.EventHandler(this.btnDeleteNHSNetCalendar_Click);
@@ -734,7 +734,7 @@
             this.btnClearNHSNetCalendar.Margin = new System.Windows.Forms.Padding(1);
             this.btnClearNHSNetCalendar.Name = "btnClearNHSNetCalendar";
             this.btnClearNHSNetCalendar.Size = new System.Drawing.Size(29, 27);
-            this.btnClearNHSNetCalendar.TabIndex = 6;
+            this.btnClearNHSNetCalendar.TabIndex = 7;
             this.btnClearNHSNetCalendar.UseVisualStyleBackColor = false;
             this.btnClearNHSNetCalendar.Visible = false;
             this.btnClearNHSNetCalendar.Click += new System.EventHandler(this.btnClearNHSNetCalendar_Click);
@@ -751,7 +751,7 @@
             this.btnSampleNHSNetData.Margin = new System.Windows.Forms.Padding(1);
             this.btnSampleNHSNetData.Name = "btnSampleNHSNetData";
             this.btnSampleNHSNetData.Size = new System.Drawing.Size(29, 27);
-            this.btnSampleNHSNetData.TabIndex = 5;
+            this.btnSampleNHSNetData.TabIndex = 6;
             this.btnSampleNHSNetData.UseVisualStyleBackColor = false;
             this.btnSampleNHSNetData.Visible = false;
             this.btnSampleNHSNetData.Click += new System.EventHandler(this.btnSampleNHSNetData_Click);
@@ -997,7 +997,6 @@
         private System.Windows.Forms.Button btnGoogleCreateShare;
         private System.Windows.Forms.Button btnSampleGoogleData;
         private System.Windows.Forms.Button btnClearGoogleCalendar;
-        private System.ComponentModel.BackgroundWorker bg_DoWork;
         private System.Windows.Forms.Button btnDeleteGoogleCalendar;
         private System.Windows.Forms.TextBox txtboxSearchLastname;
         private System.Windows.Forms.GroupBox groupBoxSearch;
