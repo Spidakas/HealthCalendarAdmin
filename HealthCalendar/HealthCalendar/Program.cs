@@ -19,16 +19,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HealthCalendar
-{
-
-
+{    
     class Program
     {
-        
-        static string myconnstr = ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString;
+        static string MyConnString = ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString;
 
         static void Main(string[] args)
         {
+            //bool isSuccess = false;
+            SqlDataReader readerSQLClientID;
+            long lCareProviderOID;
             HealthCalendarClasses.HealthCalendarClass c = new HealthCalendarClass();
             var logstart = NLog.LogManager.GetCurrentClassLogger();
             logstart.Info("Starting HealthCalendar Execution.");
@@ -71,7 +71,7 @@ namespace HealthCalendar
             }
 
             // Trust Exchange Calendar Settings
-            if (c.GetExchangeAuthorization(c))
+            if (c.bExchangeEnabled)
             {
                 if (!c.GetExchangeAuthorization(c))
                 {
@@ -86,11 +86,44 @@ namespace HealthCalendar
 
 
             //Exchange
-            // For each user with a
+            // For each subscriber with an Exchange Email and Exchange Calendar Name
+            if (c.bExchangeEnabled)
+            {
+                //Read Care Provider events using uspRTXEvents stored procedure.            
+                try
+                {
+                    SqlConnection conn = new SqlConnection(MyConnString);
+                    string sql = "SELECT SubscriberOID, ExchangeEmail, ExchangeCalendarID, ExchangeCalendarName FROM Subscribers WHERE (NOT (ExchangeEmail IS NULL)) AND (NOT (ExchangeEmail = '')) AND (NOT (ExchangeCalendarName IS NULL)) AND (NOT (ExchangeCalendarName = ''))";
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.CommandTimeout = 600;
+                    conn.Open();
+                    readerSQLClientID = cmd.ExecuteReader();
+                    if (readerSQLClientID.HasRows)
+                    {
+                        while (readerSQLClientID.Read())
+                        {
+                            if (!readerSQLClientID.IsDBNull(0))
+                            {
+                                lCareProviderOID = (long)readerSQLClientID.GetDecimal(0);
+                                c.SubscriberOID = lCareProviderOID.ToString();
+                                c.ExchangeCalendarName = readerSQLClientID.GetString(3);
+                                c.SetExchangeCalendarDataFromDataSource(c);
+                            }                            
+                        }
+
+                    }                   
+                }
+                catch (Exception ex)
+                {
+                    var logger = NLog.LogManager.GetCurrentClassLogger();
+                    logger.Info("Error when reading Exchange records from Subscribers. " + "Error Message: " + ex.ToString());
+                }
+
+            }
 
 
 
-            var logend = NLog.LogManager.GetCurrentClassLogger();
+                var logend = NLog.LogManager.GetCurrentClassLogger();
             logend.Info("Ending HealthCalendar Execution.");
 
 

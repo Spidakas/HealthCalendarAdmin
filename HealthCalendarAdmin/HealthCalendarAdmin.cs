@@ -42,6 +42,7 @@ namespace HealthCalendarAdmin
         private void HealthCalendarAdmin_Load(object sender, EventArgs e)
         {
             int rc;
+
             // Trust Settings
             if (!c.GetTrustSettings(c))
             {
@@ -80,7 +81,7 @@ namespace HealthCalendarAdmin
             }
 
             // Trust Exchange Calendar Settings
-            if (c.GetExchangeAuthorization(c))
+            if (c.bExchangeEnabled)
             {
                 if (!c.GetExchangeAuthorization(c))
                 {

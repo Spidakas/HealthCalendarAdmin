@@ -2124,8 +2124,9 @@ test body
             {
                 c.NHSNetCalendarService = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
                 c.NHSNetCalendarService.Credentials = new WebCredentials(c.NHSNetOrgMasterAccount, c.NHSNetOrgMasterCredentials);
-                c.NHSNetCalendarService.TraceEnabled = true;
-                c.NHSNetCalendarService.TraceFlags = TraceFlags.All;
+                c.NHSNetCalendarService.TraceEnabled = false;
+                //c.NHSNetCalendarService.TraceEnabled = true;
+                //c.NHSNetCalendarService.TraceFlags = TraceFlags.All;
                 c.NHSNetCalendarService.Timeout = 100000;
                 c.NHSNetCalendarService.Url = new Uri(c.NHSNetExchangeServer);
                 //isGetUserDetailsSuccess = GetNHSNetMasterUserDetails( c );
@@ -2151,8 +2152,9 @@ test body
             {
                 c.ExchangeCalendarService = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
                 c.ExchangeCalendarService.UseDefaultCredentials = true;
-                c.ExchangeCalendarService.TraceEnabled = true;
-                c.ExchangeCalendarService.TraceFlags = TraceFlags.All;
+                c.ExchangeCalendarService.TraceEnabled = false;
+                //c.ExchangeCalendarService.TraceEnabled = true;
+                //c.ExchangeCalendarService.TraceFlags = TraceFlags.All;
                 c.ExchangeCalendarService.Timeout=100000;
                 c.ExchangeCalendarService.AutodiscoverUrl(c.ExchangeOrgMasterAccount, RedirectionUrlValidationCallback);
                 //isGetUserDetailsSuccess = GetExchangeMasterUserDetails( c );

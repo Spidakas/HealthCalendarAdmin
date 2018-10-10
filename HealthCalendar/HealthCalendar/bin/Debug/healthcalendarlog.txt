@@ -1,0 +1,38 @@
+2018-10-10 17:47:01.3084|INFO|HealthCalendar.Program|Starting HealthCalendar Execution.
+2018-10-10 17:47:09.0714|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange:   Ref: 556216263100
+2018-10-10 17:47:12.8954|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange:   Ref: 200002216
+2018-10-10 17:47:14.2674|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange:   Ref: 220000001
+2018-10-10 17:47:15.3284|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange:   Ref: 220000004
+2018-10-10 17:47:16.4174|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange:   Ref: 220000005
+2018-10-10 17:47:18.0954|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange:   Ref: 220000007
+2018-10-10 17:47:19.2134|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange:   Ref: 220000022
+2018-10-10 17:47:20.4364|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange:   Ref: 220000034
+2018-10-10 17:47:22.2484|INFO|HealthCalendar.Program|Error when reading Exchange records from Subscribers. Error Message: System.ArgumentException: Validation failed.
+Parameter name: searchFilter ---> Microsoft.Exchange.WebServices.Data.ServiceValidationException: Either the OtherPropertyDefinition or the Value properties must be set.
+   at Microsoft.Exchange.WebServices.Data.SearchFilter.RelationalFilter.InternalValidate()
+   at Microsoft.Exchange.WebServices.Data.ComplexProperty.Microsoft.Exchange.WebServices.Data.ISelfValidate.Validate()
+   at Microsoft.Exchange.WebServices.Data.EwsUtilities.ValidateParamAllowNull(Object param, String paramName)
+   --- End of inner exception stack trace ---
+   at Microsoft.Exchange.WebServices.Data.EwsUtilities.ValidateParamAllowNull(Object param, String paramName)
+   at Microsoft.Exchange.WebServices.Data.ExchangeService.FindFolders(FolderId parentFolderId, SearchFilter searchFilter, FolderView view)
+   at Microsoft.Exchange.WebServices.Data.ExchangeService.FindFolders(WellKnownFolderName parentFolderName, SearchFilter searchFilter, FolderView view)
+   at HealthCalendarClasses.HealthCalendarClass.SetExchangeCalendarDataFromDataSource(HealthCalendarClass c) in C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\HealthCalendarClasses\HealthCalendarClass.cs:line 1451
+   at HealthCalendar.Program.Main(String[] args) in C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\Program.cs:line 109
+2018-10-10 17:47:22.2484|INFO|HealthCalendar.Program|Ending HealthCalendar Execution.
+2018-10-10 17:55:09.6024|INFO|HealthCalendar.Program|Starting HealthCalendar Execution.
+2018-10-10 17:55:11.3354|INFO|HealthCalendar.Program|Error when reading Exchange records from Subscribers. Error Message: System.IndexOutOfRangeException: Index was outside the bounds of the array.
+   at System.Data.SqlClient.SqlDataReader.CheckDataIsReady(Int32 columnIndex, Boolean allowPartiallyReadColumn, Boolean permitAsync, String methodName)
+   at System.Data.SqlClient.SqlDataReader.TryReadColumn(Int32 i, Boolean setTimeout, Boolean allowPartiallyReadColumn)
+   at System.Data.SqlClient.SqlDataReader.GetString(Int32 i)
+   at HealthCalendar.Program.Main(String[] args) in C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\Program.cs:line 109
+2018-10-10 17:55:11.3354|INFO|HealthCalendar.Program|Ending HealthCalendar Execution.
+2018-10-10 17:55:34.0854|INFO|HealthCalendar.Program|Starting HealthCalendar Execution.
+2018-10-10 17:55:36.9864|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange:   Ref: 556216263100
+2018-10-10 17:55:38.1554|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange:   Ref: 200002216
+2018-10-10 17:55:39.2734|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange:   Ref: 220000001
+2018-10-10 17:55:40.1544|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange:   Ref: 220000004
+2018-10-10 17:55:41.2064|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange:   Ref: 220000005
+2018-10-10 17:55:42.1744|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange:   Ref: 220000007
+2018-10-10 17:55:43.3744|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange:   Ref: 220000022
+2018-10-10 17:55:44.2704|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange:   Ref: 220000034
+2018-10-10 17:56:32.3484|INFO|HealthCalendar.Program|Ending HealthCalendar Execution.
