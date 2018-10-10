@@ -1,0 +1,4 @@
+2018-10-10 15:08:24.6774|INFO|HealthCalendar.Program|Starting HealthCalendar Execution.
+2018-10-10 15:08:24.7224|INFO|HealthCalendar.Program|Ending HealthCalendar Execution.
+2018-10-10 15:40:27.3814|INFO|HealthCalendar.Program|Starting HealthCalendar Execution.
+2018-10-10 15:40:29.6094|INFO|HealthCalendar.Program|Ending HealthCalendar Execution.
