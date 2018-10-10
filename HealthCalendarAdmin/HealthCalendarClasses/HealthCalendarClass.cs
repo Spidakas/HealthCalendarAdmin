@@ -1480,7 +1480,7 @@ test body
 
                 while (readerSQLClientID.Read())
                 {
-                    strEventType = "";
+                    strEventType = "";               
                     strTitle = "";
                     strLocation = "";
                     strDescription = "";
