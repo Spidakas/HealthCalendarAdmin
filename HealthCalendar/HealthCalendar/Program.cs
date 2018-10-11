@@ -80,6 +80,18 @@ namespace HealthCalendar
                 }
             }
 
+            //Exchange            
+            if (c.bExchangeEnabled)
+            {
+                SetSubscribersExchangeCalendars(c);
+            }
+            //NHSNet            
+            if (c.bNHSNetEnabled)
+            {
+                //SetSubscribersNHSNetCalendars(c);
+            }
+
+
 
             //Exchange            
             if (c.bExchangeEnabled)
@@ -97,19 +109,20 @@ namespace HealthCalendar
             logend.Info("Ending HealthCalendar Execution.");
         }
 
+
         //// 
         //// For each subscriber with an Exchange Email and Exchange Calendar Name
         ////
         ////
-        static private void SetSubscribersExchangeCalendarData (HealthCalendarClass c)
+        static private void SetSubscribersExchangeCalendars(HealthCalendarClass c)
         {
             SqlDataReader readerSQLClientID;
-            long lCareProviderOID;
+            long lSubscriberID;
 
             try
             {
                 SqlConnection conn = new SqlConnection(MyConnString);
-                string sql = "SELECT SubscriberOID, ExchangeEmail, ExchangeCalendarID, ExchangeCalendarName FROM Subscribers WHERE (NOT (ExchangeEmail IS NULL)) AND (NOT (ExchangeEmail = '')) AND (NOT (ExchangeCalendarName IS NULL)) AND (NOT (ExchangeCalendarName = ''))";
+                string sql = "SELECT SubscriberID, ExchangeEmail, Title, Firstname, Surname FROM Subscribers WHERE (NOT (ExchangeEmail IS NULL)) AND (NOT (ExchangeEmail = '')) AND ((ExchangeCalendarName IS NULL) OR (ExchangeCalendarName = ''))";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandTimeout = 600;
                 conn.Open();
@@ -120,13 +133,108 @@ namespace HealthCalendar
                     {
                         if (!readerSQLClientID.IsDBNull(0))
                         {
+                            c.Title = "";
+                            c.FirstName = "";
+                            c.LastName = "";
+                            lSubscriberID = (long)readerSQLClientID.GetDecimal(0);
+                            c.SubscriberID = lSubscriberID.ToString();
+                            c.ExchangeEmail = readerSQLClientID.GetString(1);
+                            if (!readerSQLClientID.IsDBNull(2)) c.Title = readerSQLClientID.GetString(2);
+                            if (!readerSQLClientID.IsDBNull(3)) c.FirstName = readerSQLClientID.GetString(3);
+                            if (!readerSQLClientID.IsDBNull(4)) c.LastName = readerSQLClientID.GetString(4);
+                            c.CreateShareExchangeDiary(c);
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                var logger = NLog.LogManager.GetCurrentClassLogger();
+                logger.Info("Error when reading Exchange records from Subscribers. " + "Error Message: " + ex.ToString());
+            }
+        }
+
+        static private void SetSubscribersNHSNetCalendars(HealthCalendarClass c)
+        {
+            SqlDataReader readerSQLClientID;
+            long lCareProviderOID;
+
+            try
+            {
+                SqlConnection conn = new SqlConnection(MyConnString);
+                string sql = "SELECT SubscriberOID, NHSNetEmail, NHSNetCalendarID, NHSNetCalendarName,Title, Firstname, Surname FROM Subscribers WHERE (NOT (NHSNetEmail IS NULL)) AND (NOT (NHSNetEmail = '')) AND (NOT (NHSNetCalendarName IS NULL)) AND (NOT (NHSNetCalendarName = ''))";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandTimeout = 600;
+                conn.Open();
+                readerSQLClientID = cmd.ExecuteReader();
+                if (readerSQLClientID.HasRows)
+                {
+                    while (readerSQLClientID.Read())
+                    {
+                        if (!readerSQLClientID.IsDBNull(0))
+                        {
+                            c.Title = "";
+                            c.FirstName = "";
+                            c.LastName = "";
+                            lCareProviderOID = (long)readerSQLClientID.GetDecimal(0);
+                            c.SubscriberOID = lCareProviderOID.ToString();
+                            c.NHSNetCalendarName = readerSQLClientID.GetString(3);
+                            c.Title = readerSQLClientID.GetString(4);
+                            c.FirstName = readerSQLClientID.GetString(5);
+                            c.LastName = readerSQLClientID.GetString(6);
+                            c.SetNHSNetCalendarDataFromDataSource(c);
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                var logger = NLog.LogManager.GetCurrentClassLogger();
+                logger.Info("Error when reading Exchange records from Subscribers. " + "Error Message: " + ex.ToString());
+            }
+        }
+
+
+
+
+        //// 
+        //// For each subscriber with an Exchange Email and Exchange Calendar Name
+        ////
+        ////
+        static private void SetSubscribersExchangeCalendarData (HealthCalendarClass c)
+        {
+            SqlDataReader readerSQLClientID;
+            long lCareProviderOID;
+
+
+            try
+            {
+                SqlConnection conn = new SqlConnection(MyConnString);
+                string sql = "SELECT SubscriberOID, ExchangeEmail, ExchangeCalendarID, ExchangeCalendarName,Title, Firstname, Surname FROM Subscribers WHERE (NOT (ExchangeEmail IS NULL)) AND (NOT (ExchangeEmail = '')) AND (NOT (ExchangeCalendarName IS NULL)) AND (NOT (ExchangeCalendarName = ''))";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandTimeout = 600;
+                conn.Open();
+                readerSQLClientID = cmd.ExecuteReader();
+                if (readerSQLClientID.HasRows)
+                {
+                    while (readerSQLClientID.Read())
+                    {
+                        if (!readerSQLClientID.IsDBNull(0))
+                        {
+                            c.Title = "";
+                            c.FirstName = "";
+                            c.LastName = "";
                             lCareProviderOID = (long)readerSQLClientID.GetDecimal(0);
                             c.SubscriberOID = lCareProviderOID.ToString();
                             c.ExchangeCalendarName = readerSQLClientID.GetString(3);
+                            if (!readerSQLClientID.IsDBNull(4)) c.Title = readerSQLClientID.GetString(4);
+                            if (!readerSQLClientID.IsDBNull(5)) c.FirstName = readerSQLClientID.GetString(5);
+                            if (!readerSQLClientID.IsDBNull(6)) c.LastName = readerSQLClientID.GetString(6);
                             c.SetExchangeCalendarDataFromDataSource(c);
                         }
                     } 
-
                 }
             }
             catch (Exception ex)
@@ -144,7 +252,7 @@ namespace HealthCalendar
             try
             {
                 SqlConnection conn = new SqlConnection(MyConnString);
-                string sql = "SELECT SubscriberOID, NHSNetEmail, NHSNetCalendarID, NHSNetCalendarName FROM Subscribers WHERE (NOT (NHSNetEmail IS NULL)) AND (NOT (NHSNetEmail = '')) AND (NOT (NHSNetCalendarName IS NULL)) AND (NOT (NHSNetCalendarName = ''))";
+                string sql = "SELECT SubscriberOID, NHSNetEmail, NHSNetCalendarID, NHSNetCalendarName, Title, Firstname, Surname FROM Subscribers WHERE (NOT (NHSNetEmail IS NULL)) AND (NOT (NHSNetEmail = '')) AND (NOT (NHSNetCalendarName IS NULL)) AND (NOT (NHSNetCalendarName = ''))";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandTimeout = 600;
                 conn.Open();
@@ -155,9 +263,15 @@ namespace HealthCalendar
                     {
                         if (!readerSQLClientID.IsDBNull(0))
                         {
+                            c.Title = "";
+                            c.FirstName = "";
+                            c.LastName = "";
                             lCareProviderOID = (long)readerSQLClientID.GetDecimal(0);
                             c.SubscriberOID = lCareProviderOID.ToString();
                             c.NHSNetCalendarName = readerSQLClientID.GetString(3);
+                            if (!readerSQLClientID.IsDBNull(4)) c.Title = readerSQLClientID.GetString(4);
+                            if (!readerSQLClientID.IsDBNull(5)) c.FirstName = readerSQLClientID.GetString(5);
+                            if (!readerSQLClientID.IsDBNull(6)) c.LastName = readerSQLClientID.GetString(6);
                             c.SetNHSNetCalendarDataFromDataSource(c);
                         }
                     }

@@ -1,11 +1,14 @@
-2018-10-11 11:46:38.6815|INFO|HealthCalendar.Program|Starting HealthCalendar Execution.
-2018-10-11 11:47:08.9505|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange:   Ref: 556216263100
-2018-10-11 11:47:10.8565|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange:   Ref: 200002216
-2018-10-11 11:47:13.5055|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange:   Ref: 220000001
-2018-10-11 11:47:15.8805|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange:   Ref: 220000004
-2018-10-11 11:47:17.6245|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange:   Ref: 220000005
-2018-10-11 11:47:19.0945|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange:   Ref: 220000007
-2018-10-11 11:47:21.6445|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange:   Ref: 220000022
-2018-10-11 11:47:24.0095|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange:   Ref: 220000034
-2018-10-11 11:48:22.4725|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for NHSNet:   Ref: 220000001
-2018-10-11 11:48:35.9175|INFO|HealthCalendar.Program|Ending HealthCalendar Execution.
+2018-10-11 18:20:50.1673|INFO|HealthCalendar.Program|Starting HealthCalendar Execution.
+2018-10-11 18:21:02.2550|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: Michael Georgiades Ref: 556216263100
+2018-10-11 18:21:04.1895|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: L Sakhi Ref: 200002216
+2018-10-11 18:21:05.7028|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: A K Bandyopadhyay Ref: 220000001
+2018-10-11 18:21:07.0598|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: C Bagge Ref: 220000002
+2018-10-11 18:21:08.1519|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: R Samuel Ref: 220000003
+2018-10-11 18:21:09.5092|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: A A And E Consultant Ref: 220000004
+2018-10-11 18:21:10.7270|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: Michael Brown Ref: 220000005
+2018-10-11 18:21:12.1995|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: D ALLAN Ref: 220000007
+2018-10-11 18:21:13.2136|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: D B Eaton Ref: 220000010
+2018-10-11 18:21:14.4772|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: J R Wedley Ref: 220000022
+2018-10-11 18:21:15.7409|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: J D Bell Ref: 220000034
+2018-10-11 18:22:21.1723|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for NHSNet: A K Bandyopadhyay Ref: 220000001
+2018-10-11 18:22:32.9197|INFO|HealthCalendar.Program|Ending HealthCalendar Execution.
