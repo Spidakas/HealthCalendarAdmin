@@ -29,7 +29,7 @@ namespace HealthCalendarAdmin
 
             //Initialize NLog Targets and Rules
             var config = new NLog.Config.LoggingConfiguration();
-            var logfile = new NLog.Targets.FileTarget("IdResult") { FileName = "BuildAddressBookEntryIdResult.txt" };
+            var logfile = new NLog.Targets.FileTarget("IdResult") { FileName = "healthcalendaradminlog.txt" };
             config.AddRule(LogLevel.Debug, LogLevel.Fatal, logfile);
             NLog.LogManager.Configuration = config;
 
@@ -90,7 +90,6 @@ namespace HealthCalendarAdmin
                     MessageBox.Show("Unable to connect to Exchange Server. Please contact your IT Department.");
                 }
             }
-
 
             // Create the ToolTip and associate with the Form container.
             ToolTip toolTip1 = new ToolTip();
@@ -315,7 +314,6 @@ namespace HealthCalendarAdmin
             rc = dgvSubscribers.CurrentCell.RowIndex;
             dgvSubscribers.CurrentCell = dgvSubscribers.Rows[rc].Cells[2]; //First visible column
             dgvSubscribers.Rows[rc].Selected = true;
-
         }
 
         private void HealthCalendarAdmin_Shown(object sender, EventArgs e)
@@ -407,7 +405,6 @@ namespace HealthCalendarAdmin
             txtboxExchangeEmail.Text = "";
 
         }
-
 
         private void btnGoogleCreateShare_Click(object sender, EventArgs e)
         {
@@ -513,8 +510,6 @@ namespace HealthCalendarAdmin
             }
         }
 
-
-
         private void btnDeleteGoogleCalendar_Click(object sender, EventArgs e)
         {
             bool isSuccess = false;
@@ -542,16 +537,14 @@ namespace HealthCalendarAdmin
 
             if (c.NHSNetCalendarID != null)
             {
-
-
                 isSuccess = c.DeleteNHSNetCalendar(c);
                 if (isSuccess == true)
                 {
-                    MessageBox.Show("The selected Google Calendar has been successfuly deleted.");
+                    MessageBox.Show("The selected Google NHSNet has been successfuly deleted.");
                 }
                 else
                 {
-                    MessageBox.Show("Failed to delete Google Calendar. Try Again .");
+                    MessageBox.Show("Failed to delete NHSNet Calendar. Try Again .");
                 }
             }            
             searchSubscribersAndSelectRow(txtboxSearchFirstname.Text, txtboxSearchLastname.Text, comboBoxSex.Text, comboBoxTitle.Text, comboBoxOccupation.Text, txtboxSearchMainIdentifier.Text);
@@ -606,7 +599,6 @@ namespace HealthCalendarAdmin
             searchSubscribersAndSelectRow(txtboxSearchFirstname.Text, txtboxSearchLastname.Text, comboBoxSex.Text, comboBoxTitle.Text, comboBoxOccupation.Text, txtboxSearchMainIdentifier.Text);
         }
 
-
         private void BulkDeleteNHSNetCalendarEventsOnThread()
         {
             try
@@ -626,10 +618,6 @@ namespace HealthCalendarAdmin
                 string exc = ex.Message;//Fault tolerance this code should never be executed
             }
         }
-
-
-
-
 
         private void btnNHSNetEmailClear_Click(object sender, EventArgs e)
         {
@@ -931,8 +919,6 @@ namespace HealthCalendarAdmin
             searchSubscribers(txtboxSearchFirstname.Text, txtboxSearchLastname.Text, comboBoxSex.Text, comboBoxTitle.Text, comboBoxOccupation.Text, txtboxSearchMainIdentifier.Text);
         }
 
-
-
         public void searchSubscribersAndSelectRow(string keyword1, string keyword2, string keyword3, string keyword4, string keyword5, string keyword6)
         {
             int rc;
@@ -942,8 +928,6 @@ namespace HealthCalendarAdmin
             dgvSubscribers.CurrentCell = dgvSubscribers.Rows[rc].Cells[2]; //First visible column
             dgvSubscribers.Rows[rc].Selected = true;
         }
-
-
 
         public void searchSubscribers(string keyword1, string keyword2, string keyword3, string keyword4, string keyword5, string keyword6)
         {
@@ -956,8 +940,6 @@ namespace HealthCalendarAdmin
             dgvSubscribers.DataSource = dt;
         }
 
-
-
         private void btnClearSearch_Click(object sender, EventArgs e)
         {
             txtboxSearchFirstname.Text = "";
@@ -968,8 +950,6 @@ namespace HealthCalendarAdmin
             txtboxSearchMainIdentifier.Text="";
             searchSubscribers(txtboxSearchFirstname.Text, txtboxSearchLastname.Text, comboBoxSex.Text, comboBoxTitle.Text, comboBoxOccupation.Text, txtboxSearchMainIdentifier.Text);
         }
-
-
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
@@ -1292,7 +1272,6 @@ namespace HealthCalendarAdmin
         {
             myWait.Close();
         }
-
 
     }
 
