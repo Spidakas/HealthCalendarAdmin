@@ -798,3 +798,4 @@ C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\obj\Debug\HealthCalend
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\obj\Debug\HealthCalendarAdmin.exe
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\obj\Debug\HealthCalendarAdmin.pdb
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\obj\Debug\HealthCalendarAdmin.ProgressForm.resources
+C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\obj\Debug\HealthCalendarAdmin.csprojAssemblyReference.cache

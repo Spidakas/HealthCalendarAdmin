@@ -6677,9 +6677,9 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:Health Calendar Admin "
+        "ProductName" = "8:HealthCalendarAdmin "
         "ProductCode" = "8:{0784ADBB-0111-443E-91BB-864898E24958}"
-        "PackageCode" = "8:{75A44EB1-D4D4-4BAC-8EBB-131A289C0E48}"
+        "PackageCode" = "8:{B13D72D6-CF6C-4C09-9511-516ABB7C9530}"
         "UpgradeCode" = "8:{05D605A9-7E61-4C56-A6D4-2A1A47891296}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -6690,7 +6690,7 @@
         "Manufacturer" = "8:Loch Roag Ltd"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:Health Calendar Admin"
+        "Title" = "8:HealthCalendarAdmin"
         "Subject" = "8:"
         "ARPCONTACT" = "8:Loch Roag Limited"
         "Keywords" = "8:"
@@ -7242,7 +7242,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_07743AE5B07C4CACA22C661E9F0E2495"
             {
-            "SourcePath" = "8:..\\HealthCalendarAdmin\\obj\\Release\\HealthCalendarAdmin.exe"
+            "SourcePath" = "8:..\\HealthCalendarAdmin\\obj\\Debug\\HealthCalendarAdmin.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_126592CD865047E0B381DCF2E2A18CF2"
