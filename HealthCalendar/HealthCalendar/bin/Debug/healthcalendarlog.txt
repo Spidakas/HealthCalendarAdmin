@@ -79,3 +79,17 @@ Error Number:8178,State:1,Class:16
 2018-10-12 11:43:51.3687|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: J D Bell Ref: 220000034
 2018-10-12 11:45:26.6712|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for NHSNet: A K Bandyopadhyay Ref: 220000001
 2018-10-12 11:45:40.3712|INFO|HealthCalendar.Program|Ending HealthCalendar Execution.
+2018-10-12 16:37:40.8923|INFO|HealthCalendar.Program|Starting HealthCalendar Execution.
+2018-10-12 16:38:12.5293|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: Michael Georgiades Ref: 556216263100
+2018-10-12 16:38:14.3033|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: L Sakhi Ref: 200002216
+2018-10-12 16:38:16.3763|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: A K Bandyopadhyay Ref: 220000001
+2018-10-12 16:38:17.6703|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: C Bagge Ref: 220000002
+2018-10-12 16:38:18.8433|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: R Samuel Ref: 220000003
+2018-10-12 16:38:20.2213|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: A A And E Consultant Ref: 220000004
+2018-10-12 16:38:21.7183|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: Michael Brown Ref: 220000005
+2018-10-12 16:38:23.3403|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: D ALLAN Ref: 220000007
+2018-10-12 16:38:25.0233|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: D B Eaton Ref: 220000010
+2018-10-12 16:38:26.1853|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: J R Wedley Ref: 220000022
+2018-10-12 16:38:27.5563|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: J D Bell Ref: 220000034
+2018-10-12 16:39:30.8463|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for NHSNet: A K Bandyopadhyay Ref: 220000001
+2018-10-12 16:39:48.7253|INFO|HealthCalendar.Program|Ending HealthCalendar Execution.

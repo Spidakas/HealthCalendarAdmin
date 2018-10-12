@@ -1280,7 +1280,7 @@ test body
             try
             {
                 SqlConnection conn = new SqlConnection(MyConnString);
-                string sql = "uspRTXEvents";
+                string sql = "uspHealthCalendarEvents";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new SqlParameter("@CareProviderOID", c.SubscriberOID));
@@ -1421,7 +1421,7 @@ test body
             try
             {
                 SqlConnection conn = new SqlConnection(MyConnString);
-                string sql = "uspRTXEvents";
+                string sql = "uspHealthCalendarEvents";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new SqlParameter("@CareProviderOID", c.SubscriberOID));

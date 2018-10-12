@@ -149,7 +149,6 @@ C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Release\
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Release\System.Memory.xml
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Release\System.Numerics.Vectors.xml
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Release\System.Runtime.CompilerServices.Unsafe.xml
-C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\obj\Release\HealthCalendar.csprojAssemblyReference.cache
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\obj\Release\HealthCalendar.exe.config
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\obj\Release\HealthCalendar.csproj.CoreCompileInputs.cache
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\obj\Release\HealthCalendar.csproj.CopyComplete
