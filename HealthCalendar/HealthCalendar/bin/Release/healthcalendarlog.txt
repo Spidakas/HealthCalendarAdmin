@@ -1,0 +1,14 @@
+2018-10-12 11:51:09.5932|INFO|HealthCalendar.Program|Starting HealthCalendar Execution.
+2018-10-12 11:51:13.1832|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: Michael Georgiades Ref: 556216263100
+2018-10-12 11:51:14.2992|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: L Sakhi Ref: 200002216
+2018-10-12 11:51:15.8422|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: A K Bandyopadhyay Ref: 220000001
+2018-10-12 11:51:17.2422|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: C Bagge Ref: 220000002
+2018-10-12 11:51:18.5522|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: R Samuel Ref: 220000003
+2018-10-12 11:51:20.5222|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: A A And E Consultant Ref: 220000004
+2018-10-12 11:51:21.9922|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: Michael Brown Ref: 220000005
+2018-10-12 11:51:23.1322|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: D ALLAN Ref: 220000007
+2018-10-12 11:51:24.4822|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: D B Eaton Ref: 220000010
+2018-10-12 11:51:25.9922|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: J R Wedley Ref: 220000022
+2018-10-12 11:51:27.2722|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: J D Bell Ref: 220000034
+2018-10-12 11:52:34.3522|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for NHSNet: A K Bandyopadhyay Ref: 220000001
+2018-10-12 11:52:51.9447|INFO|HealthCalendar.Program|Ending HealthCalendar Execution.

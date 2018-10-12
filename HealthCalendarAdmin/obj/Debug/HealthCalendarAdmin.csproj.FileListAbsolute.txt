@@ -789,7 +789,6 @@ C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\System.Buffe
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\System.Memory.xml
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\System.Numerics.Vectors.xml
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
-C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\obj\Debug\HealthCalendarAdmin.csprojAssemblyReference.cache
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\obj\Debug\HealthCalendarAdmin.exe.config
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\obj\Debug\HealthCalendarAdmin.HealthCalendarAdmin.resources
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\obj\Debug\HealthCalendarAdmin.Properties.Resources.resources

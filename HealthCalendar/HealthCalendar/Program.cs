@@ -27,8 +27,6 @@ namespace HealthCalendar
         static void Main(string[] args)
         {
             //bool isSuccess = false;
-            SqlDataReader readerSQLClientID;
-            long lCareProviderOID;
             HealthCalendarClasses.HealthCalendarClass c = new HealthCalendarClass();
             var logstart = NLog.LogManager.GetCurrentClassLogger();
             logstart.Info("Starting HealthCalendar Execution.");
@@ -84,31 +82,18 @@ namespace HealthCalendar
             if (c.bExchangeEnabled)
             {
                 SetSubscribersExchangeCalendars(c);
-            }
-            //NHSNet            
-            if (c.bNHSNetEnabled)
-            {
-                //SetSubscribersNHSNetCalendars(c);
-            }
-
-
-
-            //Exchange            
-            if (c.bExchangeEnabled)
-            {
                 SetSubscribersExchangeCalendarData(c);
             }
             //NHSNet            
             if (c.bNHSNetEnabled)
             {
+                SetSubscribersNHSNetCalendars(c);
                 SetSubscribersNHSNetCalendarData(c);
             }
-
 
             var logend = NLog.LogManager.GetCurrentClassLogger();
             logend.Info("Ending HealthCalendar Execution.");
         }
-
 
         //// 
         //// For each subscriber with an Exchange Email and Exchange Calendar Name
@@ -158,12 +143,12 @@ namespace HealthCalendar
         static private void SetSubscribersNHSNetCalendars(HealthCalendarClass c)
         {
             SqlDataReader readerSQLClientID;
-            long lCareProviderOID;
+            long lSubscriberID;
 
             try
             {
                 SqlConnection conn = new SqlConnection(MyConnString);
-                string sql = "SELECT SubscriberOID, NHSNetEmail, NHSNetCalendarID, NHSNetCalendarName,Title, Firstname, Surname FROM Subscribers WHERE (NOT (NHSNetEmail IS NULL)) AND (NOT (NHSNetEmail = '')) AND (NOT (NHSNetCalendarName IS NULL)) AND (NOT (NHSNetCalendarName = ''))";
+                string sql = "SELECT SubscriberID, NHSNetEmail, Title, Firstname, Surname FROM Subscribers WHERE (NOT (NHSNetEmail IS NULL)) AND (NOT (NHSNetEmail = '')) AND ((NHSNetCalendarName IS NULL) OR (NHSNetCalendarName = ''))";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandTimeout = 600;
                 conn.Open();
@@ -177,13 +162,13 @@ namespace HealthCalendar
                             c.Title = "";
                             c.FirstName = "";
                             c.LastName = "";
-                            lCareProviderOID = (long)readerSQLClientID.GetDecimal(0);
-                            c.SubscriberOID = lCareProviderOID.ToString();
-                            c.NHSNetCalendarName = readerSQLClientID.GetString(3);
-                            c.Title = readerSQLClientID.GetString(4);
-                            c.FirstName = readerSQLClientID.GetString(5);
-                            c.LastName = readerSQLClientID.GetString(6);
-                            c.SetNHSNetCalendarDataFromDataSource(c);
+                            lSubscriberID = (long)readerSQLClientID.GetDecimal(0);
+                            c.SubscriberID = lSubscriberID.ToString();
+                            c.NHSNetEmail = readerSQLClientID.GetString(1);
+                            if (!readerSQLClientID.IsDBNull(2)) c.Title = readerSQLClientID.GetString(2);
+                            if (!readerSQLClientID.IsDBNull(3)) c.FirstName = readerSQLClientID.GetString(3);
+                            if (!readerSQLClientID.IsDBNull(4)) c.LastName = readerSQLClientID.GetString(4);
+                            c.CreateShareNHSNetDiary(c);
                         }
                     }
 
@@ -192,12 +177,9 @@ namespace HealthCalendar
             catch (Exception ex)
             {
                 var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when reading Exchange records from Subscribers. " + "Error Message: " + ex.ToString());
+                logger.Info("Error when reading NHSNet records from Subscribers. " + "Error Message: " + ex.ToString());
             }
         }
-
-
-
 
         //// 
         //// For each subscriber with an Exchange Email and Exchange Calendar Name

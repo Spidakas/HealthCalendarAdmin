@@ -258,7 +258,8 @@ namespace HealthCalendarClasses
                 return isSuccess;
             }
 
-            //c.NHSNetCalendarID = folder.Id.ToString();
+            c.NHSNetCalendarID = folder.Id.ToString();
+            
             // Bind to the folder ????Is this the root folder or the calendar folder??
             //Folder folderStoreInfo;
             //folderStoreInfo = Folder.Bind(c.NHSNetCalendarService, WellKnownFolderName.Calendar);
