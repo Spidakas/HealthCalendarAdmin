@@ -356,3 +356,4 @@ C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\obj\Release\HealthCale
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\obj\Release\HealthCalendarAdmin.exe
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\obj\Release\HealthCalendarAdmin.pdb
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\obj\Release\HealthCalendarAdmin.ProgressForm.resources
+C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\obj\Release\HealthCalendarAdmin.csprojAssemblyReference.cache

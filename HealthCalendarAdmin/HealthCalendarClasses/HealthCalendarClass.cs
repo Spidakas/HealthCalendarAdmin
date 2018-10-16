@@ -425,10 +425,11 @@ namespace HealthCalendarClasses
             c.ExchangeCalendarID = folder.Id.ToString();
 
             string EwsID2 = folder.Id.UniqueId;
-            string tmpPath = Application.StartupPath + "\\temp\\";
+            //string tmpPath = Application.StartupPath + "\\temp\\";
 
-            System.IO.Directory.CreateDirectory(tmpPath); // Will create folder if it does not exist otherwise this does nothing
+            //System.IO.Directory.CreateDirectory(tmpPath); // Will create folder if it does not exist otherwise this does nothing
 
+            string tmpPath = Application.StartupPath + "\\"; ;
 
             c.strSharingFolderIdHex = GetConvertedEWSIDinHex(c.ExchangeCalendarService, EwsID2, c.ExchangeOrgMasterAccount);
             c.strInitiatorEntryID = GetIntiatorEntryID(c, 1);
@@ -774,7 +775,9 @@ namespace HealthCalendarClasses
                 sharedMetadataXML.LoadXml(metadataString.ToString());
                 //var logger = NLog.LogManager.GetCurrentClassLogger();
                 //logger.Info(metadataString.ToString());                
-                string tmpPath = Application.StartupPath + "\\temp\\";
+                //string tmpPath = Application.StartupPath + "\\temp\\";
+                string tmpPath = Application.StartupPath + "\\";
+
                 sharedMetadataXML.Save(tmpPath + "sharing_metadata.xml");
             }
             catch (Exception ex)
@@ -2153,11 +2156,16 @@ test body
             {
                 c.ExchangeCalendarService = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
                 c.ExchangeCalendarService.UseDefaultCredentials = true;
+                //c.ExchangeCalendarService.Credentials = new NetworkCredential(c.ExchangeOrgMasterAccount, c.ExchangeOrgMasterCredentials);
+                //c.ExchangeCalendarService.Credentials = new WebCredentials(c.ExchangeOrgMasterAccount, c.ExchangeOrgMasterCredentials);
+
                 c.ExchangeCalendarService.TraceEnabled = false;
                 //c.ExchangeCalendarService.TraceEnabled = true;
                 //c.ExchangeCalendarService.TraceFlags = TraceFlags.All;
                 c.ExchangeCalendarService.Timeout=100000;
                 c.ExchangeCalendarService.AutodiscoverUrl(c.ExchangeOrgMasterAccount, RedirectionUrlValidationCallback);
+
+                //c.ExchangeCalendarService.AutodiscoverUrl(c.ExchangeOrgMasterAccount);
                 //isGetUserDetailsSuccess = GetExchangeMasterUserDetails( c );
             }
             catch (Exception ex)
