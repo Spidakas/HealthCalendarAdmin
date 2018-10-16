@@ -1185,12 +1185,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_719AF1032A85400EB26C6EE5D188729C"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_71D09E101A65C02C479F0A8D6325451B"
         "OwnerKey" = "8:_3ED85ADF730E43699B7827A6F2342B31"
         "MsmSig" = "8:_UNDEFINED"
@@ -4169,26 +4163,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_719AF1032A85400EB26C6EE5D188729C"
-            {
-            "SourcePath" = "8:..\\HealthCalendarAdmin\\App.config"
-            "TargetName" = "8:App.config"
-            "Tag" = "8:"
-            "Folder" = "8:_639CBBF65150458BAC4C53B6A895E6CE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_71D09E101A65C02C479F0A8D6325451B"
             {
             "AssemblyRegister" = "3:1"
@@ -6664,7 +6638,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Health Calendar Admin"
         "ProductCode" = "8:{7A95F116-B425-450F-9910-6FA270AC7BB2}"
-        "PackageCode" = "8:{C7A53A89-8415-47AF-A5C3-6B21E6024BD7}"
+        "PackageCode" = "8:{2AC0B2C8-11E4-48E2-B15D-CFA4905F6209}"
         "UpgradeCode" = "8:{AC46CA00-6C61-44B1-A38E-14C597482BED}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -6815,7 +6789,7 @@
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_FAB17BFA50BB48E2A790F0AE86A7499E"
             {
             "Name" = "8:Health Calendar Admin Uninstall"
-            "Arguments" = "8:/x {C54B1DDE-4C29-40A7-BDEC-CE10ED675DDF} /qr"
+            "Arguments" = "8:/x {7A95F116-B425-450F-9910-6FA270AC7BB2} /qr"
             "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"

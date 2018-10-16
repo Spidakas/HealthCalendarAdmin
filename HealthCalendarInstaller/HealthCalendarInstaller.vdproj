@@ -597,12 +597,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_5BED3656696C4061984ECF6524B298E9"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_5D781AE269014A7D9B4106D7A6331344"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -3972,26 +3966,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5BED3656696C4061984ECF6524B298E9"
-            {
-            "SourcePath" = "8:..\\HealthCalendar\\HealthCalendar\\App.config"
-            "TargetName" = "8:App.config"
-            "Tag" = "8:"
-            "Folder" = "8:_BF4F8A24649D47989F7AF89286BCC397"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5D781AE269014A7D9B4106D7A6331344"
             {
             "SourcePath" = "8:..\\HealthCalendar\\HealthCalendar\\NLog.config"
@@ -6664,7 +6638,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Health Calendar"
         "ProductCode" = "8:{C54B1DDE-4C29-40A7-BDEC-CE10ED675DDF}"
-        "PackageCode" = "8:{EAE863F2-BABB-4C77-AED9-644C00059E4A}"
+        "PackageCode" = "8:{04B401DC-210A-47B1-B319-315D7E4919C3}"
         "UpgradeCode" = "8:{68A3CC8E-C31C-44CB-AB7B-41DCCCCB7DE1}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -6787,7 +6761,7 @@
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_3E0BDF7344C24D13AF39BF8CE7B01D19"
             {
             "Name" = "8:Health Calendar Uninstall"
-            "Arguments" = "8:/x  {7A95F116-B425-450F-9910-6FA270AC7BB2} /qr"
+            "Arguments" = "8:/x  {C54B1DDE-4C29-40A7-BDEC-CE10ED675DDF} /qr"
             "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
@@ -6809,7 +6783,7 @@
             "Target" = "8:_85486C7E502C48A585846A87AB59183E"
             "Folder" = "8:_2A91CCE07F7349CD8C6B7A9D157F276A"
             "WorkingFolder" = "8:_BF4F8A24649D47989F7AF89286BCC397"
-            "Icon" = "8:"
+            "Icon" = "8:_03859C1B8D2A4E3CA987695E103B08D2"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_64409C0F23B84CB781414710FB9B49EA"
