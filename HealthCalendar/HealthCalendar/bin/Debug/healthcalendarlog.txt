@@ -93,3 +93,24 @@ Error Number:8178,State:1,Class:16
 2018-10-12 16:38:27.5563|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: J D Bell Ref: 220000034
 2018-10-12 16:39:30.8463|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for NHSNet: A K Bandyopadhyay Ref: 220000001
 2018-10-12 16:39:48.7253|INFO|HealthCalendar.Program|Ending HealthCalendar Execution.
+2018-10-17 12:50:42.3117|INFO|HealthCalendar.Program|Starting HealthCalendar Execution.
+2018-10-17 12:50:45.1258|INFO|HealthCalendarClasses.HealthCalendarClass|Error when creating Exchange Calendar TrustRTX Dr A K Brown 556216263111. Error Message: Microsoft.Exchange.WebServices.Data.ServiceResponseException: A folder with the specified name already exists.
+   at Microsoft.Exchange.WebServices.Data.ServiceResponse.InternalThrowIfNecessary()
+   at Microsoft.Exchange.WebServices.Data.MultiResponseServiceRequest`1.Execute()
+   at Microsoft.Exchange.WebServices.Data.ExchangeService.CreateFolder(Folder folder, FolderId parentFolderId)
+   at Microsoft.Exchange.WebServices.Data.Folder.Save(FolderId parentFolderId)
+   at Microsoft.Exchange.WebServices.Data.Folder.Save(WellKnownFolderName parentFolderName)
+   at HealthCalendarClasses.HealthCalendarClass.CreateShareExchangeDiary(HealthCalendarClass c) in C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\HealthCalendarClasses\HealthCalendarClass.cs:line 416
+2018-10-17 12:51:28.3713|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: Michael Georgiades Ref: 556216263100
+2018-10-17 12:51:42.7705|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: L Sakhi Ref: 200002216
+2018-10-17 12:51:46.7798|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: A K Bandyopadhyay Ref: 220000001
+2018-10-17 12:51:49.5099|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: C Bagge Ref: 220000002
+2018-10-17 12:51:51.5847|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: R Samuel Ref: 220000003
+2018-10-17 12:52:15.5625|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: A A And E Consultant Ref: 220000004
+2018-10-17 12:52:39.4000|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: Michael Brown Ref: 220000005
+2018-10-17 12:52:41.3032|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: D ALLAN Ref: 220000007
+2018-10-17 12:52:43.2065|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: D B Eaton Ref: 220000010
+2018-10-17 12:52:45.1565|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: J R Wedley Ref: 220000022
+2018-10-17 12:53:08.0735|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for Exchange: J D Bell Ref: 220000034
+2018-10-17 12:54:46.4897|INFO|HealthCalendarClasses.HealthCalendarClass|No activity found for NHSNet: A K Bandyopadhyay Ref: 220000001
+2018-10-17 12:55:06.9646|INFO|HealthCalendar.Program|Ending HealthCalendar Execution.
