@@ -26,6 +26,7 @@ namespace HealthCalendar
 
         static void Main(string[] args)
         {
+            //var configuration = LogManager.Configuration;
             //bool isSuccess = false;
             HealthCalendarClasses.HealthCalendarClass c = new HealthCalendarClass();
             var logstart = NLog.LogManager.GetCurrentClassLogger();

@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("HealthCalendar")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("University Hospitals of Morecambe Bay NHS Trust")]
+[assembly: AssemblyCompany("Loch Roag Ltd")]
 [assembly: AssemblyProduct("HealthCalendar")]
-[assembly: AssemblyCopyright("Copyright © University Hospitals of Morecambe Bay NHS Trust 2018")]
+[assembly: AssemblyCopyright("Copyright © Loch Roag Ltd 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

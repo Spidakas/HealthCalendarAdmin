@@ -43,6 +43,8 @@ namespace HealthCalendarAdmin
         {
             int rc;
 
+            //var configuration = LogManager.Configuration;
+
             // Trust Settings
             if (!c.GetTrustSettings(c))
             {

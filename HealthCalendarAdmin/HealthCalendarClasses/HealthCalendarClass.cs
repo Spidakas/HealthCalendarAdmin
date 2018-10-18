@@ -26,6 +26,8 @@ using Exchange101;
 using Microsoft.Exchange.WebServices.Autodiscover;
 using Attachment = Microsoft.Exchange.WebServices.Data.Attachment;
 using System.Collections.ObjectModel;
+using NLog;
+
 
 namespace HealthCalendarClasses
 {
@@ -259,7 +261,7 @@ namespace HealthCalendarClasses
             }
 
             c.NHSNetCalendarID = folder.Id.ToString();
-            
+
             // Bind to the folder ????Is this the root folder or the calendar folder??
             //Folder folderStoreInfo;
             //folderStoreInfo = Folder.Bind(c.NHSNetCalendarService, WellKnownFolderName.Calendar);
@@ -272,11 +274,11 @@ namespace HealthCalendarClasses
 
             //string tmpPath = Application.StartupPath + "\\temp\\";
             //System.IO.Directory.CreateDirectory(tmpPath); // Will create folder if it does not exist otherwise this does nothing
-                                                          //c.strSharingFolderIdHex = GetConvertedEWSIDinHex(c.NHSNetCalendarService, EwsID2, c.NHSNetOrgMasterAccount);
-                                                          //c.strInitiatorEntryID = GetIntiatorEntryID(c,2);
-                                                          //c.strInvitationMailboxID = GetInvitationMailboxId(c,2);
-                                                          //c.strOwnerSMTPAddress = c.NHSNetOrgMasterAccount;
-                                                          //c.strOwnerDisplayName = c.NHSNetDisplayName;
+            //c.strSharingFolderIdHex = GetConvertedEWSIDinHex(c.NHSNetCalendarService, EwsID2, c.NHSNetOrgMasterAccount);
+            //c.strInitiatorEntryID = GetIntiatorEntryID(c,2);
+            //c.strInvitationMailboxID = GetInvitationMailboxId(c,2);
+            //c.strOwnerSMTPAddress = c.NHSNetOrgMasterAccount;
+            //c.strOwnerDisplayName = c.NHSNetDisplayName;
 
             //c.CreateSharingMessageAttachment(c.NHSNetOrgMasterAccount, c.NHSNetEmail,"calendar",c,2);
 
@@ -327,6 +329,7 @@ namespace HealthCalendarClasses
             //}
             //catch (Exception ex)
             //{
+            //  var configuration = LogManager.Configuration;
             //    var logger = NLog.LogManager.GetCurrentClassLogger();
             //    logger.Info("Error when sending NHSNet Calendar sharing invite " + c.NHSNetCalendarName + ". Error Message: " + ex.ToString());
             //    return isSuccess;
@@ -672,6 +675,7 @@ namespace HealthCalendarClasses
                 addBookEntryId.Append(ConvertStringToHex(c.NHSNetUserDN)); /* Returns the userDN of the user */
             }
             addBookEntryId.Append("00"); /* terminator bit */
+            //var configuration = LogManager.Configuration;
             //var logger = NLog.LogManager.GetCurrentClassLogger();
             //logger.Info(addBookEntryId.ToString());
             result = addBookEntryId.ToString();
@@ -716,6 +720,7 @@ namespace HealthCalendarClasses
             }
 
             MailboxIDPointer.Append("00"); /* terminator bit */
+            //var configuration = LogManager.Configuration;
             //var logger = NLog.LogManager.GetCurrentClassLogger();
             //logger.Info(MailboxIDPointer.ToString());
             return MailboxIDPointer.ToString();
@@ -773,6 +778,7 @@ namespace HealthCalendarClasses
                 metadataString.Append("</Invitation>");
                 metadataString.Append("</SharingMessage>");
                 sharedMetadataXML.LoadXml(metadataString.ToString());
+                //var configuration = LogManager.Configuration;
                 //var logger = NLog.LogManager.GetCurrentClassLogger();
                 //logger.Info(metadataString.ToString());                
                 //string tmpPath = Application.StartupPath + "\\temp\\";
