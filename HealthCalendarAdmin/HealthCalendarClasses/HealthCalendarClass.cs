@@ -26,7 +26,7 @@ using Exchange101;
 using Microsoft.Exchange.WebServices.Autodiscover;
 using Attachment = Microsoft.Exchange.WebServices.Data.Attachment;
 using System.Collections.ObjectModel;
-using NLog;
+//using NLog;
 
 //[assembly: log4net.Config.XmlConfigurator(Watch = true)]
 

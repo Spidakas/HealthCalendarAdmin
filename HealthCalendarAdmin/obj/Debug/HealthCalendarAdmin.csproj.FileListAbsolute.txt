@@ -638,7 +638,6 @@ C:\Source\HealthCalendarAdmin\HealthCalendarAdmin\obj\Debug\HealthCalendarAdmin.
 C:\Source\HealthCalendarAdmin\HealthCalendarAdmin\obj\Debug\HealthCalendarAdmin.csproj.CopyComplete
 C:\Source\HealthCalendarAdmin\HealthCalendarAdmin\obj\Debug\HealthCalendarAdmin.exe
 C:\Source\HealthCalendarAdmin\HealthCalendarAdmin\obj\Debug\HealthCalendarAdmin.pdb
-C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\NLog.config
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\HealthCalendarAdmin.exe.config
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\HealthCalendarAdmin.exe
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\HealthCalendarAdmin.pdb
@@ -755,8 +754,6 @@ C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\Microsoft.Ex
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\Microsoft.Extensions.Options.dll
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\Microsoft.Extensions.Primitives.dll
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\Newtonsoft.Json.dll
-C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\NLog.dll
-C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\NLog.Extensions.Logging.dll
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\System.Buffers.dll
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\System.Memory.dll
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\System.Numerics.Vectors.dll
@@ -783,8 +780,6 @@ C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\Microsoft.Ex
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\Microsoft.Extensions.Options.xml
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\Microsoft.Extensions.Primitives.xml
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\Newtonsoft.Json.xml
-C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\NLog.xml
-C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\NLog.Extensions.Logging.xml
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\System.Buffers.xml
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\System.Memory.xml
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\System.Numerics.Vectors.xml
@@ -798,6 +793,5 @@ C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\obj\Debug\HealthCalend
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\obj\Debug\HealthCalendarAdmin.exe
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\obj\Debug\HealthCalendarAdmin.pdb
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\obj\Debug\HealthCalendarAdmin.ProgressForm.resources
-C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\obj\Debug\HealthCalendarAdmin.csprojAssemblyReference.cache
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\log4net.dll
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\log4net.xml

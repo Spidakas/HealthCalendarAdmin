@@ -1,4 +1,3 @@
-C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\NLog.config
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\HealthCalendar.exe.config
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\HealthCalendar.exe
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\HealthCalendar.pdb
@@ -116,8 +115,6 @@ C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\Mi
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\Microsoft.Extensions.Options.dll
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\Microsoft.Extensions.Primitives.dll
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\Newtonsoft.Json.dll
-C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\NLog.dll
-C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\NLog.Extensions.Logging.dll
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\System.Buffers.dll
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\System.Memory.dll
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\System.Numerics.Vectors.dll
@@ -145,8 +142,6 @@ C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\Mi
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\Microsoft.Extensions.Options.xml
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\Microsoft.Extensions.Primitives.xml
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\Newtonsoft.Json.xml
-C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\NLog.xml
-C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\NLog.Extensions.Logging.xml
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\System.Buffers.xml
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\System.Memory.xml
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\System.Numerics.Vectors.xml

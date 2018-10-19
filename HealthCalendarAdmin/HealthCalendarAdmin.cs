@@ -5,7 +5,7 @@ using Google.Apis.Calendar.v3.Data;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using HealthCalendarClasses;
-using NLog;
+//using NLog;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,10 +30,10 @@ namespace HealthCalendarAdmin
             InitializeComponent();
 
             //Initialize NLog Targets and Rules
-            var config = new NLog.Config.LoggingConfiguration();
-            var logfile = new NLog.Targets.FileTarget("IdResult") { FileName = "healthcalendaradminlog.txt" };
-            config.AddRule(LogLevel.Debug, LogLevel.Fatal, logfile);
-            NLog.LogManager.Configuration = config;
+            //var config = new NLog.Config.LoggingConfiguration();
+            //var logfile = new NLog.Targets.FileTarget("IdResult") { FileName = "healthcalendaradminlog.txt" };
+            //config.AddRule(LogLevel.Debug, LogLevel.Fatal, logfile);
+            //NLog.LogManager.Configuration = config;
 
         }
         bool ThreadSuccess;
@@ -45,13 +45,11 @@ namespace HealthCalendarAdmin
         {
             int rc;
 
-            //var configuration = LogManager.Configuration;
-
+            
             // Trust Settings
             if (!c.GetTrustSettings(c))
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Cannot connect or read data from the Health Calendar database.");  
+                c.LogHealthCalendarError("Cannot connect or read data from the Health Calendar database.");  
                 MessageBox.Show("Cannot connect or read data from the Health Calendar database.");
                 this.Close();
             }
@@ -60,15 +58,13 @@ namespace HealthCalendarAdmin
             if (c.bGoogleEnabled)
             {
                 if (!c.GetGoogleClientSecret(c)){
-                    var logger = NLog.LogManager.GetCurrentClassLogger();
-                    logger.Info("Unable to obtain Google Client Secret. Please contact your IT Department.");
+                    c.LogHealthCalendarError("Unable to obtain Google Client Secret. Please contact your IT Department.");
                     MessageBox.Show("Unable to obtain Google Client Secret. Please contact your IT Department.");
                 }
             
                 if (!c.GetGoogleAuthorization(c))
                 {
-                    var logger = NLog.LogManager.GetCurrentClassLogger();
-                    logger.Info("Unable to obtain Google Authorization. Please contact your IT Department.");
+                    c.LogHealthCalendarError("Unable to obtain Google Authorization. Please contact your IT Department.");
                     MessageBox.Show("Unable to obtain Google Authorization. Please contact your IT Department.");
                 }
             }
@@ -78,8 +74,7 @@ namespace HealthCalendarAdmin
             {
                 if (!c.GetNHSNetAuthorization(c))
                 {
-                    var logger = NLog.LogManager.GetCurrentClassLogger();
-                    logger.Info("Unable to connect to NHS Net Server. Please contact your IT Department.");
+                    c.LogHealthCalendarError("Unable to connect to NHS Net Server. Please contact your IT Department.");
                     MessageBox.Show("Unable to connect to NHS Net Server. Please contact your IT Department.");
                 }
             }
@@ -89,8 +84,7 @@ namespace HealthCalendarAdmin
             {
                 if (!c.GetExchangeAuthorization(c))
                 {
-                    var logger = NLog.LogManager.GetCurrentClassLogger();
-                    logger.Info("Unable to connect to Exchange Server. Please contact your IT Department.");
+                    c.LogHealthCalendarError("Unable to connect to Exchange Server. Please contact your IT Department.");
                     MessageBox.Show("Unable to connect to Exchange Server. Please contact your IT Department.");
                 }
             }
