@@ -1,5 +1,3 @@
-C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\obj\Debug\HealthCalendar.csproj.CoreCompileInputs.cache
-C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\obj\Debug\HealthCalendar.exe.config
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\NLog.config
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\HealthCalendar.exe.config
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\HealthCalendar.exe
@@ -106,6 +104,7 @@ C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\Go
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\Google.Apis.Core.dll
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\Google.Apis.dll
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\Google.Apis.PlatformServices.dll
+C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\log4net.dll
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\Microsoft.Exchange.WebServices.Auth.dll
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\Microsoft.Exchange.WebServices.dll
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.dll
@@ -132,6 +131,7 @@ C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\Go
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\Google.Apis.Calendar.v3.xml
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\Google.Apis.Core.pdb
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\Google.Apis.Core.xml
+C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\log4net.xml
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\Microsoft.Exchange.WebServices.pdb
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\Microsoft.Exchange.WebServices.xml
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\Microsoft.Exchange.WebServices.Auth.pdb
@@ -151,7 +151,8 @@ C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\Sy
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\System.Memory.xml
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\System.Numerics.Vectors.xml
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\obj\Debug\HealthCalendar.exe.config
+C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\obj\Debug\HealthCalendar.csproj.CoreCompileInputs.cache
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\obj\Debug\HealthCalendar.csproj.CopyComplete
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\obj\Debug\HealthCalendar.exe
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\obj\Debug\HealthCalendar.pdb
-C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\obj\Debug\HealthCalendar.csprojAssemblyReference.cache

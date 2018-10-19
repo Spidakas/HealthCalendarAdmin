@@ -28,11 +28,15 @@ using Attachment = Microsoft.Exchange.WebServices.Data.Attachment;
 using System.Collections.ObjectModel;
 using NLog;
 
+//[assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
 namespace HealthCalendarClasses
 {
+    
     class HealthCalendarClass
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         public string SubscriberID { get; set; }
         public string SubscriberOID { get; set; }
         public string Initials { get; set; }
@@ -176,8 +180,7 @@ namespace HealthCalendarClasses
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when creating a Google calendar " + c.GoogleCalendarID + ". Error Message: " + ex.ToString());
+                LogHealthCalendarError("Error when creating a Google calendar " + c.GoogleCalendarID + ". Error Message: " + ex.ToString());
                 return isSuccess;
             }
 
@@ -220,8 +223,7 @@ namespace HealthCalendarClasses
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when updating db record when creating a Google calendar " + c.GoogleCalendarID + ". Error Message: " + ex.ToString());
+                LogHealthCalendarError("Error when updating db record when creating a Google calendar " + c.GoogleCalendarID + ". Error Message: " + ex.ToString());
                 return isSuccess;
             }
             finally
@@ -255,8 +257,7 @@ namespace HealthCalendarClasses
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when creating NHSNet Calendar " + c.NHSNetCalendarName + ". Error Message: " + ex.ToString());
+                LogHealthCalendarError("Error when creating NHSNet Calendar " + c.NHSNetCalendarName + ". Error Message: " + ex.ToString());
                 return isSuccess;
             }
 
@@ -329,9 +330,7 @@ namespace HealthCalendarClasses
             //}
             //catch (Exception ex)
             //{
-            //  var configuration = LogManager.Configuration;
-            //    var logger = NLog.LogManager.GetCurrentClassLogger();
-            //    logger.Info("Error when sending NHSNet Calendar sharing invite " + c.NHSNetCalendarName + ". Error Message: " + ex.ToString());
+            //    LogHealthCalendarError("Error when sending NHSNet Calendar sharing invite " + c.NHSNetCalendarName + ". Error Message: " + ex.ToString());
             //    return isSuccess;
             //}
             //invitationRequest.Send();
@@ -352,8 +351,7 @@ namespace HealthCalendarClasses
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when sending NHSNet Calendar sharing invite " + c.NHSNetCalendarName + ". Error Message: " + ex.ToString());
+                LogHealthCalendarError("Error when sending NHSNet Calendar sharing invite " + c.NHSNetCalendarName + ". Error Message: " + ex.ToString());
                 return isSuccess;
             }
 
@@ -384,8 +382,7 @@ namespace HealthCalendarClasses
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when updating db record when creating an NHSNet calendar " + c.NHSNetCalendarName + ". Error Message: " + ex.ToString());
+                LogHealthCalendarError("Error when updating db record when creating an NHSNet calendar " + c.NHSNetCalendarName + ". Error Message: " + ex.ToString());
                 return isSuccess;
             }
             finally
@@ -420,8 +417,7 @@ namespace HealthCalendarClasses
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when creating Exchange Calendar " + c.ExchangeCalendarName + ". Error Message: " + ex.ToString());
+                LogHealthCalendarError("Error when creating Exchange Calendar " + c.ExchangeCalendarName + ". Error Message: " + ex.ToString());
                 return isSuccess;
             }
 
@@ -488,8 +484,7 @@ namespace HealthCalendarClasses
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when sending Exchange Calendar sharing invite " + c.ExchangeCalendarName + ". Error Message: " + ex.ToString());
+                LogHealthCalendarError("Error when sending Exchange Calendar sharing invite " + c.ExchangeCalendarName + ". Error Message: " + ex.ToString());
                 return isSuccess;
             }
 
@@ -515,8 +510,7 @@ namespace HealthCalendarClasses
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when updating db record when creating an Exchange calendar " + c.ExchangeCalendarName + ". Error Message: " + ex.ToString());
+                LogHealthCalendarError("Error when updating db record when creating an Exchange calendar " + c.ExchangeCalendarName + ". Error Message: " + ex.ToString());
                 return isSuccess;
             }
             finally
@@ -675,9 +669,7 @@ namespace HealthCalendarClasses
                 addBookEntryId.Append(ConvertStringToHex(c.NHSNetUserDN)); /* Returns the userDN of the user */
             }
             addBookEntryId.Append("00"); /* terminator bit */
-            //var configuration = LogManager.Configuration;
-            //var logger = NLog.LogManager.GetCurrentClassLogger();
-            //logger.Info(addBookEntryId.ToString());
+            //LogHealthCalendarError(addBookEntryId.ToString());
             result = addBookEntryId.ToString();
             return result;
         }
@@ -720,9 +712,7 @@ namespace HealthCalendarClasses
             }
 
             MailboxIDPointer.Append("00"); /* terminator bit */
-            //var configuration = LogManager.Configuration;
-            //var logger = NLog.LogManager.GetCurrentClassLogger();
-            //logger.Info(MailboxIDPointer.ToString());
+            //LogHealthCalendarError(MailboxIDPointer.ToString());
             return MailboxIDPointer.ToString();
         }
 
@@ -778,9 +768,7 @@ namespace HealthCalendarClasses
                 metadataString.Append("</Invitation>");
                 metadataString.Append("</SharingMessage>");
                 sharedMetadataXML.LoadXml(metadataString.ToString());
-                //var configuration = LogManager.Configuration;
-                //var logger = NLog.LogManager.GetCurrentClassLogger();
-                //logger.Info(metadataString.ToString());                
+                //LogHealthCalendarError(metadataString.ToString());                
                 //string tmpPath = Application.StartupPath + "\\temp\\";
                 string tmpPath = Application.StartupPath + "\\";
 
@@ -788,8 +776,7 @@ namespace HealthCalendarClasses
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Exception:" + ex.Message.ToString() + "Error Try CreateSharedMessageInvitation()");    
+                LogHealthCalendarError("Exception:" + ex.Message.ToString() + "Error Try CreateSharedMessageInvitation()");    
             }
         }
 
@@ -850,8 +837,7 @@ test body
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error updating db record when deleting Google calendar  " + c.GoogleCalendarID + ". Error Message: " + ex.ToString());
+                LogHealthCalendarError("Error updating db record when deleting Google calendar  " + c.GoogleCalendarID + ". Error Message: " + ex.ToString());
                 return isSuccess;
             }
             finally
@@ -907,8 +893,7 @@ test body
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error updating db record when deleting NHSNet calendar  " + c.NHSNetCalendarName + ". Error Message: " + ex.ToString());
+                LogHealthCalendarError("Error updating db record when deleting NHSNet calendar  " + c.NHSNetCalendarName + ". Error Message: " + ex.ToString());
                 return isSuccess;
             }
             finally
@@ -964,8 +949,7 @@ test body
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error updating db record when deleting Exchange calendar  " + c.ExchangeCalendarName + ". Error Message: " + ex.ToString());
+                LogHealthCalendarError("Error updating db record when deleting Exchange calendar  " + c.ExchangeCalendarName + ". Error Message: " + ex.ToString());
                 return isSuccess;
             }
             finally
@@ -1152,8 +1136,7 @@ test body
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error in Select Method. " + "Error Message: " + ex.ToString());
+                LogHealthCalendarError("Error in Select Method. " + "Error Message: " + ex.ToString());
             }
             finally
             {
@@ -1185,8 +1168,7 @@ test body
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when updating Google subscriber details: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
+                LogHealthCalendarError("Error when updating Google subscriber details: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
                 return isSuccess;
             }
             finally
@@ -1219,8 +1201,7 @@ test body
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when updating NHSNet subscriber details: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
+                LogHealthCalendarError("Error when updating NHSNet subscriber details: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
                 return isSuccess;
             }
             finally
@@ -1253,8 +1234,7 @@ test body
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when updating Exchange subscriber details: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
+                LogHealthCalendarError("Error when updating Exchange subscriber details: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
                 return isSuccess;
             }
             finally
@@ -1301,15 +1281,13 @@ test body
                 if (!readerSQLClientID.HasRows)
                 {
                     isSuccess = false;
-                    var logger = NLog.LogManager.GetCurrentClassLogger();
-                    logger.Info("No activity found for NHSNet: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID);
+                    LogHealthCalendarError("No activity found for NHSNet: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID);
                     return isSuccess;
                 }
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when reading data for NHSNet: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
+                LogHealthCalendarError("Error when reading data for NHSNet: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
                 return isSuccess;
             }
 
@@ -1382,8 +1360,7 @@ test body
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when creating list of NHSNet calendar items: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
+                LogHealthCalendarError("Error when creating list of NHSNet calendar items: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
                 return isSuccess;
             }
 
@@ -1395,8 +1372,7 @@ test body
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when creating NHSNetcalendar items: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
+                LogHealthCalendarError("Error when creating NHSNetcalendar items: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
                 return isSuccess;
             }
 
@@ -1442,15 +1418,13 @@ test body
                 if (!readerSQLClientID.HasRows)
                 {
                     isSuccess = false;
-                    var logger = NLog.LogManager.GetCurrentClassLogger();
-                    logger.Info("No activity found for Exchange: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID);
+                    LogHealthCalendarError("No activity found for Exchange: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID);
                     return isSuccess;
                 }
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when reading data for Exchange: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
+                LogHealthCalendarError("Error when reading data for Exchange: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
                 return isSuccess;
             }
 
@@ -1523,8 +1497,7 @@ test body
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when creating list of Exchange calendar items: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
+                LogHealthCalendarError("Error when creating list of Exchange calendar items: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
                 return isSuccess;
             }
 
@@ -1535,8 +1508,7 @@ test body
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when creating Exchange calendar items: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
+                LogHealthCalendarError("Error when creating Exchange calendar items: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
                 return isSuccess;
             }
 
@@ -1616,14 +1588,13 @@ test body
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when creating Google calendar item. " + "Error Message: " + ex.ToString());
+                LogHealthCalendarError("Error when creating Google calendar item. " + "Error Message: " + ex.ToString());
             }
             isSuccess = true;
             return isSuccess;
         }
 
-        public static void AddGoogleCalenderEvent(CalendarService service, String strGoogleCalendarID, String strActivityType, String strEventSummary, String strEventLocation, String strEventDescription, DateTime dtEventStart, DateTime dtEventEnd)
+        public void AddGoogleCalenderEvent(CalendarService service, String strGoogleCalendarID, String strActivityType, String strEventSummary, String strEventLocation, String strEventDescription, DateTime dtEventStart, DateTime dtEventEnd)
         {
             try
             {
@@ -1649,8 +1620,7 @@ test body
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when creating Google calendar item. " + "Error Message: " + ex.ToString());
+                LogHealthCalendarError("Error when creating Google calendar item. " + "Error Message: " + ex.ToString());
             }
 
         }
@@ -1776,8 +1746,7 @@ test body
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when creating NHSNet Sample calendar item. " + "Error Message: " + ex.ToString());
+                LogHealthCalendarError("Error when creating NHSNet Sample calendar item. " + "Error Message: " + ex.ToString());
             }
 
             //Bulk Write appointment collection to appropriate calendar
@@ -1787,8 +1756,7 @@ test body
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when creating NHSNet sample calendar items: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
+                LogHealthCalendarError("Error when creating NHSNet sample calendar items: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
                 return isSuccess;
             }
 
@@ -1935,8 +1903,7 @@ test body
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when creating Exchange sample calendar item. " + "Error Message: " + ex.ToString());
+                LogHealthCalendarError("Error when creating Exchange sample calendar item. " + "Error Message: " + ex.ToString());
             }
 
 
@@ -1947,8 +1914,7 @@ test body
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when creating Exchange sample calendar items: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
+                LogHealthCalendarError("Error when creating Exchange sample calendar items: " + c.FirstName + " " + c.LastName + " Ref: " + c.SubscriberOID + "Error Message: " + ex.ToString());
                 return isSuccess;
             }
 
@@ -2028,8 +1994,7 @@ test body
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Failed to obtain trust settings. " + "Error Message: " + ex.ToString());
+                LogHealthCalendarError("Failed to obtain trust settings. " + "Error Message: " + ex.ToString());
                 return isSuccess;
             }
             return isSuccess;
@@ -2052,8 +2017,7 @@ test body
                 if (!readerSQLClientID.HasRows)
                 {
                     isSuccess = false;
-                    var logger = NLog.LogManager.GetCurrentClassLogger();
-                    logger.Info("Google secret not found.");
+                    LogHealthCalendarError("Google secret not found.");
                     return isSuccess;
                 }
 
@@ -2068,8 +2032,7 @@ test body
 
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Google secret not found. " + "Error Message: " + ex.ToString());
+                LogHealthCalendarError("Google secret not found. " + "Error Message: " + ex.ToString());
                 return isSuccess;
             }
 
@@ -2117,8 +2080,7 @@ test body
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Google authorisation has failed for: " + c.GoogleOrgMasterAccount + ". Error Message: " + ex.ToString());
+                LogHealthCalendarError("Google authorisation has failed for: " + c.GoogleOrgMasterAccount + ". Error Message: " + ex.ToString());
                 return isSuccess;
             }
             isSuccess = true;
@@ -2143,8 +2105,7 @@ test body
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("NHSNet authorisation has failed for: " + c.NHSNetOrgMasterAccount + ". Error Message: " + ex.ToString());
+                LogHealthCalendarError("NHSNet authorisation has failed for: " + c.NHSNetOrgMasterAccount + ". Error Message: " + ex.ToString());
                 return isSuccess;
             }
 
@@ -2176,8 +2137,7 @@ test body
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Exchange authorisation has failed for: " + c.ExchangeOrgMasterAccount + ". Error Message: " + ex.ToString());
+                LogHealthCalendarError("Exchange authorisation has failed for: " + c.ExchangeOrgMasterAccount + ". Error Message: " + ex.ToString());
                 return isSuccess;
             }
             
@@ -2230,8 +2190,7 @@ test body
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("NHSNet master user details not found " + c.NHSNetOrgMasterAccount + ". Error Message: " + ex.ToString());
+                LogHealthCalendarError("NHSNet master user details not found " + c.NHSNetOrgMasterAccount + ". Error Message: " + ex.ToString());
                 return isSuccess;
             }
             isSuccess = true;
@@ -2252,8 +2211,7 @@ test body
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Email: " + c.NHSNetEmail + " does not exist within NHS Mail" + " Error Message: " + ex.ToString());
+                LogHealthCalendarError("Email: " + c.NHSNetEmail + " does not exist within NHS Mail" + " Error Message: " + ex.ToString());
                 return isSuccess;
             }
             isSuccess = true;
@@ -2306,8 +2264,7 @@ test body
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Exchange master user details not found " + c.ExchangeOrgMasterAccount + ". Error Message: " + ex.ToString());
+                LogHealthCalendarError("Exchange master user details not found " + c.ExchangeOrgMasterAccount + ". Error Message: " + ex.ToString());
                 return isSuccess;
             }
             isSuccess = true;
@@ -2328,8 +2285,7 @@ test body
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Email: " + c.ExchangeEmail + " does not exist in the local Email Exchange." + " Error Message: " + ex.ToString() );
+                LogHealthCalendarError("Email: " + c.ExchangeEmail + " does not exist in the local Email Exchange." + " Error Message: " + ex.ToString() );
                 return isSuccess;
             }
             isSuccess = true;
@@ -2493,6 +2449,15 @@ test body
             }
             return Bytes;
         }
+
+        public void LogHealthCalendarError(string input)
+        {
+            log.Error(input);
+            //var logger = NLog.LogManager.GetCurrentClassLogger();
+            //logger.Info(input);
+        }
+
+        
 
         /*public bool Delete(HealthCalendarClass c)
         {

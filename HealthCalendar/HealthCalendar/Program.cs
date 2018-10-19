@@ -4,7 +4,7 @@ using Google.Apis.Calendar.v3.Data;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using HealthCalendarClasses;
-using NLog;
+//using NLog;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,19 +18,24 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+[assembly: log4net.Config.XmlConfigurator(Watch=true)]
+
 namespace HealthCalendar
 {    
     class Program
     {
         static string MyConnString = ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString;
+        
 
         static void Main(string[] args)
         {
+
+
+            
             //var configuration = LogManager.Configuration;
             //bool isSuccess = false;
             HealthCalendarClasses.HealthCalendarClass c = new HealthCalendarClass();
-            var logstart = NLog.LogManager.GetCurrentClassLogger();
-            logstart.Info("Starting HealthCalendar Execution.");
+            c.LogHealthCalendarError("Starting HealthCalendar Execution.");
 
 
             //Startup
@@ -38,8 +43,7 @@ namespace HealthCalendar
             // Trust Settings
             if (!c.GetTrustSettings(c))
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Cannot connect or read data from the Health Calendar database.");
+                c.LogHealthCalendarError("Cannot connect or read data from the Health Calendar database.");
                 Environment.Exit(0);
             }
 
@@ -48,14 +52,12 @@ namespace HealthCalendar
             {
                 if (!c.GetGoogleClientSecret(c))
                 {
-                    var logger = NLog.LogManager.GetCurrentClassLogger();
-                    logger.Info("Unable to obtain Google Client Secret. Please contact your IT Department.");
+                    c.LogHealthCalendarError("Unable to obtain Google Client Secret. Please contact your IT Department.");
                 }
 
                 if (!c.GetGoogleAuthorization(c))
                 {
-                    var logger = NLog.LogManager.GetCurrentClassLogger();
-                    logger.Info("Unable to obtain Google Authorization. Please contact your IT Department.");
+                    c.LogHealthCalendarError("Unable to obtain Google Authorization. Please contact your IT Department.");
                 }
             }
 
@@ -64,8 +66,7 @@ namespace HealthCalendar
             {
                 if (!c.GetNHSNetAuthorization(c))
                 {
-                    var logger = NLog.LogManager.GetCurrentClassLogger();
-                    logger.Info("Unable to connect to NHS Net Server. Please contact your IT Department.");
+                    c.LogHealthCalendarError("Unable to connect to NHS Net Server. Please contact your IT Department.");
                 }
             }
 
@@ -74,8 +75,7 @@ namespace HealthCalendar
             {
                 if (!c.GetExchangeAuthorization(c))
                 {
-                    var logger = NLog.LogManager.GetCurrentClassLogger();
-                    logger.Info("Unable to connect to Exchange Server. Please contact your IT Department.");
+                    c.LogHealthCalendarError("Unable to connect to Exchange Server. Please contact your IT Department.");
                 }
             }
 
@@ -92,8 +92,7 @@ namespace HealthCalendar
                 SetSubscribersNHSNetCalendarData(c);
             }
 
-            var logend = NLog.LogManager.GetCurrentClassLogger();
-            logend.Info("Ending HealthCalendar Execution.");
+            c.LogHealthCalendarError("Ending HealthCalendar Execution.");
         }
 
         //// 
@@ -136,8 +135,7 @@ namespace HealthCalendar
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when reading Exchange records from Subscribers. " + "Error Message: " + ex.ToString());
+                c.LogHealthCalendarError("Error when reading Exchange records from Subscribers. " + "Error Message: " + ex.ToString());
             }
         }
 
@@ -177,8 +175,7 @@ namespace HealthCalendar
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when reading NHSNet records from Subscribers. " + "Error Message: " + ex.ToString());
+                c.LogHealthCalendarError("Error when reading NHSNet records from Subscribers. " + "Error Message: " + ex.ToString());
             }
         }
 
@@ -222,8 +219,7 @@ namespace HealthCalendar
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when reading Exchange records from Subscribers. " + "Error Message: " + ex.ToString());
+                c.LogHealthCalendarError("Error when reading Exchange records from Subscribers. " + "Error Message: " + ex.ToString());
             }
         }
 
@@ -263,8 +259,7 @@ namespace HealthCalendar
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Info("Error when reading Exchange records from Subscribers. " + "Error Message: " + ex.ToString());
+                c.LogHealthCalendarError("Error when reading Exchange records from Subscribers. " + "Error Message: " + ex.ToString());
             }
         }
 
