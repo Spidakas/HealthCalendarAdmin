@@ -795,3 +795,4 @@ C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\obj\Debug\HealthCalend
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\obj\Debug\HealthCalendarAdmin.ProgressForm.resources
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\log4net.dll
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\bin\Debug\log4net.xml
+C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\obj\Debug\HealthCalendarAdmin.csprojAssemblyReference.cache

@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthCalendarAdmin", "Heal
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthCalendar", "HealthCalendar\HealthCalendar\HealthCalendar.csproj", "{87010938-CECE-4B65-AF06-73BC95D2BB4A}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "HealthCalendarInstaller", "HealthCalendarInstaller\HealthCalendarInstaller.vdproj", "{B1754D52-FA01-4FDE-B880-CA1B70DD598B}"
-EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "HealthCalendarAdminInstaller", "HealthCalendarAdminInstaller\HealthCalendarAdminInstaller.vdproj", "{43D69CE3-25CE-4848-9340-93008F1C1F33}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "HealthCalendarInstaller", "HealthCalendarInstaller\HealthCalendarInstaller.vdproj", "{6F6EA962-4B63-4AF2-9571-6F87E359CEC8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +25,10 @@ Global
 		{87010938-CECE-4B65-AF06-73BC95D2BB4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87010938-CECE-4B65-AF06-73BC95D2BB4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87010938-CECE-4B65-AF06-73BC95D2BB4A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B1754D52-FA01-4FDE-B880-CA1B70DD598B}.Debug|Any CPU.ActiveCfg = Debug
-		{B1754D52-FA01-4FDE-B880-CA1B70DD598B}.Release|Any CPU.ActiveCfg = Release
 		{43D69CE3-25CE-4848-9340-93008F1C1F33}.Debug|Any CPU.ActiveCfg = Debug
 		{43D69CE3-25CE-4848-9340-93008F1C1F33}.Release|Any CPU.ActiveCfg = Release
+		{6F6EA962-4B63-4AF2-9571-6F87E359CEC8}.Debug|Any CPU.ActiveCfg = Debug
+		{6F6EA962-4B63-4AF2-9571-6F87E359CEC8}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
