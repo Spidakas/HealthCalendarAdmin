@@ -192,7 +192,7 @@ namespace HealthCalendar
             try
             {
                 SqlConnection conn = new SqlConnection(MyConnString);
-                string sql = "SELECT SubscriberOID, ExchangeEmail, ExchangeCalendarID, ExchangeCalendarName,Title, Firstname, Surname FROM Subscribers WHERE (NOT (ExchangeEmail IS NULL)) AND (NOT (ExchangeEmail = '')) AND (NOT (ExchangeCalendarName IS NULL)) AND (NOT (ExchangeCalendarName = ''))";
+                string sql = "SELECT SubscriberOID, ExchangeEmail, ExchangeCalendarID, ExchangeCalendarName,Title, Firstname, Surname, MainIdentifier FROM Subscribers WHERE (NOT (ExchangeEmail IS NULL)) AND (NOT (ExchangeEmail = '')) AND (NOT (ExchangeCalendarName IS NULL)) AND (NOT (ExchangeCalendarName = ''))";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandTimeout = 600;
                 conn.Open();
@@ -203,15 +203,22 @@ namespace HealthCalendar
                     {
                         if (!readerSQLClientID.IsDBNull(0))
                         {
+                            c.NHSNetEmail = "";
+                            c.ExchangeEmail = "";
+                            c.GoogleEmail = "";
                             c.Title = "";
                             c.FirstName = "";
                             c.LastName = "";
+                            c.MainIdentifier = "";
                             lCareProviderOID = (long)readerSQLClientID.GetDecimal(0);
+                            if (!readerSQLClientID.IsDBNull(1)) c.ExchangeEmail = readerSQLClientID.GetString(1);
                             c.SubscriberOID = lCareProviderOID.ToString();
                             c.ExchangeCalendarName = readerSQLClientID.GetString(3);
                             if (!readerSQLClientID.IsDBNull(4)) c.Title = readerSQLClientID.GetString(4);
                             if (!readerSQLClientID.IsDBNull(5)) c.FirstName = readerSQLClientID.GetString(5);
                             if (!readerSQLClientID.IsDBNull(6)) c.LastName = readerSQLClientID.GetString(6);
+                            if (!readerSQLClientID.IsDBNull(7)) c.MainIdentifier = readerSQLClientID.GetString(7);
+
                             c.SetExchangeCalendarDataFromDataSource(c);
                         }
                     } 
@@ -231,7 +238,7 @@ namespace HealthCalendar
             try
             {
                 SqlConnection conn = new SqlConnection(MyConnString);
-                string sql = "SELECT SubscriberOID, NHSNetEmail, NHSNetCalendarID, NHSNetCalendarName, Title, Firstname, Surname FROM Subscribers WHERE (NOT (NHSNetEmail IS NULL)) AND (NOT (NHSNetEmail = '')) AND (NOT (NHSNetCalendarName IS NULL)) AND (NOT (NHSNetCalendarName = ''))";
+                string sql = "SELECT SubscriberOID, NHSNetEmail, NHSNetCalendarID, NHSNetCalendarName, Title, Firstname, Surname, MainIdentifier FROM Subscribers WHERE (NOT (NHSNetEmail IS NULL)) AND (NOT (NHSNetEmail = '')) AND (NOT (NHSNetCalendarName IS NULL)) AND (NOT (NHSNetCalendarName = ''))";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandTimeout = 600;
                 conn.Open();
@@ -242,15 +249,22 @@ namespace HealthCalendar
                     {
                         if (!readerSQLClientID.IsDBNull(0))
                         {
+                            c.NHSNetEmail = "";
+                            c.ExchangeEmail = "";
+                            c.GoogleEmail = "";
                             c.Title = "";
                             c.FirstName = "";
                             c.LastName = "";
+                            c.MainIdentifier = "";
                             lCareProviderOID = (long)readerSQLClientID.GetDecimal(0);
+                            if (!readerSQLClientID.IsDBNull(1)) c.NHSNetEmail = readerSQLClientID.GetString(1);
                             c.SubscriberOID = lCareProviderOID.ToString();
                             c.NHSNetCalendarName = readerSQLClientID.GetString(3);
                             if (!readerSQLClientID.IsDBNull(4)) c.Title = readerSQLClientID.GetString(4);
                             if (!readerSQLClientID.IsDBNull(5)) c.FirstName = readerSQLClientID.GetString(5);
                             if (!readerSQLClientID.IsDBNull(6)) c.LastName = readerSQLClientID.GetString(6);
+                            if (!readerSQLClientID.IsDBNull(7)) c.MainIdentifier = readerSQLClientID.GetString(7);
+
                             c.SetNHSNetCalendarDataFromDataSource(c);
                         }
                     }

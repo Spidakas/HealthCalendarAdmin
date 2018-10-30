@@ -12,3 +12,60 @@
 17:42:15,130 [1] ERROR - No activity found for Exchange: J D Bell Ref: 220000034
 17:43:09,351 [1] ERROR - No activity found for NHSNet: A K Bandyopadhyay Ref: 220000001
 17:43:23,844 [1] ERROR - Ending HealthCalendar Execution.
+14:31:21,503 [1] ERROR - Starting HealthCalendar Execution.
+14:31:26,561 [1] ERROR - Error when reading data for Exchange: Michael Georgiades Ref: 556216263100Error Message: System.Data.SqlClient.SqlException (0x80131904): Procedure or function 'uspHealthCalendarEvents' expects parameter '@MainIdentifier', which was not supplied.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader()
+   at HealthCalendarClasses.HealthCalendarClass.SetExchangeCalendarDataFromDataSource(HealthCalendarClass c) in C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\HealthCalendarClasses\HealthCalendarClass.cs:line 1430
+ClientConnectionId:864fd4ae-b8ca-494b-8a41-d7dd0d5c2fd9
+Error Number:201,State:4,Class:16
+14:31:27,934 [1] ERROR - No activity found for Exchange: L Sakhi Ref: 200002216
+14:31:30,040 [1] ERROR - No activity found for Exchange: A K Bandyopadhyay Ref: 220000001
+14:31:31,584 [1] ERROR - No activity found for Exchange: C Bagge Ref: 220000002
+14:31:33,768 [1] ERROR - No activity found for Exchange: R Samuel Ref: 220000003
+14:31:35,079 [1] ERROR - No activity found for Exchange: A A And E Consultant Ref: 220000004
+14:31:37,029 [1] ERROR - No activity found for Exchange: Michael Brown Ref: 220000005
+14:31:38,682 [1] ERROR - No activity found for Exchange: D ALLAN Ref: 220000007
+14:31:40,274 [1] ERROR - No activity found for Exchange: D B Eaton Ref: 220000010
+14:31:42,036 [1] ERROR - No activity found for Exchange: J R Wedley Ref: 220000022
+14:31:44,064 [1] ERROR - No activity found for Exchange: J D Bell Ref: 220000034
+14:32:49,101 [1] ERROR - No activity found for NHSNet: A K Bandyopadhyay Ref: 220000001
+14:33:06,136 [1] ERROR - Ending HealthCalendar Execution.
+14:42:26,599 [1] ERROR - Starting HealthCalendar Execution.
+14:43:05,042 [1] ERROR - No activity found for Exchange: Michael Georgiades Ref: 556216263100
+14:43:14,681 [1] ERROR - No activity found for Exchange: L Sakhi Ref: 200002216
+14:43:25,584 [1] ERROR - No activity found for Exchange: A K Bandyopadhyay Ref: 220000001
+14:43:34,697 [1] ERROR - No activity found for Exchange: C Bagge Ref: 220000002
+14:43:44,253 [1] ERROR - No activity found for Exchange: R Samuel Ref: 220000003
+14:43:51,472 [1] ERROR - No activity found for Exchange: A A And E Consultant Ref: 220000004
+14:44:03,324 [1] ERROR - No activity found for Exchange: Michael Brown Ref: 220000005
+14:44:15,820 [1] ERROR - No activity found for Exchange: D ALLAN Ref: 220000007
+14:44:22,308 [1] ERROR - No activity found for Exchange: D B Eaton Ref: 220000010
+14:44:31,917 [1] ERROR - No activity found for Exchange: J R Wedley Ref: 220000022
+14:44:38,256 [1] ERROR - No activity found for Exchange: J D Bell Ref: 220000034
+14:47:17,908 [1] ERROR - No activity found for NHSNet: A K Bandyopadhyay Ref: 220000001
+14:47:33,977 [1] ERROR - Ending HealthCalendar Execution.
+14:50:04,627 [1] ERROR - Starting HealthCalendar Execution.
+14:51:17,861 [1] ERROR - No activity found for Exchange: Michael Georgiades Ref: 556216263100
+14:52:11,972 [1] ERROR - No activity found for Exchange: L Sakhi Ref: 200002216
+14:52:13,345 [1] ERROR - No activity found for Exchange: A K Bandyopadhyay Ref: 220000001
+14:52:14,343 [1] ERROR - No activity found for Exchange: C Bagge Ref: 220000002
+14:52:15,653 [1] ERROR - No activity found for Exchange: R Samuel Ref: 220000003
+14:52:16,995 [1] ERROR - No activity found for Exchange: A A And E Consultant Ref: 220000004
+14:52:18,134 [1] ERROR - No activity found for Exchange: Michael Brown Ref: 220000005
+14:52:19,382 [1] ERROR - No activity found for Exchange: D ALLAN Ref: 220000007
+14:52:20,661 [1] ERROR - No activity found for Exchange: D B Eaton Ref: 220000010
+14:52:22,174 [1] ERROR - No activity found for Exchange: J R Wedley Ref: 220000022
+14:52:23,516 [1] ERROR - No activity found for Exchange: J D Bell Ref: 220000034
+14:53:17,468 [1] ERROR - No activity found for NHSNet: A K Bandyopadhyay Ref: 220000001
+14:53:33,022 [1] ERROR - Ending HealthCalendar Execution.

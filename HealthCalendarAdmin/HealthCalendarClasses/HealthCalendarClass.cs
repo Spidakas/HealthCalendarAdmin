@@ -45,6 +45,7 @@ namespace HealthCalendarClasses
         public string LastName { get; set; }
         public DateTime ModifiedDTTM { get; set; }
         public DateTime EndDTTM { get; set; }
+        public string MainIdentifier { get; set; }
         public string SourceOID { get; set; }
         public string SourceType { get; set; }
         public string OwnerOrganisationOID { get; set; }
@@ -1266,6 +1267,8 @@ test body
             ExtendedPropertyDefinition AppointmentColorProperty = new ExtendedPropertyDefinition(DefaultExtendedPropertySet.Appointment, 0x8214, MapiPropertyType.Integer);
 
             //Read Care Provider events using uspRTXEvents stored procedure.            
+            c.ExchangeEmail = "";
+            c.GoogleEmail="";
             try
             {
                 SqlConnection conn = new SqlConnection(MyConnString);
@@ -1273,6 +1276,10 @@ test body
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new SqlParameter("@CareProviderOID", c.SubscriberOID));
+                cmd.Parameters.Add(new SqlParameter("@ExchangeEmail", c.ExchangeEmail));
+                cmd.Parameters.Add(new SqlParameter("@NHSNetEmail", c.NHSNetEmail));
+                cmd.Parameters.Add(new SqlParameter("@GoogleEmail", c.GoogleEmail));
+                cmd.Parameters.Add(new SqlParameter("@MainIdentifier", c.MainIdentifier));
                 cmd.Parameters.Add(new SqlParameter("@DaysHence", 100));
                 cmd.CommandTimeout = 600;
                 conn.Open();
@@ -1405,11 +1412,17 @@ test body
             //Read Care Provider events using uspRTXEvents stored procedure.            
             try
             {
+                c.NHSNetEmail = "";
+                c.GoogleEmail = "";
                 SqlConnection conn = new SqlConnection(MyConnString);
                 string sql = "uspHealthCalendarEvents";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new SqlParameter("@CareProviderOID", c.SubscriberOID));
+                cmd.Parameters.Add(new SqlParameter("@ExchangeEmail", c.ExchangeEmail));
+                cmd.Parameters.Add(new SqlParameter("@NHSNetEmail", c.NHSNetEmail));
+                cmd.Parameters.Add(new SqlParameter("@GoogleEmail", c.GoogleEmail));
+                cmd.Parameters.Add(new SqlParameter("@MainIdentifier", c.MainIdentifier));
                 cmd.Parameters.Add(new SqlParameter("@DaysHence", 100));
                 cmd.CommandTimeout = 600;
                 conn.Open();

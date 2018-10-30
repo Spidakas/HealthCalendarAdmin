@@ -648,6 +648,8 @@ namespace HealthCalendarAdmin
             c.Title = dgvSubscribers.Rows[rowIndex].Cells[3].Value.ToString();
             c.FirstName = dgvSubscribers.Rows[rowIndex].Cells[4].Value.ToString();
             c.LastName = dgvSubscribers.Rows[rowIndex].Cells[5].Value.ToString();
+            c.MainIdentifier = dgvSubscribers.Rows[rowIndex].Cells[10].Value.ToString();
+
             txtboxGoogleEmail.Text = dgvSubscribers.Rows[rowIndex].Cells[16].Value.ToString();
             c.GoogleEmail = dgvSubscribers.Rows[rowIndex].Cells[16].Value.ToString();
             c.GoogleCalendarID = dgvSubscribers.Rows[rowIndex].Cells[17].Value.ToString();
