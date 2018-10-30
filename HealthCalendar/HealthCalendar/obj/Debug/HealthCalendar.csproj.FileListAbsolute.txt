@@ -151,3 +151,4 @@ C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\obj\Debug\He
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\obj\Debug\HealthCalendar.csproj.CopyComplete
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\obj\Debug\HealthCalendar.exe
 C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\obj\Debug\HealthCalendar.pdb
+C:\HealthCalendar\HealthCalendarAdmin\HealthCalendar\HealthCalendar\obj\Debug\HealthCalendar.csprojAssemblyReference.cache

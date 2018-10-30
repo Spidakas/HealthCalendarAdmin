@@ -69,3 +69,31 @@ Error Number:201,State:4,Class:16
 14:52:23,516 [1] ERROR - No activity found for Exchange: J D Bell Ref: 220000034
 14:53:17,468 [1] ERROR - No activity found for NHSNet: A K Bandyopadhyay Ref: 220000001
 14:53:33,022 [1] ERROR - Ending HealthCalendar Execution.
+30 Oct 2018 15:25:21,356 [1] ERROR - Starting HealthCalendar Execution.
+30 Oct 2018 15:25:27,197 [1] ERROR - No activity found for Exchange: Michael Georgiades Ref: 556216263100
+30 Oct 2018 15:25:28,632 [1] ERROR - No activity found for Exchange: L Sakhi Ref: 200002216
+30 Oct 2018 15:25:29,849 [1] ERROR - No activity found for Exchange: A K Bandyopadhyay Ref: 220000001
+30 Oct 2018 15:25:31,159 [1] ERROR - No activity found for Exchange: C Bagge Ref: 220000002
+30 Oct 2018 15:25:32,423 [1] ERROR - No activity found for Exchange: R Samuel Ref: 220000003
+30 Oct 2018 15:25:33,749 [1] ERROR - No activity found for Exchange: A A And E Consultant Ref: 220000004
+30 Oct 2018 15:25:35,059 [1] ERROR - No activity found for Exchange: Michael Brown Ref: 220000005
+30 Oct 2018 15:25:36,448 [1] ERROR - No activity found for Exchange: D ALLAN Ref: 220000007
+30 Oct 2018 15:25:37,758 [1] ERROR - No activity found for Exchange: D B Eaton Ref: 220000010
+30 Oct 2018 15:25:39,022 [1] ERROR - No activity found for Exchange: J R Wedley Ref: 220000022
+30 Oct 2018 15:25:40,410 [1] ERROR - No activity found for Exchange: J D Bell Ref: 220000034
+30 Oct 2018 15:26:35,166 [1] ERROR - No activity found for NHSNet: A K Bandyopadhyay Ref: 220000001
+30 Oct 2018 15:26:49,737 [1] ERROR - Ending HealthCalendar Execution.
+30/Oct/2018 15:30:00,686 [1] ERROR - Starting HealthCalendar Execution.
+30/Oct/2018 15:30:11,396 [1] ERROR - No activity found for Exchange: Michael Georgiades Ref: 556216263100
+30/Oct/2018 15:30:12,753 [1] ERROR - No activity found for Exchange: L Sakhi Ref: 200002216
+30/Oct/2018 15:30:14,812 [1] ERROR - No activity found for Exchange: A K Bandyopadhyay Ref: 220000001
+30/Oct/2018 15:30:16,372 [1] ERROR - No activity found for Exchange: C Bagge Ref: 220000002
+30/Oct/2018 15:30:18,166 [1] ERROR - No activity found for Exchange: R Samuel Ref: 220000003
+30/Oct/2018 15:30:19,461 [1] ERROR - No activity found for Exchange: A A And E Consultant Ref: 220000004
+30/Oct/2018 15:30:20,678 [1] ERROR - No activity found for Exchange: Michael Brown Ref: 220000005
+30/Oct/2018 15:30:21,926 [1] ERROR - No activity found for Exchange: D ALLAN Ref: 220000007
+30/Oct/2018 15:30:23,813 [1] ERROR - No activity found for Exchange: D B Eaton Ref: 220000010
+30/Oct/2018 15:30:25,093 [1] ERROR - No activity found for Exchange: J R Wedley Ref: 220000022
+30/Oct/2018 15:30:26,309 [1] ERROR - No activity found for Exchange: J D Bell Ref: 220000034
+30/Oct/2018 15:31:22,797 [1] ERROR - No activity found for NHSNet: A K Bandyopadhyay Ref: 220000001
+30/Oct/2018 15:31:45,183 [1] ERROR - Ending HealthCalendar Execution.
