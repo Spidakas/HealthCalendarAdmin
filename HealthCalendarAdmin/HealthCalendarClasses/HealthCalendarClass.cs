@@ -26,6 +26,15 @@ using Exchange101;
 using Microsoft.Exchange.WebServices.Autodiscover;
 using Attachment = Microsoft.Exchange.WebServices.Data.Attachment;
 using System.Collections.ObjectModel;
+#if HEALTHCALENDARADMIN
+    using HealthCalendarAdmin;
+#endif
+#if HEALTHCALENDAR
+using HealthCalendar;
+#endif
+
+
+
 //using NLog;
 
 //[assembly: log4net.Config.XmlConfigurator(Watch = true)]
@@ -2016,6 +2025,8 @@ test body
         public bool GetGoogleClientSecret(HealthCalendarClass c)
         {
             bool isSuccess = false;
+
+
             try
             {
                 SqlConnection conn = new SqlConnection(MyConnString);
