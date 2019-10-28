@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="HealthCalendar" Class="HCDDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=fghsql2012vs1\datamartdb;Initial Catalog=HealthCalendar;Persist Security Info=True;User ID=reports" SettingsObjectName="HealthCalendarAdmin.Properties.Settings" SettingsPropertyName="HealthCalendarConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.ClientID" Member="ClientIDs">
+    <Type Name="ClientID">
+      <Column Name="oathidID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="oAuthType" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="client_id" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="project_id" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="auth_uri" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="token_uri" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="auth_provider_x509_cert_url" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="client_secret" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="client_secret2" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="full_key" Type="System.String" DbType="NVarChar(600)" CanBeNull="true" />
+      <Column Name="OrganisationCode" Type="System.String" DbType="NChar(4)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Settings" Member="Settings">
+    <Type Name="Setting">
+      <Column Name="TimeZone" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="OrganisationName" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="OrganisationCode" Type="System.String" DbType="NChar(4) NOT NULL" CanBeNull="false" />
+      <Column Name="OrgLocation" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="GoogleEnabled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="GoogleCredentials" Type="System.Xml.Linq.XElement" DbType="Xml" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="GoogleMasterAccount" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="OutlookEnabled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="OutlookCredentials" Type="System.Xml.Linq.XElement" DbType="Xml" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="OutlookMaterAccount" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ExchangeEnabled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ExchangeExchangeServer" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ExchangeCredentials" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ExchangeMasterAccount" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ExchangeDisplayName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ExchangeFQDN" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ExchangeUserDN" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="NHSNetEnabled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="NHSNetExchangeServer" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="NHSNetCredentials" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="NHSNetMasterAccount" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="NHSNetDisplayName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="NHSNetFQDN" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="NHSNetUserDN" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SubscriberActivity" Member="SubscriberActivities">
+    <Type Name="SubscriberActivity">
+      <Column Name="PrimaryID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SubscriberID" Type="System.Decimal" DbType="Decimal(19,0)" CanBeNull="true" />
+      <Column Name="SubscriberUID" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="ActivityType" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="EventSummary" Type="System.String" DbType="NVarChar(300) NOT NULL" CanBeNull="false" />
+      <Column Name="EventLocation" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="EventDescription" Type="System.String" DbType="NVarChar(600)" CanBeNull="true" />
+      <Column Name="EventStart" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EventEnd" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Subscriber_SubscriberActivity" Member="Subscriber" ThisKey="SubscriberID" OtherKey="SubscriberID" Type="Subscriber" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Subscribers" Member="Subscribers">
+    <Type Name="Subscriber">
+      <Column Name="SubscriberID" Type="System.Decimal" DbType="Decimal(19,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SubscriberOID" Type="System.Decimal" DbType="Decimal(19,0)" CanBeNull="true" />
+      <Column Name="Initials" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Firstname" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Surname" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Sex" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ModifiedDTTM" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EndDTTM" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Occupation" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="MainIdentifier" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="SourceOID" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="SourceType" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="OwnerOrganisationOID" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="RONEOID" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="UITYPCODE" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="GoogleEmail" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="GoogleCalendarID" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="OutlookEmail" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="OutlookCalendarID" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ExchangeEmail" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ExchangeCalendarID" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ExchangeCalendarName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="NHSNetEmail" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="NHSNetCalendarID" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="NHSNetCalendarName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="AppleEmail" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="AppleCalendarID" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Subscriber_SubscriberActivity" Member="SubscriberActivities" ThisKey="SubscriberID" OtherKey="SubscriberID" Type="SubscriberActivity" />
+      <Association Name="Subscriber_UnSubscribedActivity" Member="UnSubscribedActivities" ThisKey="SubscriberID" OtherKey="SubscriberID" Type="UnSubscribedActivity" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UnSubscribedActivity" Member="UnSubscribedActivities">
+    <Type Name="UnSubscribedActivity">
+      <Column Name="UnSubscribedActivityID" Type="System.Decimal" DbType="Decimal(19,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SubscriberID" Type="System.Decimal" DbType="Decimal(19,0) NOT NULL" CanBeNull="false" />
+      <Column Name="SubscribedActivityStatus" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ActivityType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ActivityName" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="Subscriber_UnSubscribedActivity" Member="Subscriber" ThisKey="SubscriberID" OtherKey="SubscriberID" Type="Subscriber" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

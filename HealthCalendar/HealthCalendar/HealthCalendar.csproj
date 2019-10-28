@@ -171,5 +171,11 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\HealthCalendarAdmin\HealthCalendarAdmin.csproj">
+      <Project>{65570ef6-555f-42af-8158-b2efcb718840}</Project>
+      <Name>HealthCalendarAdmin</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

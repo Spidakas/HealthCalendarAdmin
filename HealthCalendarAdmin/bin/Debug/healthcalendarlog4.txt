@@ -30,3 +30,36 @@ Error Number:8144,State:2,Class:16
    at HealthCalendarClasses.HealthCalendarClass.SetExchangeCalendarDataFromDataSource(HealthCalendarClass c) in C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\HealthCalendarClasses\HealthCalendarClass.cs:line 1430
 ClientConnectionId:03e6e292-a008-4970-af8b-6af1454a2070
 Error Number:8144,State:2,Class:16
+28/Oct/2019 16:25:09,168 [1] ERROR - Exchange authorisation has failed for: michael.georgiades@mbht.nhs.uk. Error Message: Microsoft.Exchange.WebServices.Data.AutodiscoverLocalException: The Autodiscover service couldn't be located.
+   at Microsoft.Exchange.WebServices.Autodiscover.AutodiscoverService.InternalGetLegacyUserSettings[TSettings](String emailAddress, List`1 redirectionEmailAddresses, Int32& currentHop)
+   at Microsoft.Exchange.WebServices.Autodiscover.AutodiscoverService.InternalGetLegacyUserSettings[TSettings](String emailAddress, List`1 redirectionEmailAddresses, Int32& currentHop)
+   at Microsoft.Exchange.WebServices.Autodiscover.AutodiscoverService.InternalGetLegacyUserSettings[TSettings](String emailAddress, List`1 redirectionEmailAddresses, Int32& currentHop)
+   at Microsoft.Exchange.WebServices.Autodiscover.AutodiscoverService.GetLegacyUserSettings[TSettings](String emailAddress)
+   at Microsoft.Exchange.WebServices.Autodiscover.AutodiscoverService.InternalGetLegacyUserSettings(String emailAddress, List`1 requestedSettings)
+   at Microsoft.Exchange.WebServices.Autodiscover.AutodiscoverService.GetUserSettings(String userSmtpAddress, UserSettingName[] userSettingNames)
+   at Microsoft.Exchange.WebServices.Data.ExchangeService.GetAutodiscoverUrl(String emailAddress, ExchangeVersion requestedServerVersion, AutodiscoverRedirectionUrlValidationCallback validateRedirectionUrlCallback)
+   at Microsoft.Exchange.WebServices.Data.ExchangeService.AutodiscoverUrl(String emailAddress, AutodiscoverRedirectionUrlValidationCallback validateRedirectionUrlCallback)
+   at HealthCalendarClasses.HealthCalendarClass.GetExchangeAuthorization(HealthCalendarClass c) in C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\HealthCalendarClasses\HealthCalendarClass.cs:line 2162
+28/Oct/2019 16:25:09,179 [1] ERROR - Unable to connect to Exchange Server. Please contact your IT Department.
+28/Oct/2019 16:34:15,825 [1] ERROR - Exchange authorisation has failed for: michael.georgiades@mbht.nhs.uk. Error Message: Microsoft.Exchange.WebServices.Data.AutodiscoverLocalException: The Autodiscover service couldn't be located.
+   at Microsoft.Exchange.WebServices.Autodiscover.AutodiscoverService.InternalGetLegacyUserSettings[TSettings](String emailAddress, List`1 redirectionEmailAddresses, Int32& currentHop)
+   at Microsoft.Exchange.WebServices.Autodiscover.AutodiscoverService.InternalGetLegacyUserSettings[TSettings](String emailAddress, List`1 redirectionEmailAddresses, Int32& currentHop)
+   at Microsoft.Exchange.WebServices.Autodiscover.AutodiscoverService.InternalGetLegacyUserSettings[TSettings](String emailAddress, List`1 redirectionEmailAddresses, Int32& currentHop)
+   at Microsoft.Exchange.WebServices.Autodiscover.AutodiscoverService.GetLegacyUserSettings[TSettings](String emailAddress)
+   at Microsoft.Exchange.WebServices.Autodiscover.AutodiscoverService.InternalGetLegacyUserSettings(String emailAddress, List`1 requestedSettings)
+   at Microsoft.Exchange.WebServices.Autodiscover.AutodiscoverService.GetUserSettings(String userSmtpAddress, UserSettingName[] userSettingNames)
+   at Microsoft.Exchange.WebServices.Data.ExchangeService.GetAutodiscoverUrl(String emailAddress, ExchangeVersion requestedServerVersion, AutodiscoverRedirectionUrlValidationCallback validateRedirectionUrlCallback)
+   at Microsoft.Exchange.WebServices.Data.ExchangeService.AutodiscoverUrl(String emailAddress, AutodiscoverRedirectionUrlValidationCallback validateRedirectionUrlCallback)
+   at HealthCalendarClasses.HealthCalendarClass.GetExchangeAuthorization(HealthCalendarClass c) in C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\HealthCalendarClasses\HealthCalendarClass.cs:line 2162
+28/Oct/2019 16:34:15,831 [1] ERROR - Unable to connect to Exchange Server. Please contact your IT Department.
+28/Oct/2019 16:43:44,990 [1] ERROR - Exchange authorisation has failed for: michael.georgiades@mbht.nhs.uk. Error Message: Microsoft.Exchange.WebServices.Data.AutodiscoverLocalException: The Autodiscover service couldn't be located.
+   at Microsoft.Exchange.WebServices.Autodiscover.AutodiscoverService.InternalGetLegacyUserSettings[TSettings](String emailAddress, List`1 redirectionEmailAddresses, Int32& currentHop)
+   at Microsoft.Exchange.WebServices.Autodiscover.AutodiscoverService.InternalGetLegacyUserSettings[TSettings](String emailAddress, List`1 redirectionEmailAddresses, Int32& currentHop)
+   at Microsoft.Exchange.WebServices.Autodiscover.AutodiscoverService.InternalGetLegacyUserSettings[TSettings](String emailAddress, List`1 redirectionEmailAddresses, Int32& currentHop)
+   at Microsoft.Exchange.WebServices.Autodiscover.AutodiscoverService.GetLegacyUserSettings[TSettings](String emailAddress)
+   at Microsoft.Exchange.WebServices.Autodiscover.AutodiscoverService.InternalGetLegacyUserSettings(String emailAddress, List`1 requestedSettings)
+   at Microsoft.Exchange.WebServices.Autodiscover.AutodiscoverService.GetUserSettings(String userSmtpAddress, UserSettingName[] userSettingNames)
+   at Microsoft.Exchange.WebServices.Data.ExchangeService.GetAutodiscoverUrl(String emailAddress, ExchangeVersion requestedServerVersion, AutodiscoverRedirectionUrlValidationCallback validateRedirectionUrlCallback)
+   at Microsoft.Exchange.WebServices.Data.ExchangeService.AutodiscoverUrl(String emailAddress, AutodiscoverRedirectionUrlValidationCallback validateRedirectionUrlCallback)
+   at HealthCalendarClasses.HealthCalendarClass.GetExchangeAuthorization(HealthCalendarClass c) in C:\HealthCalendar\HealthCalendarAdmin\HealthCalendarAdmin\HealthCalendarClasses\HealthCalendarClass.cs:line 2162
+28/Oct/2019 16:43:44,997 [1] ERROR - Unable to connect to Exchange Server. Please contact your IT Department.

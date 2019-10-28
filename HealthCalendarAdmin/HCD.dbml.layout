@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 9.5" name="HCD">
+  <DataContextMoniker Name="/HCDDataContext" />
+  <nestedChildShapes>
+    <classShape Id="2a726c3a-9e5e-47fc-9a1e-d4ddf61b725b" absoluteBounds="6.25, 0.5, 2, 2.9247054036458331">
+      <DataClassMoniker Name="/HCDDataContext/ClientID" />
+      <nestedChildShapes>
+        <elementListCompartment Id="cd5ae6a4-24d5-479d-b011-b1bae0b3dc26" absoluteBounds="6.2650000000000006, 0.96, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="76a42646-a895-4124-a9f7-22699aa052e9" absoluteBounds="6.375, 3.875, 2, 5.4246240234375">
+      <DataClassMoniker Name="/HCDDataContext/Setting" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6827050f-12a8-4c13-8df3-0d8854005bd8" absoluteBounds="6.3900000000000006, 4.335, 1.9700000000000002, 4.8646240234375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="0018b2f8-38ed-421f-be75-180a50c1c440" absoluteBounds="3.75, 0.5, 2, 2.5401025390625">
+      <DataClassMoniker Name="/HCDDataContext/SubscriberActivity" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a66a8f7f-2151-4078-90a7-89e39d49c868" absoluteBounds="3.765, 0.96, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="848f0f6f-1a07-458c-b648-4abd57f274a2" absoluteBounds="0.5, 0.5, 2, 6.1938297526041657">
+      <DataClassMoniker Name="/HCDDataContext/Subscriber" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ad47ddda-7284-4b50-a709-22ec4262eb01" absoluteBounds="0.51499999999999968, 0.96, 1.9700000000000002, 5.6338297526041661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.5 : 1.77005126953125); (3.75 : 1.77005126953125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/HCDDataContext/Subscriber/Subscriber_SubscriberActivity" />
+      <nodes>
+        <classShapeMoniker Id="848f0f6f-1a07-458c-b648-4abd57f274a2" />
+        <classShapeMoniker Id="0018b2f8-38ed-421f-be75-180a50c1c440" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="5019708e-0de7-4dc4-a237-b33b835b2850" absoluteBounds="3.75, 3.625, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/HCDDataContext/UnSubscribedActivity" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2fad800f-caba-42a8-9683-6d3fc3b71b84" absoluteBounds="3.7649999999999997, 4.085, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.5 : 4.51044840494792); (3.75 : 4.51044840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/HCDDataContext/Subscriber/Subscriber_UnSubscribedActivity" />
+      <nodes>
+        <classShapeMoniker Id="848f0f6f-1a07-458c-b648-4abd57f274a2" />
+        <classShapeMoniker Id="5019708e-0de7-4dc4-a237-b33b835b2850" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

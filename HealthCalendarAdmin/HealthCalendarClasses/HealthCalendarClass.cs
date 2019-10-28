@@ -26,6 +26,8 @@ using Exchange101;
 using Microsoft.Exchange.WebServices.Autodiscover;
 using Attachment = Microsoft.Exchange.WebServices.Data.Attachment;
 using System.Collections.ObjectModel;
+using HealthCalendarAdmin;
+
 #if HEALTHCALENDARADMIN
     using HealthCalendarAdmin;
 #endif
@@ -2027,9 +2029,12 @@ test body
             bool isSuccess = false;
 
 
+
             try
             {
-                SqlConnection conn = new SqlConnection(MyConnString);
+
+
+           SqlConnection conn = new SqlConnection(MyConnString);
 
                 string sql = "SELECT [client_id],[client_secret] " +
                     "FROM[HealthCalendar].[dbo].[ClientID] " +

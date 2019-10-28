@@ -150,10 +150,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HealthCalendarData.designer.cs">
+    <Compile Include="HCD.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HealthCalendarData.dbml</DependentUpon>
+      <DependentUpon>HCD.dbml</DependentUpon>
     </Compile>
     <Compile Include="ProgressForm.cs">
       <SubType>Form</SubType>
@@ -186,13 +186,13 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="HealthCalendarData.dbml">
+    <None Include="HCD.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>HealthCalendarData.designer.cs</LastGenOutput>
+      <LastGenOutput>HCD.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="HealthCalendarData.dbml.layout">
-      <DependentUpon>HealthCalendarData.dbml</DependentUpon>
+    <None Include="HCD.dbml.layout">
+      <DependentUpon>HCD.dbml</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

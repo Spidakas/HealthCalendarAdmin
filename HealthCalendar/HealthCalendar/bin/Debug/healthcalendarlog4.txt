@@ -97,3 +97,15 @@ Error Number:201,State:4,Class:16
 30/Oct/2018 15:30:26,309 [1] ERROR - No activity found for Exchange: J D Bell Ref: 220000034
 30/Oct/2018 15:31:22,797 [1] ERROR - No activity found for NHSNet: A K Bandyopadhyay Ref: 220000001
 30/Oct/2018 15:31:45,183 [1] ERROR - Ending HealthCalendar Execution.
+28/Nov/2018 18:56:49,863 [1] ERROR - Starting HealthCalendar Execution.
+28/Nov/2018 18:57:00,261 [1] ERROR - No activity found for Exchange: Michael Georgiades Ref: 556216263100
+28/Nov/2018 18:57:02,410 [1] ERROR - No activity found for Exchange: L Sakhi Ref: 200002216
+28/Nov/2018 18:57:06,099 [1] ERROR - No activity found for Exchange: A K Bandyopadhyay Ref: 220000001
+28/Nov/2018 18:57:08,829 [1] ERROR - No activity found for Exchange: C Bagge Ref: 220000002
+28/Nov/2018 18:57:13,038 [1] ERROR - No activity found for Exchange: R Samuel Ref: 220000003
+28/Nov/2018 18:57:15,387 [1] ERROR - No activity found for Exchange: A A And E Consultant Ref: 220000004
+28/Nov/2018 18:57:19,139 [1] ERROR - No activity found for Exchange: Michael Brown Ref: 220000005
+28/Nov/2018 18:57:21,526 [1] ERROR - No activity found for Exchange: D ALLAN Ref: 220000007
+28/Nov/2018 18:57:24,015 [1] ERROR - No activity found for Exchange: D B Eaton Ref: 220000010
+28/Nov/2018 18:57:26,945 [1] ERROR - No activity found for Exchange: J R Wedley Ref: 220000022
+28/Nov/2018 18:57:28,874 [1] ERROR - No activity found for Exchange: J D Bell Ref: 220000034
